@@ -1,9 +1,27 @@
 // pages/UsersPage.tsx
 import React from "react";
-import { useGetUsersQuery } from "../features/Register/registerAPI"; 
+import { useGetUsersQuery } from "../features/Register/registerAPI";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+}
 
 const UsersPage: React.FC = () => {
-  const { data: users, error, isLoading } = useGetUsersQuery(undefined);
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useGetUsersQuery(undefined, {
+    refetchOnMountOrArgChange: true, // ✅ Ensures latest users are fetched
+  }) as {
+    data: User[] | undefined;
+    error: any;
+    isLoading: boolean;
+  };
 
   if (isLoading) return <div>Loading users...</div>;
   if (error) return <div>Error loading users.</div>;
@@ -22,7 +40,7 @@ const UsersPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
+          {users?.map((user: User) => (
             <tr key={user.id} className="hover:bg-gray-100">
               <td className="border border-gray-300 p-2">{user.id}</td>
               <td className="border border-gray-300 p-2">{user.name}</td>

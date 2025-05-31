@@ -4,7 +4,7 @@ const Spinner = () => {
       <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-0" />
       <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-150" />
       <div className="w-3 h-3 bg-blue-300 rounded-full animate-bounce delay-300" />
-      <style jsx>{`
+      <style >{`
         .animate-bounce {
           animation: bounce 0.6s infinite alternate;
         }

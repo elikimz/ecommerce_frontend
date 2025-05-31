@@ -11,7 +11,7 @@ import ErrorPage from "./components/Error";
 import "react-toastify/dist/ReactToastify.css";
 import EcommerceDashboard from "./components/AdminDashboard";
 import UsersPage from "./pages/users";
-// import LogisticsPage from "./pages/LogisticsPage";
+import CategoryPage from "./features/Category/category";
 // import AnalyticsPage from "./pages/AnalyticsPage";
 // import OrdersPage from "./pages/OrdersPage";
 
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Register /> },
       { path: "users", element: <UsersPage /> },
-      { path: "Logistics", element: <Register /> },
+      { path: "Logistics", element: <CategoryPage /> },
       { path: "Analytics", element: <Register /> },
       { path: "Orders", element: <Register/> },
       // { path: "receiptpage", element: <ReceiptPage /> },

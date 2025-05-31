@@ -12,6 +12,7 @@ export const registerAPI = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Users"], // ✅ Add tag type
   endpoints: (builder) => ({
     // ✅ Register user
     registerUser: builder.mutation({
@@ -20,6 +21,7 @@ export const registerAPI = createApi({
         method: "POST",
         body: newUser,
       }),
+      invalidatesTags: ["Users"], // ✅ Invalidate after registering
     }),
 
     // ✅ Login user
@@ -37,9 +39,10 @@ export const registerAPI = createApi({
     // ✅ Get all users (admin only)
     getUsers: builder.query({
       query: () => "users",
+      providesTags: ["Users"], // ✅ Provide tag
     }),
 
-    // ✅ Update profile
+    // ✅ Update current profile
     updateUserProfile: builder.mutation({
       query: (updatedUser) => ({
         url: "update-profile",
@@ -48,7 +51,26 @@ export const registerAPI = createApi({
       }),
     }),
 
-    // ✅ Forgot password (send OTP)
+    // ✅ Update any user by ID (admin)
+    updateUserById: builder.mutation({
+      query: ({ id, updatedUser }) => ({
+        url: `users/${id}`,
+        method: "PUT",
+        body: updatedUser,
+      }),
+      invalidatesTags: ["Users"], // ✅ Invalidate
+    }),
+
+    // ✅ Delete user by ID (admin)
+    deleteUserById: builder.mutation({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users"], // ✅ Invalidate
+    }),
+
+    // ✅ Forgot password
     forgotPassword: builder.mutation({
       query: (emailData) => ({
         url: "forgot-password",
@@ -57,7 +79,7 @@ export const registerAPI = createApi({
       }),
     }),
 
-    // ✅ Reset password with OTP
+    // ✅ Reset password
     resetPassword: builder.mutation({
       query: (data) => ({
         url: "reset-password",
@@ -78,6 +100,8 @@ export const {
   useLoginUserMutation,
   useGetUsersQuery,
   useUpdateUserProfileMutation,
+  useUpdateUserByIdMutation,
+  useDeleteUserByIdMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useTestProtectedQuery,

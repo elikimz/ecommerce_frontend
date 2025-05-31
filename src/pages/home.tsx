@@ -1,6 +1,6 @@
 
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Search } from "lucide-react";
 
 const Home = () => {
