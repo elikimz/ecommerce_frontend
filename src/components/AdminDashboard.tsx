@@ -59,10 +59,10 @@ const EcommerceDashboard = () => {
           </li>
           <li>
             <Link
-              to="/admin-dashboard/logistics"
+              to="/admin-dashboard/categories"
               className="block p-2 bg-blue-700 hover:bg-blue-800 rounded flex items-center"
             >
-              <Truck className="mr-2" /> Logistics
+              <Truck className="mr-2" /> Category
             </Link>
           </li>
           <li>

@@ -12,8 +12,10 @@ import "react-toastify/dist/ReactToastify.css";
 import EcommerceDashboard from "./components/AdminDashboard";
 import UsersPage from "./pages/users";
 import CategoryPage from "./features/Category/category";
-// import AnalyticsPage from "./pages/AnalyticsPage";
-// import OrdersPage from "./pages/OrdersPage";
+import Product from "./features/Products/products";
+import ProductDetail from "./pages/Productdetails";
+import Order from "./features/Orders/order";
+import OrderPage from "./pages/bookorder";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,21 @@ const router = createBrowserRouter([
     element: <LoginForm />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/product/:id",
+    element: <ProductDetail />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "customer-dashboard",
+    element: <Order />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "orders/new",
+    element: <OrderPage />,
+    errorElement: <ErrorPage />,
+  },
 
   {
     path: "/admin-dashboard",
@@ -38,9 +55,9 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Register /> },
       { path: "users", element: <UsersPage /> },
-      { path: "Logistics", element: <CategoryPage /> },
-      { path: "Analytics", element: <Register /> },
-      { path: "Orders", element: <Register/> },
+      { path: "categories", element: <CategoryPage /> },
+      { path: "Analytics", element: <Product /> },
+      { path: "Orders", element: <Register /> },
       // { path: "receiptpage", element: <ReceiptPage /> },
     ],
   },

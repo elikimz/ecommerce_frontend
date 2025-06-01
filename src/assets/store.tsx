@@ -14,6 +14,8 @@ import storage from "redux-persist/lib/storage";
 import { registerAPI } from "../features/Register/registerAPI";
 import { loginAPI } from "../features/login/loginAPI";
 import { categoryAPI } from "../features/Category/categoryAPI";
+import { productAPI } from "../features/Products/productsAPI";
+import { orderAPI } from "../features/Orders/orderAPI";
 
 
 // Redux Persist configuration
@@ -26,7 +28,9 @@ const persistConfig = {
 const rootReducer = combineReducers({
 [loginAPI.reducerPath]: loginAPI.reducer,
 [registerAPI.reducerPath]: registerAPI.reducer,
-[categoryAPI.reducerPath]:categoryAPI.reducer
+[categoryAPI.reducerPath]:categoryAPI.reducer,
+[productAPI.reducerPath]:productAPI.reducer,
+[orderAPI.reducerPath]:orderAPI.reducer,
 
  
   
@@ -45,7 +49,7 @@ export const store = configureStore({
       },
     }).concat(
     //   loginAPI.middleware,
-    registerAPI.middleware,loginAPI.middleware,categoryAPI.middleware
+    registerAPI.middleware,loginAPI.middleware,categoryAPI.middleware,productAPI.middleware,orderAPI.middleware
      
     ), // Move this inside
 });

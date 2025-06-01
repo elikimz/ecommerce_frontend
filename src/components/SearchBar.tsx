@@ -1,12 +1,46 @@
-const SearchBar = () => {
+import { useState, useEffect } from "react";
+
+interface SearchBarProps {
+  initialSearch?: string;
+  onSearch: (searchTerm: string) => void;
+}
+
+const SearchBar = ({ initialSearch = "", onSearch }: SearchBarProps) => {
+  const [searchInput, setSearchInput] = useState(initialSearch);
+
+  // Reset searchInput when initialSearch changes
+  useEffect(() => {
+    setSearchInput(initialSearch);
+  }, [initialSearch]);
+
+  const handleSearch = () => {
+    if (searchInput.trim()) {
+      onSearch(searchInput.trim());
+      setSearchInput(""); // Clear input after search
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="flex justify-center items-center py-2 px-2 md:px-4">
       <input
         type="text"
         placeholder="Search for products, brands..."
         className="w-full md:w-1/2 border border-gray-300 rounded-full px-4 py-2 focus:outline-none text-xs md:text-sm"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
-      <button className="bg-orange-500 rounded-full p-2 ml-2">
+      <button
+        onClick={handleSearch}
+        className="bg-orange-500 rounded-full p-2 ml-2"
+        aria-label="Search"
+      >
         <svg
           className="text-white w-4 h-4"
           fill="none"

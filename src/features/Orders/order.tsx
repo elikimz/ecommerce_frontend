@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import UserNavbar from "../../components/usernavbar";
+import Footer from "../../components/Footer";
 import { Search } from "lucide-react";
-import { useGetProductsQuery } from "../features/Products/productsAPI";
-import SearchBar from "../components/SearchBar";
+import { useGetProductsQuery } from "../Products/productsAPI"
+import SearchBar from "../../components/SearchBar";
 
-const Home = () => {
+const Order = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
@@ -38,23 +38,24 @@ const Home = () => {
     setSearchInput("");
   };
 
-  const handleAddToCart = (e: React.MouseEvent, product: any) => {
-    e.stopPropagation(); // Prevent navigating to product details
-    // Redirect to login page on add to cart click
-    navigate("/login");
+  // For now, clicking 'Add to Order' navigates to order creation page with product id
+  const handleAddToOrder = (e: React.MouseEvent, product: any) => {
+    e.stopPropagation();
+    // Example: navigate to /order/create with selected product id query param
+    navigate(`/order/create?productId=${product.id}`);
   };
 
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
-      <Navbar />
+      <UserNavbar />
       <main className="flex-grow">
         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Welcome to KiliShop
+              Place Your Order
             </h1>
             <p className="text-lg md:text-xl">
-              Shop your favorite products with amazing deals every day
+              Select products you want to order below.
             </p>
           </div>
         </section>
@@ -65,7 +66,7 @@ const Home = () => {
 
         <section className="max-w-7xl mx-auto px-4 py-8">
           <div className="bg-gray-100 p-6 rounded-xl shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4">Search Products</h2>
+            <h2 className="text-2xl font-semibold mb-4">Filter Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
               <input
                 type="text"
@@ -102,7 +103,7 @@ const Home = () => {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 pb-16">
-          <h2 className="text-2xl font-semibold mb-6">Trending Products</h2>
+          <h2 className="text-2xl font-semibold mb-6">Available Products</h2>
 
           {isLoading && <p>Loading...</p>}
           {error && (
@@ -141,12 +142,11 @@ const Home = () => {
                       KES {product.price.toLocaleString()}
                     </p>
 
-                    {/* Add to Cart button */}
                     <button
-                      onClick={(e) => handleAddToCart(e, product)}
+                      onClick={(e) => handleAddToOrder(e, product)}
                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition"
                     >
-                      Add to Cart
+                      Add to Order
                     </button>
                   </div>
                 </div>
@@ -160,4 +160,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Order;

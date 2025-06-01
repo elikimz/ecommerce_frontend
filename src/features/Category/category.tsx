@@ -5,7 +5,7 @@ import {
   useUpdateCategoryByIdMutation,
   useDeleteCategoryByIdMutation,
 } from "./categoryAPI";
-import { Toaster, toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 interface Category {
   id: number;
@@ -23,7 +23,7 @@ const CategoryPage: React.FC = () => {
     isLoading,
     isError,
     refetch,
-  } = useGetCategoriesQuery(undefined);
+  } = useGetCategoriesQuery();
 
   const [createCategory, { isLoading: isCreating }] =
     useCreateCategoryMutation();
@@ -52,7 +52,7 @@ const CategoryPage: React.FC = () => {
 
   useEffect(() => {
     if (editId !== null && categories) {
-      const category = categories.find((c) => c.id === editId);
+      const category = categories.find((c: { id: number; }) => c.id === editId);
       if (category) {
         setEditName(category.name);
         setEditDesc(category.description);
@@ -88,7 +88,7 @@ const CategoryPage: React.FC = () => {
       setNewCategoryName("");
       setNewCategoryDesc("");
       await refetch();
-      toast.success("Category created successfully");
+      toast.success("Category created successfully!");
     } catch {
       toast.error("Failed to create category");
     }
@@ -113,7 +113,7 @@ const CategoryPage: React.FC = () => {
       }).unwrap();
       setEditId(null);
       await refetch();
-      toast.success("Category updated successfully");
+      toast.success("Category updated successfully!");
     } catch {
       toast.error("Failed to update category");
     }
@@ -124,21 +124,20 @@ const CategoryPage: React.FC = () => {
       toast.error("No category selected for deletion");
       return;
     }
-    if (window.confirm("Are you sure you want to delete this category?")) {
-      try {
-        await deleteCategory(editId).unwrap();
-        setEditId(null);
-        await refetch();
-        toast.success("Category deleted");
-      } catch {
-        toast.error("Failed to delete category");
-      }
+
+    try {
+      await deleteCategory(editId).unwrap();
+      setEditId(null);
+      await refetch();
+      toast.success("Category deleted successfully!");
+    } catch {
+      toast.error("Failed to delete category");
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
 
       <h1 className="text-3xl font-bold mb-6 text-orange-500">
         Category Management

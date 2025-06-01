@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TopBar from "./TopBar";
-import SearchBar from "./SearchBar";
+
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/24/outline"; // added ShoppingCartIcon
 
 const Navbar = () => {
@@ -73,7 +73,7 @@ const Navbar = () => {
       </div>
 
       {/* Search Bar */}
-      <SearchBar />
+      
 
       {/* Nav Links below SearchBar */}
       <nav className="flex justify-center gap-4 text-xs md:text-sm font-medium py-2 border-t border-gray-200">

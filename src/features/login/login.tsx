@@ -7,7 +7,7 @@ import {
 import { toast } from "react-hot-toast";
 import Spinner from "../../components/spinner";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { Eye, EyeOff } from "lucide-react";
 
 const LoginForm = () => {
@@ -139,6 +139,17 @@ const LoginForm = () => {
                   className="text-blue-500 hover:underline"
                 >
                   Forgot password?
+                </button>
+              </p>
+
+              <p className="text-center text-sm mt-4">
+                Don't have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="text-blue-500 hover:underline"
+                >
+                  Register here
                 </button>
               </p>
             </form>
