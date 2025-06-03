@@ -120,7 +120,7 @@ const Home = () => {
                 <div
                   key={product.id}
                   className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
-                  onClick={() => navigate(`/product/${product.id}`)}
+                  onClick={() => navigate(`/login`)}
                 >
                   <div className="overflow-hidden rounded-t-xl">
                     <img

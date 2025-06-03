@@ -3,11 +3,14 @@
 import { useState, useEffect } from "react";
 import { useCreateOrderMutation } from "../features/Orders/orderAPI";
 import toast from "react-hot-toast";
+import Spinner from "../components/spinner";
+
+// WhatsApp icon import (FontAwesome)
+import { FaWhatsapp } from "react-icons/fa";
 
 interface Product {
   id: number;
   price: number;
-  // Add more fields if needed
 }
 
 const OrderPage = () => {
@@ -15,17 +18,22 @@ const OrderPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [productId, setProductId] = useState<number | null>(null);
   const [price, setPrice] = useState<number>(0);
+
+  const [statusMessage, setStatusMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   useEffect(() => {
-    console.log("🟡 Attempting to load product info from localStorage");
-
-    // Try to get product info as JSON string
     const storedProductStr = localStorage.getItem("selectedProduct");
 
     if (!storedProductStr) {
-      toast.error("No product information found in local storage");
-      console.warn("⚠️ selectedProduct key missing in localStorage");
+      setStatusMessage({
+        type: "error",
+        text: "No product information found in local storage",
+      });
       return;
     }
 
@@ -39,41 +47,44 @@ const OrderPage = () => {
       ) {
         setProductId(product.id);
         setPrice(product.price);
-        console.log("🔹 Loaded product:", product);
       } else {
-        toast.error("Product data in local storage is invalid");
-        console.warn(
-          "⚠️ Product data missing id or price fields or wrong types",
-          product
-        );
+        setStatusMessage({
+          type: "error",
+          text: "Product data in local storage is invalid",
+        });
       }
-    } catch (error) {
-      toast.error("Failed to parse product data from local storage");
-      console.error("❌ JSON parse error:", error);
+    } catch {
+      setStatusMessage({
+        type: "error",
+        text: "Failed to parse product data from local storage",
+      });
     }
   }, []);
 
+  const resetForm = () => {
+    setShippingAddress("");
+    setQuantity(1);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("📦 Submitting Order:");
-    console.log("🔸 shippingAddress:", shippingAddress);
-    console.log("🔸 productId:", productId);
-    console.log("🔸 quantity:", quantity);
-    console.log("🔸 unit price:", price);
+    setStatusMessage(null);
 
     if (!shippingAddress.trim()) {
-      toast.error("Please enter a shipping address");
+      setStatusMessage({
+        type: "error",
+        text: "Please enter a shipping address",
+      });
       return;
     }
 
     if (!productId) {
-      toast.error("Product ID is missing");
+      setStatusMessage({ type: "error", text: "Product ID is missing" });
       return;
     }
 
     if (quantity < 1) {
-      toast.error("Quantity must be at least 1");
+      setStatusMessage({ type: "error", text: "Quantity must be at least 1" });
       return;
     }
 
@@ -92,81 +103,217 @@ const OrderPage = () => {
       ],
     };
 
-    console.log("🧾 Final orderData:", orderData);
-
     try {
       await createOrder(orderData).unwrap();
+      setStatusMessage({ type: "success", text: "Order placed successfully!" });
       toast.success("Order placed successfully!");
-      // Optionally clear form or redirect
+      resetForm();
     } catch (err) {
-      console.error("❌ Failed to place order:", err);
+      setStatusMessage({ type: "error", text: "Failed to place order" });
       toast.error("Failed to place order");
     }
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "0 auto", padding: "1rem" }}>
-      <h1
-        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "1rem" }}
+    <>
+      <div
+        style={{
+          maxWidth: 500,
+          margin: "2rem auto",
+          padding: "2rem",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          borderRadius: 10,
+          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+          backgroundColor: "#fff",
+        }}
       >
-        Place Order
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Shipping Address</label>
-          <input
-            type="text"
-            value={shippingAddress}
-            onChange={(e) => setShippingAddress(e.target.value)}
-            placeholder="Enter shipping address"
-            style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem" }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Quantity</label>
-          <input
-            type="number"
-            value={quantity}
-            min={1}
-            onChange={(e) => {
-              const newQty = parseInt(e.target.value);
-              if (isNaN(newQty) || newQty < 1) return;
-              setQuantity(newQty);
-              console.log("🔁 Updated quantity:", newQty);
-              console.log("🔁 Updated total:", (price * newQty).toFixed(2));
-            }}
-            style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem" }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "0.5rem" }}>
-          <strong>Unit Price:</strong> KES {price.toFixed(2)}
-        </div>
-
-        <div
-          style={{ marginBottom: "1rem", color: "#f97316", fontWeight: "bold" }}
-        >
-          Total: KES {(price * quantity).toFixed(2)}
-        </div>
-
-        <button
-          type="submit"
-          disabled={isLoading}
+        <h1
           style={{
-            backgroundColor: "#f97316",
-            color: "#fff",
-            padding: "0.75rem",
-            width: "100%",
-            border: "none",
-            borderRadius: "5px",
-            cursor: isLoading ? "not-allowed" : "pointer",
+            fontSize: "1.8rem",
+            fontWeight: "700",
+            marginBottom: "1.5rem",
+            color: "#333",
+            textAlign: "center",
           }}
         >
-          {isLoading ? "Placing Order..." : "Place Order"}
-        </button>
-      </form>
-    </div>
+          Place Order
+        </h1>
+
+        {statusMessage && (
+          <div
+            style={{
+              marginBottom: "1rem",
+              padding: "1rem",
+              borderRadius: 6,
+              color: statusMessage.type === "success" ? "#155724" : "#721c24",
+              backgroundColor:
+                statusMessage.type === "success" ? "#d4edda" : "#f8d7da",
+              border:
+                statusMessage.type === "success"
+                  ? "1px solid #c3e6cb"
+                  : "1px solid #f5c6cb",
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+            role="alert"
+          >
+            {statusMessage.text}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate>
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              htmlFor="shippingAddress"
+              style={{ display: "block", marginBottom: 6, fontWeight: 600 }}
+            >
+              Shipping Address <span style={{ color: "red" }}>*</span>
+            </label>
+            <input
+              id="shippingAddress"
+              type="text"
+              value={shippingAddress}
+              onChange={(e) => setShippingAddress(e.target.value)}
+              placeholder="Enter shipping address"
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                borderRadius: 6,
+                border: "1.5px solid #ccc",
+                fontSize: "1rem",
+              }}
+              required
+              disabled={isLoading}
+              onFocus={(e) => (e.target.style.borderColor = "#f97316")}
+              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
+            />
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              htmlFor="quantity"
+              style={{ display: "block", marginBottom: 6, fontWeight: 600 }}
+            >
+              Quantity <span style={{ color: "red" }}>*</span>
+            </label>
+            <input
+              id="quantity"
+              type="number"
+              min={1}
+              value={quantity}
+              onChange={(e) => {
+                const newQty = parseInt(e.target.value);
+                if (!isNaN(newQty) && newQty >= 1) {
+                  setQuantity(newQty);
+                }
+              }}
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                borderRadius: 6,
+                border: "1.5px solid #ccc",
+                fontSize: "1rem",
+              }}
+              disabled={isLoading}
+              required
+              onFocus={(e) => (e.target.style.borderColor = "#f97316")}
+              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
+            />
+          </div>
+
+          <div
+            style={{
+              marginBottom: "1rem",
+              fontWeight: "600",
+              fontSize: "1.1rem",
+              color: "#444",
+            }}
+          >
+            Unit Price:{" "}
+            <span style={{ color: "#f97316" }}>KES {price.toFixed(2)}</span>
+          </div>
+
+          <div
+            style={{
+              marginBottom: "1.5rem",
+              fontWeight: "700",
+              fontSize: "1.25rem",
+              color: "#f97316",
+              textAlign: "right",
+            }}
+          >
+            Total: KES {(price * quantity).toFixed(2)}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            style={{
+              backgroundColor: "#f97316",
+              color: "#fff",
+              padding: "0.85rem",
+              width: "100%",
+              border: "none",
+              borderRadius: 8,
+              fontSize: "1.1rem",
+              fontWeight: "700",
+              cursor: isLoading ? "not-allowed" : "pointer",
+              transition: "background-color 0.3s",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.5rem",
+            }}
+            onMouseEnter={(e) =>
+              !isLoading && (e.currentTarget.style.backgroundColor = "#dc6b13")
+            }
+            onMouseLeave={(e) =>
+              !isLoading && (e.currentTarget.style.backgroundColor = "#f97316")
+            }
+          >
+            {isLoading && <Spinner size={20} />}
+            {isLoading ? "Placing Order..." : "Place Order"}
+          </button>
+        </form>
+      </div>
+
+      {/* WhatsApp floating icon */}
+      <a
+        href="https://wa.me/254791337188"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#25D366",
+          color: "white",
+          borderRadius: "50%",
+          padding: "16px",
+          fontSize: "28px",
+          zIndex: 9999,
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+          animation: "bounce 1.5s infinite",
+        }}
+        title="Order via WhatsApp"
+      >
+        <FaWhatsapp />
+      </a>
+
+      {/* Inline CSS for bounce animation */}
+      <style>
+        {`
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-10px);
+            }
+          }
+        `}
+      </style>
+    </>
   );
 };
 

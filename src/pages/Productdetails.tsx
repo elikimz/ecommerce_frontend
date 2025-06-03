@@ -1,14 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
+import Spinner from "../components/spinner";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: products = [] } = useGetProductsQuery({});
+  const { data: products = [], isLoading, isError } = useGetProductsQuery({});
+
   const product = products.find((p) => p.id === Number(id));
 
-  // ✅ Save product id and price to localStorage
   useEffect(() => {
     if (product) {
       localStorage.setItem(
@@ -21,13 +22,22 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  if (!product)
-    return <p className="p-6 text-center text-lg">Product not found</p>;
+  // 👉 Show spinner while loading
+  if (isLoading) return <Spinner />;
+
+  // 👉 Handle not found or error
+  if (!product || isError)
+    return (
+      <p className="p-6 text-center text-lg text-red-500">
+        Product not found or failed to load.
+      </p>
+    );
 
   const handleAddToCart = () => {
     alert("Add to Cart feature coming soon!");
   };
 
+  
   const handleOrderNow = () => {
     navigate("/orders/new", { state: { product } });
   };
