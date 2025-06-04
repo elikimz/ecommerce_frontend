@@ -1,3 +1,91 @@
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+// export const loginAPI = createApi({
+//   reducerPath: "loginAPI",
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: "http://127.0.0.1:8000/",
+//     prepareHeaders: (headers) => {
+//       const token = localStorage.getItem("token");
+//       if (token) {
+//         headers.set("Authorization", `Bearer ${token}`);
+//       }
+//       return headers;
+//     },
+//   }),
+//   endpoints: (builder) => ({
+//     // ✅ Register new user
+//     registerUser: builder.mutation({
+//       query: (newUser) => ({
+//         url: "register",
+//         method: "POST",
+//         body: newUser,
+//       }),
+//     }),
+
+//     // ✅ Login user
+//     loginUser: builder.mutation({
+//       query: (credentials) => ({
+//         url: "login",
+//         method: "POST",
+//         body: new URLSearchParams(credentials),
+//         headers: {
+//           "Content-Type": "application/x-www-form-urlencoded",
+//         },
+//       }),
+//     }),
+
+//     // ✅ Get all users (admin only)
+//     getUsers: builder.query({
+//       query: () => "users",
+//     }),
+
+//     // ✅ Update profile
+//     updateUserProfile: builder.mutation({
+//       query: (updatedUser) => ({
+//         url: "update-profile",
+//         method: "PUT",
+//         body: updatedUser,
+//       }),
+//     }),
+
+//     // ✅ Forgot password
+//     forgotPassword: builder.mutation({
+//       query: (emailData) => ({
+//         url: "forgot-password",
+//         method: "POST",
+//         body: emailData,
+//       }),
+//     }),
+
+//     // ✅ Reset password
+//     resetPassword: builder.mutation({
+//       query: (data) => ({
+//         url: "reset-password",
+//         method: "POST",
+//         body: data,
+//       }),
+//     }),
+
+//     // ✅ Test token-protected route
+//     testProtected: builder.query({
+//       query: () => "protected",
+//     }),
+//   }),
+// });
+
+// export const {
+//   useRegisterUserMutation,
+//   useLoginUserMutation,
+//   useGetUsersQuery,
+//   useUpdateUserProfileMutation,
+//   useForgotPasswordMutation,
+//   useResetPasswordMutation,
+//   useTestProtectedQuery,
+// } = loginAPI;
+
+
+
+// src/features/login/loginAPI.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const loginAPI = createApi({
@@ -13,7 +101,6 @@ export const loginAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // ✅ Register new user
     registerUser: builder.mutation({
       query: (newUser) => ({
         url: "register",
@@ -21,8 +108,6 @@ export const loginAPI = createApi({
         body: newUser,
       }),
     }),
-
-    // ✅ Login user
     loginUser: builder.mutation({
       query: (credentials) => ({
         url: "login",
@@ -33,13 +118,9 @@ export const loginAPI = createApi({
         },
       }),
     }),
-
-    // ✅ Get all users (admin only)
     getUsers: builder.query({
       query: () => "users",
     }),
-
-    // ✅ Update profile
     updateUserProfile: builder.mutation({
       query: (updatedUser) => ({
         url: "update-profile",
@@ -47,8 +128,6 @@ export const loginAPI = createApi({
         body: updatedUser,
       }),
     }),
-
-    // ✅ Forgot password
     forgotPassword: builder.mutation({
       query: (emailData) => ({
         url: "forgot-password",
@@ -56,8 +135,6 @@ export const loginAPI = createApi({
         body: emailData,
       }),
     }),
-
-    // ✅ Reset password
     resetPassword: builder.mutation({
       query: (data) => ({
         url: "reset-password",
@@ -65,8 +142,6 @@ export const loginAPI = createApi({
         body: data,
       }),
     }),
-
-    // ✅ Test token-protected route
     testProtected: builder.query({
       query: () => "protected",
     }),

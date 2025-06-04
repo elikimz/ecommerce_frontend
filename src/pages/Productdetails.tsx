@@ -1,12 +1,17 @@
+
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
+import { useAddCartItemMutation } from "../features/Cart&CartItems/cartitemsAPI"
 import Spinner from "../components/spinner";
+import { toast } from "react-toastify"; // ✅ Adjust based on your toast library
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: products = [], isLoading, isError } = useGetProductsQuery({});
+  const [addToCart, { isLoading: isAdding }] = useAddCartItemMutation(); // ✅ track add-to-cart loading
 
   const product = products.find((p) => p.id === Number(id));
 
@@ -22,10 +27,8 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  // 👉 Show spinner while loading
   if (isLoading) return <Spinner />;
 
-  // 👉 Handle not found or error
   if (!product || isError)
     return (
       <p className="p-6 text-center text-lg text-red-500">
@@ -33,11 +36,16 @@ const ProductDetail = () => {
       </p>
     );
 
-  const handleAddToCart = () => {
-    alert("Add to Cart feature coming soon!");
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({ product_id: product.id, quantity: 1 }).unwrap();
+      toast.success("✅ Product added to cart!");
+    } catch (error) {
+      console.error("Add to cart failed:", error);
+      toast.error("❌ Failed to add product to cart.");
+    }
   };
 
-  
   const handleOrderNow = () => {
     navigate("/orders/new", { state: { product } });
   };
@@ -78,9 +86,14 @@ const ProductDetail = () => {
           <div className="flex space-x-4">
             <button
               onClick={handleAddToCart}
-              className="flex-1 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition shadow"
+              disabled={isAdding}
+              className="flex-1 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition shadow flex items-center justify-center"
             >
-              Add to Cart
+              {isAdding ? (
+                <Spinner  /> // ✅ use your small spinner inside button
+              ) : (
+                "Add to Cart"
+              )}
             </button>
             <button
               onClick={handleOrderNow}
@@ -96,3 +109,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+

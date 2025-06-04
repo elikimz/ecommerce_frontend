@@ -23,7 +23,7 @@ const CategoryPage: React.FC = () => {
     isLoading,
     isError,
     refetch,
-  } = useGetCategoriesQuery();
+  } = useGetCategoriesQuery(undefined);
 
   const [createCategory, { isLoading: isCreating }] =
     useCreateCategoryMutation();
