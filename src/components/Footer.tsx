@@ -127,7 +127,7 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs">
             <div className="flex items-center gap-1">
               <Mail className="w-4 h-4" />
-              <span>support@kilishop.com</span>
+              <span>support@Smar.com</span>
             </div>
             <div className="flex items-center gap-1">
               <Phone className="w-4 h-4" />

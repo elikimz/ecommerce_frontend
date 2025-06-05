@@ -220,7 +220,7 @@ const Home = () => {
         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-6 md:py-12">
           <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              Welcome to KiliShop
+              Welcome to Smart Indoor Decors
             </h1>
             <p className="text-base md:text-xl">
               Shop your favorite products with amazing deals every day

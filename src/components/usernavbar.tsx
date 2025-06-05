@@ -28,7 +28,7 @@ const UserNavbar = () => {
         >
           <img src="/logo.png" alt="TechGiants Logo" className="h-8" />
           <h1 className="text-lg md:text-2xl font-bold text-orange-500">
-            TechGiants
+            Smart Indoor Decors
           </h1>
         </div>
 

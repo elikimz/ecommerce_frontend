@@ -7,7 +7,7 @@ const TopBar = () => {
         <span>🛡 1-Year warranty on all products</span>
         <span>
           📞 Customer Support:{" "}
-          <span className="text-orange-500">+254 727 498 440</span>
+          <span className="text-orange-500">+254 791337188</span>
         </span>
       </div>
     </div>
