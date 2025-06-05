@@ -88,7 +88,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <img src="/logo.png" alt="TechGiants Logo" className="h-8 w-auto" />
           <h1 className="text-lg md:text-2xl font-bold text-orange-500">
-            TechGiants
+            Smart Indoor Decors
           </h1>
         </div>
 
