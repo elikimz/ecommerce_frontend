@@ -182,14 +182,14 @@ const router = createBrowserRouter([
       </InactivityLogout>
     ),
     children: [
-      {
-        index: true,
-        element: (
-          <InactivityLogout>
-            <Register />
-          </InactivityLogout>
-        ),
-      },
+      // {
+      //   index: true,
+      //   element: (
+      //     <InactivityLogout>
+      //       <Register />
+      //     </InactivityLogout>
+      //   ),
+      // },
       {
         path: "users",
         element: (
@@ -214,14 +214,14 @@ const router = createBrowserRouter([
           </InactivityLogout>
         ),
       },
-      {
-        path: "Orders",
-        element: (
-          <InactivityLogout>
-            <Register />
-          </InactivityLogout>
-        ),
-      },
+      // {
+      //   path: "Orders",
+      //   element: (
+      //     <InactivityLogout>
+      //       <Register />
+      //     </InactivityLogout>
+      //   ),
+      // },
     ],
     errorElement: <ErrorPage />,
   },
