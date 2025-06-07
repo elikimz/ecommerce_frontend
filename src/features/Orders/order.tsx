@@ -1,13 +1,25 @@
 
 
 
-// import { useState, useEffect } from "react";
+// import { useState, useEffect, type ChangeEvent, type KeyboardEvent } from "react";
 // import { useNavigate } from "react-router-dom";
 // import UserNavbar from "../../components/usernavbar";
 // import Footer from "../../components/Footer";
 // import { Search } from "lucide-react";
 // import { useGetProductsQuery } from "../Products/productsAPI";
 // import SearchBar from "../../components/SearchBar";
+
+// interface Product {
+//   id: number;
+//   name: string;
+//   description: string;
+//   price: number;
+//   image_url: string;
+//   category?: {
+//     name: string;
+//   };
+//   stock?: number;
+// }
 
 // const Order = () => {
 //   const navigate = useNavigate();
@@ -30,10 +42,10 @@
 //   } = useGetProductsQuery(filters);
 
 //   const uniqueCategories = Array.from(
-//     new Set(products.map((p) => p.category?.name))
+//     new Set(products.map((p: Product) => p.category?.name))
 //   ).filter(Boolean);
 
-//   const handleSearch = (searchTerm) => {
+//   const handleSearch = (searchTerm: string) => {
 //     setFilters((prev) => ({
 //       ...prev,
 //       name: searchTerm,
@@ -41,7 +53,10 @@
 //     setSearchInput("");
 //   };
 
-//   const handleAddToOrder = (e, product) => {
+//   const handleAddToOrder = (
+//     e: React.MouseEvent<HTMLButtonElement>,
+//     product: Product
+//   ) => {
 //     e.stopPropagation();
 //     navigate(`/product/${product.id}`);
 //   };
@@ -74,8 +89,10 @@
 //                 placeholder="Search for products..."
 //                 className="md:col-span-2 px-4 py-2 border border-gray-300 rounded-md"
 //                 value={searchInput}
-//                 onChange={(e) => setSearchInput(e.target.value)}
-//                 onKeyDown={(e) => {
+//                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
+//                   setSearchInput(e.target.value)
+//                 }
+//                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
 //                   if (e.key === "Enter")
 //                     handleSearch(e.currentTarget.value.trim());
 //                 }}
@@ -83,7 +100,9 @@
 //               <select
 //                 className="px-4 py-2 border border-gray-300 rounded-md"
 //                 value={categoryInput}
-//                 onChange={(e) => setCategoryInput(e.target.value)}
+//                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+//                   setCategoryInput(e.target.value)
+//                 }
 //               >
 //                 <option value="">All Categories</option>
 //                 {uniqueCategories.map((cat) => (
@@ -118,7 +137,7 @@
 
 //           {!isLoading && products.length > 0 && (
 //             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-//               {products.map((product) => (
+//               {products.map((product: Product) => (
 //                 <div
 //                   key={product.id}
 //                   className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
@@ -144,7 +163,9 @@
 //                     </p>
 
 //                     <button
-//                       onClick={(e) => handleAddToOrder(e, product)}
+//                       onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+//                         handleAddToOrder(e, product)
+//                       }
 //                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition"
 //                     >
 //                       Add to Order
@@ -165,7 +186,14 @@
 
 
 
-import { useState, useEffect, type ChangeEvent, type KeyboardEvent } from "react";
+
+
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import UserNavbar from "../../components/usernavbar";
 import Footer from "../../components/Footer";
@@ -229,12 +257,12 @@ const Order = () => {
     <div className="bg-white min-h-screen flex flex-col justify-between">
       <UserNavbar />
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
+        <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-10 sm:py-12">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               Place Your Order
             </h1>
-            <p className="text-lg md:text-xl">
+            <p className="text-base sm:text-lg md:text-xl">
               Select products you want to order below.
             </p>
           </div>
@@ -244,14 +272,16 @@ const Order = () => {
           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-6 rounded-xl shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4">Filter Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+        <section className="max-w-7xl mx-auto px-4 py-4 sm:py-6 md:py-8">
+          <div className="bg-gray-100 p-4 sm:p-6 rounded-xl shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+              Filter Products
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <input
                 type="text"
                 placeholder="Search for products..."
-                className="md:col-span-2 px-4 py-2 border border-gray-300 rounded-md"
+                className="px-4 py-2 border border-gray-300 rounded-md w-full"
                 value={searchInput}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setSearchInput(e.target.value)
@@ -262,7 +292,7 @@ const Order = () => {
                 }}
               />
               <select
-                className="px-4 py-2 border border-gray-300 rounded-md"
+                className="px-4 py-2 border border-gray-300 rounded-md w-full"
                 value={categoryInput}
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                   setCategoryInput(e.target.value)
@@ -275,19 +305,23 @@ const Order = () => {
                   </option>
                 ))}
               </select>
-              <button
-                onClick={() => handleSearch(searchInput.trim())}
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
-              >
-                <Search className="w-4 h-4" />
-                Search
-              </button>
+              <div className="sm:col-span-2 md:col-span-1">
+                <button
+                  onClick={() => handleSearch(searchInput.trim())}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition text-sm"
+                >
+                  <Search className="w-4 h-4" />
+                  Search
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="max-w-7xl mx-auto px-4 pb-16">
-          <h2 className="text-2xl font-semibold mb-6">Available Products</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6">
+            Available Products
+          </h2>
 
           {isLoading && <p>Loading...</p>}
           {error && (
@@ -300,21 +334,21 @@ const Order = () => {
           )}
 
           {!isLoading && products.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {products.map((product: Product) => (
                 <div
                   key={product.id}
-                  className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
+                  className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer flex flex-col"
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <div className="overflow-hidden rounded-t-xl">
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="h-48 w-full object-cover transform group-hover:scale-105 transition duration-300"
+                      className="min-h-[12rem] h-48 w-full object-cover transform group-hover:scale-105 transition duration-300"
                     />
                   </div>
-                  <div className="p-3 space-y-1">
+                  <div className="p-3 space-y-1 flex-1 flex flex-col">
                     <h3 className="text-sm font-semibold text-gray-800 truncate">
                       {product.name}
                     </h3>
