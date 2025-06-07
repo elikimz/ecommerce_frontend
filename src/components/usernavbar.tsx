@@ -134,7 +134,7 @@ const UserNavbar = () => {
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => (window.location.href = "/")}
         >
-          <img src="/logo.png" alt="TechGiants Logo" className="h-8 sm:h-10" />
+          <img src="/logo.png" alt="" className="h-8 sm:h-10" />
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-orange-500">
             Smart Indoor Decors
           </h1>
