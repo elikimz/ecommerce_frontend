@@ -1,11 +1,11 @@
-// "use client";
+
+
+
 
 // import { useState, useEffect } from "react";
 // import { useCreateOrderMutation } from "../features/Orders/orderAPI";
 // import toast from "react-hot-toast";
 // import Spinner from "../components/spinner";
-
-// // WhatsApp icon import (FontAwesome)
 // import { FaWhatsapp } from "react-icons/fa";
 
 // interface Product {
@@ -18,7 +18,6 @@
 //   const [quantity, setQuantity] = useState(1);
 //   const [productId, setProductId] = useState<number | null>(null);
 //   const [price, setPrice] = useState<number>(0);
-
 //   const [statusMessage, setStatusMessage] = useState<{
 //     type: "success" | "error";
 //     text: string;
@@ -271,13 +270,16 @@
 //               !isLoading && (e.currentTarget.style.backgroundColor = "#f97316")
 //             }
 //           >
-//             {isLoading && <Spinner size={20} />}
+//             {isLoading && (
+//               <div style={{ width: 20, height: 20 }}>
+//                 <Spinner />
+//               </div>
+//             )}
 //             {isLoading ? "Placing Order..." : "Place Order"}
 //           </button>
 //         </form>
 //       </div>
 
-//       {/* WhatsApp floating icon */}
 //       <a
 //         href="https://wa.me/254791337188"
 //         target="_blank"
@@ -300,7 +302,6 @@
 //         <FaWhatsapp />
 //       </a>
 
-//       {/* Inline CSS for bounce animation */}
 //       <style>
 //         {`
 //           @keyframes bounce {
@@ -321,7 +322,9 @@
 
 
 
+
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreateOrderMutation } from "../features/Orders/orderAPI";
 import toast from "react-hot-toast";
 import Spinner from "../components/spinner";
@@ -343,6 +346,7 @@ const OrderPage = () => {
   } | null>(null);
 
   const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const navigate = useNavigate(); // ✅ Initialize router navigation
 
   useEffect(() => {
     const storedProductStr = localStorage.getItem("selectedProduct");
@@ -426,6 +430,7 @@ const OrderPage = () => {
       setStatusMessage({ type: "success", text: "Order placed successfully!" });
       toast.success("Order placed successfully!");
       resetForm();
+      navigate("/payment"); // ✅ Redirect to payment page
     } catch (err) {
       setStatusMessage({ type: "error", text: "Failed to place order" });
       toast.error("Failed to place order");

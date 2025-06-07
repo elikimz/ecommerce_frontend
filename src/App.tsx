@@ -109,6 +109,7 @@ import Order from "./features/Orders/order";
 import OrderPage from "./pages/bookorder";
 import CartPage from "./features/Cart&CartItems/cartItems";
 import InactivityLogout from "./components/ProtectedRoute"; // keeping only this
+import PaymentPage from "./pages/payment";
 
 const router = createBrowserRouter([
   {
@@ -134,6 +135,15 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <LoginForm />
+      </InactivityLogout>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/payment",
+    element: (
+      <InactivityLogout>
+        <PaymentPage />
       </InactivityLogout>
     ),
     errorElement: <ErrorPage />,
