@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 
-const INACTIVITY_LIMIT = 2 * 60 * 1000; // 15 minutes in milliseconds
+const INACTIVITY_LIMIT = 15* 60 * 1000; // 15 minutes in milliseconds
 
 const InactivityLogout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
