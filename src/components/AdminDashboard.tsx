@@ -200,7 +200,7 @@ const EcommerceDashboard = () => {
               className="block p-2 bg-blue-700 hover:bg-blue-800 rounded flex items-center"
               onClick={closeSidebar}
             >
-              <BarChart className="mr-2" /> Analytics
+              <BarChart className="mr-2" /> Products
             </Link>
           </li>
           <li>
