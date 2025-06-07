@@ -323,6 +323,8 @@
 
 
 
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateOrderMutation } from "../features/Orders/orderAPI";
@@ -336,6 +338,8 @@ interface Product {
 }
 
 const OrderPage = () => {
+  const navigate = useNavigate();
+
   const [shippingAddress, setShippingAddress] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [productId, setProductId] = useState<number | null>(null);
@@ -346,7 +350,6 @@ const OrderPage = () => {
   } | null>(null);
 
   const [createOrder, { isLoading }] = useCreateOrderMutation();
-  const navigate = useNavigate(); // ✅ Initialize router navigation
 
   useEffect(() => {
     const storedProductStr = localStorage.getItem("selectedProduct");
@@ -426,14 +429,18 @@ const OrderPage = () => {
     };
 
     try {
-      await createOrder(orderData).unwrap();
-      setStatusMessage({ type: "success", text: "Order placed successfully!" });
+      const res = await createOrder(orderData).unwrap();
       toast.success("Order placed successfully!");
       resetForm();
-      navigate("/payment"); // ✅ Redirect to payment page
+
+      // Optional: Save order info in localStorage if needed in /payment
+      localStorage.setItem("currentOrder", JSON.stringify(res));
+
+      // Navigate to payment page
+      navigate("/payment");
     } catch (err) {
-      setStatusMessage({ type: "error", text: "Failed to place order" });
       toast.error("Failed to place order");
+      setStatusMessage({ type: "error", text: "Failed to place order" });
     }
   };
 
@@ -507,8 +514,6 @@ const OrderPage = () => {
               }}
               required
               disabled={isLoading}
-              onFocus={(e) => (e.target.style.borderColor = "#f97316")}
-              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
             />
           </div>
 
@@ -539,8 +544,6 @@ const OrderPage = () => {
               }}
               disabled={isLoading}
               required
-              onFocus={(e) => (e.target.style.borderColor = "#f97316")}
-              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
             />
           </div>
 
@@ -581,18 +584,11 @@ const OrderPage = () => {
               fontSize: "1.1rem",
               fontWeight: "700",
               cursor: isLoading ? "not-allowed" : "pointer",
-              transition: "background-color 0.3s",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "0.5rem",
             }}
-            onMouseEnter={(e) =>
-              !isLoading && (e.currentTarget.style.backgroundColor = "#dc6b13")
-            }
-            onMouseLeave={(e) =>
-              !isLoading && (e.currentTarget.style.backgroundColor = "#f97316")
-            }
           >
             {isLoading && (
               <div style={{ width: 20, height: 20 }}>
