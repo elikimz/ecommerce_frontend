@@ -1,9 +1,10 @@
+
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // export const loginAPI = createApi({
 //   reducerPath: "loginAPI",
 //   baseQuery: fetchBaseQuery({
-//     baseUrl: "http://127.0.0.1:8000/",
+//     baseUrl: "https://ecommerce-backend-yeq9.onrender.com/",
 //     prepareHeaders: (headers) => {
 //       const token = localStorage.getItem("token");
 //       if (token) {
@@ -13,7 +14,6 @@
 //     },
 //   }),
 //   endpoints: (builder) => ({
-//     // ✅ Register new user
 //     registerUser: builder.mutation({
 //       query: (newUser) => ({
 //         url: "register",
@@ -21,8 +21,6 @@
 //         body: newUser,
 //       }),
 //     }),
-
-//     // ✅ Login user
 //     loginUser: builder.mutation({
 //       query: (credentials) => ({
 //         url: "login",
@@ -33,13 +31,9 @@
 //         },
 //       }),
 //     }),
-
-//     // ✅ Get all users (admin only)
 //     getUsers: builder.query({
 //       query: () => "users",
 //     }),
-
-//     // ✅ Update profile
 //     updateUserProfile: builder.mutation({
 //       query: (updatedUser) => ({
 //         url: "update-profile",
@@ -47,8 +41,6 @@
 //         body: updatedUser,
 //       }),
 //     }),
-
-//     // ✅ Forgot password
 //     forgotPassword: builder.mutation({
 //       query: (emailData) => ({
 //         url: "forgot-password",
@@ -56,8 +48,6 @@
 //         body: emailData,
 //       }),
 //     }),
-
-//     // ✅ Reset password
 //     resetPassword: builder.mutation({
 //       query: (data) => ({
 //         url: "reset-password",
@@ -65,8 +55,6 @@
 //         body: data,
 //       }),
 //     }),
-
-//     // ✅ Test token-protected route
 //     testProtected: builder.query({
 //       query: () => "protected",
 //     }),
@@ -85,7 +73,7 @@
 
 
 
-// src/features/login/loginAPI.ts
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const loginAPI = createApi({
@@ -121,6 +109,9 @@ export const loginAPI = createApi({
     getUsers: builder.query({
       query: () => "users",
     }),
+    getCurrentUserProfile: builder.query({
+      query: () => "me",
+    }),
     updateUserProfile: builder.mutation({
       query: (updatedUser) => ({
         url: "update-profile",
@@ -152,6 +143,7 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useGetUsersQuery,
+  useGetCurrentUserProfileQuery,
   useUpdateUserProfileMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
