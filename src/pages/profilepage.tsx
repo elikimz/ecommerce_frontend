@@ -1,8 +1,16 @@
-import  { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import {
   useGetCurrentUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "../features/login/loginAPI";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Spinner from "../components/spinner"
 
 interface UserProfile {
   name: string;
@@ -61,10 +69,10 @@ const ProfilePage = () => {
     e.preventDefault();
     try {
       await updateUserProfile(formData).unwrap();
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (err) {
       console.error("Failed to update profile:", err);
-      alert(
+      toast.error(
         "Failed to update profile: " +
           (err as { data?: { message?: string } }).data?.message ||
           "Unknown error"
@@ -72,93 +80,104 @@ const ProfilePage = () => {
     }
   };
 
-  if (isLoading) return <div>Loading profile...</div>;
-  if (error) return <div>Error loading profile: {error.toString()}</div>;
+  if (isLoading) return <Spinner />;
+  if (error) {
+    toast.error("Error loading profile: " + error.toString());
+    return <div>Error loading profile</div>;
+  }
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
-      <h1>Profile Page</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Name:</label>
+    <div className="p-5 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-5">Profile Page</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Name:
+          </label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Email:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Email:
+          </label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Address:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Address:
+          </label>
           <input
             type="text"
             name="address"
             value={formData.address}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Phone:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Phone:
+          </label>
           <input
             type="text"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Profile Image URL:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Profile Image URL:
+          </label>
           <input
             type="text"
             name="profile_image"
             value={formData.profile_image}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block" }}>Gender:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Gender:
+          </label>
           <input
             type="text"
             name="gender"
             value={formData.gender}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block" }}>Date of Birth:</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Date of Birth:
+          </label>
           <input
             type="date"
             name="date_of_birth"
             value={formData.date_of_birth}
             onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
         <button
           type="submit"
           disabled={isUpdating}
-          style={{
-            padding: "10px 15px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-          }}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
         >
           {isUpdating ? "Updating..." : "Update Profile"}
         </button>
