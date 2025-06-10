@@ -23,6 +23,7 @@ export const orderAPI = createApi({
       invalidatesTags: ["Orders"],
     }),
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getOrders: builder.query<any[], { skip?: number; limit?: number }>({
       query: ({ skip = 0, limit = 100 } = {}) =>
         `orders/orders/?skip=${skip}&limit=${limit}`,
