@@ -24,8 +24,9 @@ import Order from "./features/Orders/order";
 import OrderPage from "./pages/bookorder";
 import CartPage from "./features/Cart&CartItems/cartItems";
 import InactivityLogout from "./components/ProtectedRoute"; // keeping only this
-import PaymentPage from "./pages/payment";
+// import PaymentPage from "./pages/payment";
 import ProfilePage from "./pages/profilepage";
+import MyOrders from "./pages/Myorderpage";
 
 const router = createBrowserRouter([
   {
@@ -55,20 +56,29 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
   },
-  {
-    path: "/payment",
-    element: (
-      <InactivityLogout>
-        <PaymentPage />
-      </InactivityLogout>
-    ),
-    errorElement: <ErrorPage />,
-  },
+  // {
+  //   path: "/payment",
+  //   element: (
+  //     <InactivityLogout>
+  //       <PaymentPage />
+  //     </InactivityLogout>
+  //   ),
+  //   errorElement: <ErrorPage />,
+  // },
   {
     path: "/account",
     element: (
       <InactivityLogout>
         <ProfilePage />
+      </InactivityLogout>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/payment",
+    element: (
+      <InactivityLogout>
+        <MyOrders />
       </InactivityLogout>
     ),
     errorElement: <ErrorPage />,
