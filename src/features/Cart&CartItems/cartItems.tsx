@@ -1,3 +1,7 @@
+
+
+
+import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Spinner from "../../components/spinner";
 import {
@@ -6,10 +10,33 @@ import {
   useUpdateCartItemMutation,
 } from "../Cart&CartItems/cartitemsAPI";
 
+// ✅ Helper to update cart count and items in localStorage
+const updateCartCountInStorage = (cart: any) => {
+  const count = cart?.cart_items?.reduce(
+    (acc: number, item: any) => acc + item.quantity,
+    0
+  );
+
+  if (count > 0) {
+    localStorage.setItem("cartCount", count.toString());
+    localStorage.setItem("cartItems", JSON.stringify(cart.cart_items));
+  } else {
+    localStorage.removeItem("cartCount");
+    localStorage.removeItem("cartItems");
+  }
+};
+
 const CartPage = () => {
   const { data: cart, isLoading, refetch } = useGetCartQuery();
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
+
+  // Update localStorage whenever cart data changes
+  useEffect(() => {
+    if (cart?.cart_items) {
+      updateCartCountInStorage(cart);
+    }
+  }, [cart]);
 
   const handleUpdateQuantity = async (productId: number, quantity: number) => {
     const action = quantity < 1 ? "Removing item..." : "Updating quantity...";
@@ -23,7 +50,8 @@ const CartPage = () => {
         await updateCartItem({ product_id: productId, quantity }).unwrap();
         toast.success("Quantity updated", { id: toastId });
       }
-      refetch();
+      const updatedCart = await refetch().unwrap();
+      updateCartCountInStorage(updatedCart);
     } catch (err) {
       toast.error("Something went wrong", { id: toastId });
     }
@@ -34,7 +62,8 @@ const CartPage = () => {
     try {
       await deleteCartItem(productId).unwrap();
       toast.success("Item removed", { id: toastId });
-      refetch();
+      const updatedCart = await refetch().unwrap();
+      updateCartCountInStorage(updatedCart);
     } catch (err) {
       toast.error("Failed to remove item", { id: toastId });
     }
