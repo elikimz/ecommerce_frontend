@@ -2,6 +2,195 @@
 
 
 
+// // App.tsx
+// import React from "react";
+// import {
+//   createBrowserRouter,
+//   RouterProvider,
+// } from "react-router-dom";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+
+// import Home from "./pages/home";
+// import Register from "./features/Register/register";
+// import LoginForm from "./features/login/login";
+// import ErrorPage from "./components/Error";
+// import EcommerceDashboard from "./components/AdminDashboard";
+// import UsersPage from "./pages/users";
+// import CategoryPage from "./features/Category/category";
+// import Product from "./features/Products/products";
+// import ProductDetail from "./pages/Productdetails";
+// import Order from "./features/Orders/order";
+// import OrderPage from "./pages/bookorder";
+// import CartPage from "./features/Cart&CartItems/cartItems";
+// import InactivityLogout from "./components/ProtectedRoute"; // keeping only this
+// // import PaymentPage from "./pages/payment";
+// import ProfilePage from "./pages/profilepage";
+// import MyOrders from "./pages/Myorderpage";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: (
+//       <InactivityLogout>
+//         <Home />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/register",
+//     element: (
+//       <InactivityLogout>
+//         <Register />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/login",
+//     element: (
+//       <InactivityLogout>
+//         <LoginForm />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   // {
+//   //   path: "/payment",
+//   //   element: (
+//   //     <InactivityLogout>
+//   //       <PaymentPage />
+//   //     </InactivityLogout>
+//   //   ),
+//   //   errorElement: <ErrorPage />,
+//   // },
+//   {
+//     path: "/account",
+//     element: (
+//       <InactivityLogout>
+//         <ProfilePage />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/payment",
+//     element: (
+//       <InactivityLogout>
+//         <MyOrders />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/product/:id",
+//     element: (
+//       <InactivityLogout>
+//         <ProductDetail />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "customer-dashboard",
+//     element: (
+//       <InactivityLogout>
+//         <Order />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "orders/new",
+//     element: (
+//       <InactivityLogout>
+//         <OrderPage />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "cart",
+//     element: (
+//       <InactivityLogout>
+//         <CartPage />
+//       </InactivityLogout>
+//     ),
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/admin-dashboard",
+//     element: (
+//       <InactivityLogout>
+//         <EcommerceDashboard />
+//       </InactivityLogout>
+//     ),
+//     children: [
+//       // {
+//       //   index: true,
+//       //   element: (
+//       //     <InactivityLogout>
+//       //       <Register />
+//       //     </InactivityLogout>
+//       //   ),
+//       // },
+//       {
+//         path: "users",
+//         element: (
+//           <InactivityLogout>
+//             <UsersPage />
+//           </InactivityLogout>
+//         ),
+//       },
+//       {
+//         path: "categories",
+//         element: (
+//           <InactivityLogout>
+//             <CategoryPage />
+//           </InactivityLogout>
+//         ),
+//       },
+//       {
+//         path: "Analytics",
+//         element: (
+//           <InactivityLogout>
+//             <Product />
+//           </InactivityLogout>
+//         ),
+//       },
+//       // {
+//       //   path: "Orders",
+//       //   element: (
+//       //     <InactivityLogout>
+//       //       <Register />
+//       //     </InactivityLogout>
+//       //   ),
+//       // },
+//     ],
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "*",
+//     element: <ErrorPage code="404" message="Page Not Found" />,
+//   },
+// ]);
+
+// const App: React.FC = () => {
+//   return (
+//     <>
+//       <RouterProvider router={router} />
+//       <ToastContainer position="top-center" />
+//     </>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
 // App.tsx
 import React from "react";
 import {
@@ -23,12 +212,12 @@ import ProductDetail from "./pages/Productdetails";
 import Order from "./features/Orders/order";
 import OrderPage from "./pages/bookorder";
 import CartPage from "./features/Cart&CartItems/cartItems";
-import InactivityLogout from "./components/ProtectedRoute"; // keeping only this
-// import PaymentPage from "./pages/payment";
+import InactivityLogout from "./components/ProtectedRoute";
 import ProfilePage from "./pages/profilepage";
 import MyOrders from "./pages/Myorderpage";
 
 const router = createBrowserRouter([
+  // Public Routes
   {
     path: "/",
     element: (
@@ -45,7 +234,6 @@ const router = createBrowserRouter([
         <Register />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
     path: "/login",
@@ -54,17 +242,9 @@ const router = createBrowserRouter([
         <LoginForm />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
-  // {
-  //   path: "/payment",
-  //   element: (
-  //     <InactivityLogout>
-  //       <PaymentPage />
-  //     </InactivityLogout>
-  //   ),
-  //   errorElement: <ErrorPage />,
-  // },
+
+  // User Routes
   {
     path: "/account",
     element: (
@@ -72,16 +252,14 @@ const router = createBrowserRouter([
         <ProfilePage />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
-    path: "/payment",
+    path: "/my-orders",
     element: (
       <InactivityLogout>
         <MyOrders />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
     path: "/product/:id",
@@ -90,35 +268,33 @@ const router = createBrowserRouter([
         <ProductDetail />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
-    path: "customer-dashboard",
+    path: "/customer-dashboard",
     element: (
       <InactivityLogout>
         <Order />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
-    path: "orders/new",
+    path: "/orders/new",
     element: (
       <InactivityLogout>
         <OrderPage />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
   {
-    path: "cart",
+    path: "/cart",
     element: (
       <InactivityLogout>
         <CartPage />
       </InactivityLogout>
     ),
-    errorElement: <ErrorPage />,
   },
+
+  // Admin Dashboard Routes
   {
     path: "/admin-dashboard",
     element: (
@@ -126,50 +302,24 @@ const router = createBrowserRouter([
         <EcommerceDashboard />
       </InactivityLogout>
     ),
+    errorElement: <ErrorPage />,
     children: [
-      // {
-      //   index: true,
-      //   element: (
-      //     <InactivityLogout>
-      //       <Register />
-      //     </InactivityLogout>
-      //   ),
-      // },
       {
         path: "users",
-        element: (
-          <InactivityLogout>
-            <UsersPage />
-          </InactivityLogout>
-        ),
+        element: <UsersPage />,
       },
       {
         path: "categories",
-        element: (
-          <InactivityLogout>
-            <CategoryPage />
-          </InactivityLogout>
-        ),
+        element: <CategoryPage />,
       },
       {
-        path: "Analytics",
-        element: (
-          <InactivityLogout>
-            <Product />
-          </InactivityLogout>
-        ),
+        path: "analytics",
+        element: <Product />,
       },
-      // {
-      //   path: "Orders",
-      //   element: (
-      //     <InactivityLogout>
-      //       <Register />
-      //     </InactivityLogout>
-      //   ),
-      // },
     ],
-    errorElement: <ErrorPage />,
   },
+
+  // Catch-all 404 route
   {
     path: "*",
     element: <ErrorPage code="404" message="Page Not Found" />,
