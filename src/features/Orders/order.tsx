@@ -1,7 +1,6 @@
 
 
 
-
 // import {
 //   useState,
 //   useEffect,
@@ -15,9 +14,7 @@
 // import { useGetProductsQuery } from "../Products/productsAPI";
 // import { useAddCartItemMutation } from "../Cart&CartItems/cartitemsAPI";
 // import SearchBar from "../../components/SearchBar";
-
-// import { toast } from "react-toastify"; // ✅ Use toast from react-toastify
-
+// import { toast } from "react-toastify";
 
 // interface Product {
 //   id: number;
@@ -71,6 +68,17 @@
 //   ) => {
 //     e.stopPropagation();
 
+//     const existing = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+//     const alreadyInCart = existing.some(
+//       (item: { id: number }) => item.id === product.id
+//     );
+
+//     if (alreadyInCart) {
+//       toast.warning(`${product.name} is already in your cart!`);
+//       return;
+//     }
+
 //     const cartItem = {
 //       product_id: product.id,
 //       quantity: 1,
@@ -79,16 +87,13 @@
 //     try {
 //       await addCartItem(cartItem).unwrap();
 
-//       const existing = JSON.parse(localStorage.getItem("cartItems") || "[]");
 //       const updated = [...existing, { ...product, quantity: 1 }];
 //       localStorage.setItem("cartItems", JSON.stringify(updated));
 //       localStorage.setItem("cartCount", updated.length.toString());
 
 //       window.dispatchEvent(new Event("cartCountUpdated"));
 
-//       toast.success(`${product.name} added to cart!`, {
-       
-//       });
+//       toast.success(`${product.name} added to cart!`);
 //     } catch (err) {
 //       console.error("Error adding to cart:", err);
 //       toast.error("Failed to add to cart. Try again.");
@@ -221,6 +226,8 @@
 // export default Order;
 
 
+
+
 import {
   useState,
   useEffect,
@@ -246,6 +253,8 @@ interface Product {
     name: string;
   };
   stock?: number;
+  images?: { url: string }[]; // ✅ Include images
+  videos?: { url: string }[]; // ✅ Include videos
 }
 
 const Order = () => {
@@ -404,7 +413,13 @@ const Order = () => {
                 <div
                   key={product.id}
                   className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
-                  onClick={() => navigate(`/product/${product.id}`)}
+                  onClick={() => {
+                    localStorage.setItem(
+                      "selectedProduct",
+                      JSON.stringify(product)
+                    );
+                    navigate(`/product/${product.id}`);
+                  }}
                 >
                   <div className="overflow-hidden rounded-t-xl">
                     <img

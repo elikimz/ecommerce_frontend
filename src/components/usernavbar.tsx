@@ -101,7 +101,7 @@ const UserNavbar = () => {
         </div>
       </div>
 
-      {/* Navigation Links */}
+      {/* Navigation Links
       <nav className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-medium py-2 border-t border-gray-200 bg-white">
         <span className="text-orange-500 cursor-pointer">% Today’s Deals</span>
         <span className="cursor-pointer text-gray-700 hover:text-orange-500">
@@ -116,7 +116,7 @@ const UserNavbar = () => {
         <span className="cursor-pointer text-gray-700 hover:text-orange-500">
           Accessories
         </span>
-      </nav>
+      </nav> */}
     </header>
   );
 };
