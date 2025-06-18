@@ -27,6 +27,7 @@ import CartPage from "./features/Cart&CartItems/cartItems";
 import InactivityLogout from "./components/ProtectedRoute";
 import ProfilePage from "./pages/profilepage";
 import MyOrders from "./pages/Myorderpage";
+import MpesaPaymentPage from "./features/Empesa/Empesa";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -82,6 +83,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/payment",
+    element: (
+      <InactivityLogout>
+        <MpesaPaymentPage />
+      </InactivityLogout>
+    ),
+  },
+  {
     path: "/customer-dashboard",
     element: (
       <InactivityLogout>
@@ -90,7 +99,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/orders/new",
+    path: "/order",
     element: (
       <InactivityLogout>
         <OrderPage />

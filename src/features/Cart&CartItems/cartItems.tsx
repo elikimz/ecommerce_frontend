@@ -1,7 +1,9 @@
 
 
 
+
 // import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 // import { toast } from "react-hot-toast";
 // import Spinner from "../../components/spinner";
 // import {
@@ -10,134 +12,117 @@
 //   useUpdateCartItemMutation,
 // } from "../Cart&CartItems/cartitemsAPI";
 
-// // ✅ Helper to update cart count and items in localStorage
-// const updateCartCountInStorage = (cart: any) => {
+// /** Persist cart badge in localStorage */
+// const syncCartCount = (cart: any) => {
 //   const count = cart?.cart_items?.reduce(
-//     (acc: number, item: any) => acc + item.quantity,
+//     (sum: number, it: any) => sum + it.quantity,
 //     0
 //   );
-
-//   if (count > 0) {
+//   console.log("Syncing cart count:", count); // Log the count for debugging
+//   if (count) {
 //     localStorage.setItem("cartCount", count.toString());
 //     localStorage.setItem("cartItems", JSON.stringify(cart.cart_items));
 //   } else {
 //     localStorage.removeItem("cartCount");
 //     localStorage.removeItem("cartItems");
 //   }
+//   window.dispatchEvent(new Event("cartCountUpdated"));
 // };
 
 // const CartPage = () => {
+//   const navigate = useNavigate();
 //   const { data: cart, isLoading, refetch } = useGetCartQuery();
-//   const [deleteCartItem] = useDeleteCartItemMutation();
-//   const [updateCartItem] = useUpdateCartItemMutation();
+//   const [deleteItem] = useDeleteCartItemMutation();
+//   const [updateQty] = useUpdateCartItemMutation();
 
-//   // Update localStorage whenever cart data changes
 //   useEffect(() => {
 //     if (cart?.cart_items) {
-//       updateCartCountInStorage(cart);
+//       syncCartCount(cart);
 //     }
 //   }, [cart]);
 
-//   const handleUpdateQuantity = async (productId: number, quantity: number) => {
-//     const action = quantity < 1 ? "Removing item..." : "Updating quantity...";
-//     const toastId = toast.loading(action);
-
+//   const removeItem = async (pid: number) => {
+//     const id = toast.loading("Removing item…");
 //     try {
-//       if (quantity < 1) {
-//         await deleteCartItem(productId).unwrap();
-//         toast.success("Item removed", { id: toastId });
-//       } else {
-//         await updateCartItem({ product_id: productId, quantity }).unwrap();
-//         toast.success("Quantity updated", { id: toastId });
-//       }
-//       const updatedCart = await refetch().unwrap();
-//       updateCartCountInStorage(updatedCart);
-//     } catch (err) {
-//       toast.error("Something went wrong", { id: toastId });
+//       await deleteItem(pid).unwrap();
+//       const updatedCart = await refetch();
+//       syncCartCount(updatedCart.data); // Ensure updated cart data is used
+//       toast.success("Item removed", { id });
+//     } catch (error) {
+//       console.error("Error removing item:", error);
+//       toast.error("Failed to remove item", { id });
 //     }
 //   };
 
-//   const handleRemoveItem = async (productId: number) => {
-//     const toastId = toast.loading("Removing item...");
-//     try {
-//       await deleteCartItem(productId).unwrap();
-//       toast.success("Item removed", { id: toastId });
-//       const updatedCart = await refetch().unwrap();
-//       updateCartCountInStorage(updatedCart);
-//     } catch (err) {
-//       toast.error("Failed to remove item", { id: toastId });
-//     }
+//   const handleOrderNow = (item: any) => {
+//     // Persist selected product for OrderPage
+//     localStorage.setItem(
+//       "selectedProduct",
+//       JSON.stringify({ id: item.product_id, price: item.product.price })
+//     );
+//     navigate("/order");
 //   };
+
+//   if (isLoading) {
+//     return (
+//       <div className="flex justify-center h-40 items-center">
+//         <Spinner />
+//       </div>
+//     );
+//   }
 
 //   return (
-//     <div className="p-4 max-w-3xl mx-auto">
-//       <h1 className="text-2xl font-bold mb-4">Your Shopping Cart</h1>
+//     <div className="max-w-5xl mx-auto p-6">
+//       <h1 className="text-3xl font-bold mb-8 text-center">My Cart</h1>
 
-//       {isLoading && (
-//         <div className="flex justify-center items-center h-32">
-//           <Spinner />
-//         </div>
-//       )}
-
-//       {!isLoading && cart?.cart_items?.length > 0 ? (
-//         <ul className="space-y-4">
-//           {cart.cart_items.map((item: any, index: number) => (
-//             <li
-//               key={item.product_id ?? index}
-//               className="border p-4 rounded shadow-sm flex items-center space-x-4"
+//       {cart?.cart_items?.length ? (
+//         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+//           {cart.cart_items.map((item: any) => (
+//             <div
+//               key={item.product_id}
+//               className="bg-white shadow-md rounded-xl p-4 flex flex-col"
 //             >
-//               {/* Product Image */}
-//               {item.product?.image_url && (
+//               <div className="w-full h-40 mb-4 overflow-hidden rounded-md">
 //                 <img
 //                   src={item.product.image_url}
 //                   alt={item.product.name}
-//                   className="w-24 h-24 object-cover rounded"
+//                   className="w-full h-full object-contain"
 //                 />
-//               )}
-
-//               <div className="flex-1">
-//                 <p className="font-medium text-lg">{item.product?.name}</p>
-//                 <p className="text-sm text-gray-500 mb-1">
-//                   Qty: {item.quantity}
-//                 </p>
-
-//                 <p className="text-sm text-gray-600 mb-2">
-//                   {item.quantity} × KES {item.product?.price} ={" "}
-//                   <span className="font-semibold text-orange-500">
-//                     KES {item.product?.price * item.quantity}
-//                   </span>
-//                 </p>
-
-//                 <div className="flex space-x-2">
-//                   <button
-//                     className="px-2 py-1 bg-gray-200 rounded"
-//                     onClick={() =>
-//                       handleUpdateQuantity(item.product_id, item.quantity - 1)
-//                     }
-//                   >
-//                     -
-//                   </button>
-//                   <button
-//                     className="px-2 py-1 bg-gray-200 rounded"
-//                     onClick={() =>
-//                       handleUpdateQuantity(item.product_id, item.quantity + 1)
-//                     }
-//                   >
-//                     +
-//                   </button>
-//                   <button
-//                     className="px-2 py-1 bg-red-500 text-white rounded"
-//                     onClick={() => handleRemoveItem(item.product_id)}
-//                   >
-//                     Remove
-//                   </button>
-//                 </div>
 //               </div>
-//             </li>
+//               <h2 className="font-semibold text-lg mb-1">
+//                 {item.product.name}
+//               </h2>
+//               <p className="text-sm text-gray-500 mb-2">
+//                 KES {item.product.price.toFixed(2)} each
+//               </p>
+
+//               <p className="text-sm text-gray-600 mb-4">
+//                 Quantity: {item.quantity}
+//               </p>
+
+//               <p className="text-right text-orange-600 font-bold mb-4">
+//                 Subtotal: KES {(item.quantity * item.product.price).toFixed(2)}
+//               </p>
+
+//               <div className="mt-auto flex gap-2">
+//                 <button
+//                   onClick={() => handleOrderNow(item)}
+//                   className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md text-sm font-semibold"
+//                 >
+//                   Order Now
+//                 </button>
+//                 <button
+//                   onClick={() => removeItem(item.product_id)}
+//                   className="w-10 bg-red-500 hover:bg-red-600 text-white rounded-md"
+//                 >
+//                   ×
+//                 </button>
+//               </div>
+//             </div>
 //           ))}
-//         </ul>
+//         </div>
 //       ) : (
-//         !isLoading && <p className="text-gray-600">Your cart is empty.</p>
+//         <p className="text-gray-600 text-center">Your cart is empty.</p>
 //       )}
 //     </div>
 //   );
@@ -147,148 +132,108 @@
 
 
 
-
-
+// CartPage.tsx – polished card design, no qty controls
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Spinner from "../../components/spinner";
 import {
   useGetCartQuery,
   useDeleteCartItemMutation,
-  useUpdateCartItemMutation,
 } from "../Cart&CartItems/cartitemsAPI";
 
-// Helper to update cart count and items in localStorage
-const updateCartCountInStorage = (cart: any) => {
-  const count = cart?.cart_items?.reduce(
-    (acc: number, item: any) => acc + item.quantity,
-    0
-  );
-
-  if (count > 0) {
+/** Persist cart badge in localStorage */
+const syncCartCount = (cart: any) => {
+  const count = cart?.cart_items?.reduce((sum: number, it: any) => sum + it.quantity, 0);
+  if (count) {
     localStorage.setItem("cartCount", count.toString());
     localStorage.setItem("cartItems", JSON.stringify(cart.cart_items));
   } else {
     localStorage.removeItem("cartCount");
     localStorage.removeItem("cartItems");
   }
-
-  // Dispatch a custom event to update the cart count in the UI
   window.dispatchEvent(new Event("cartCountUpdated"));
 };
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const { data: cart, isLoading, refetch } = useGetCartQuery();
-  const [deleteCartItem] = useDeleteCartItemMutation();
-  const [updateCartItem] = useUpdateCartItemMutation();
+  const [deleteItem] = useDeleteCartItemMutation();
 
-  // Update localStorage whenever cart data changes
   useEffect(() => {
-    if (cart?.cart_items) {
-      updateCartCountInStorage(cart);
-    }
+    if (cart?.cart_items) syncCartCount(cart);
   }, [cart]);
 
-  const handleUpdateQuantity = async (productId: number, quantity: number) => {
-    const action = quantity < 1 ? "Removing item..." : "Updating quantity...";
-    const toastId = toast.loading(action);
-
+  const removeItem = async (pid: number) => {
+    const id = toast.loading("Removing item…");
     try {
-      if (quantity < 1) {
-        await deleteCartItem(productId).unwrap();
-        toast.success("Item removed", { id: toastId });
-      } else {
-        await updateCartItem({ product_id: productId, quantity }).unwrap();
-        toast.success("Quantity updated", { id: toastId });
-      }
-      const updatedCart = await refetch().unwrap();
-      updateCartCountInStorage(updatedCart);
-    } catch (err) {
-      toast.error("Something went wrong", { id: toastId });
+      await deleteItem(pid).unwrap();
+      const updatedCart = await refetch();
+      syncCartCount(updatedCart.data);
+      toast.success("Item removed", { id });
+    } catch (error) {
+      toast.error("Failed to remove item", { id });
     }
   };
 
-  const handleRemoveItem = async (productId: number) => {
-    const toastId = toast.loading("Removing item...");
-    try {
-      await deleteCartItem(productId).unwrap();
-      toast.success("Item removed", { id: toastId });
-      const updatedCart = await refetch().unwrap();
-      updateCartCountInStorage(updatedCart);
-    } catch (err) {
-      toast.error("Failed to remove item", { id: toastId });
-    }
+  const handleOrderNow = (item: any) => {
+    localStorage.setItem(
+      "selectedProduct",
+      JSON.stringify({ id: item.product_id, price: item.product.price })
+    );
+    navigate("/order");
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center h-40 items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Your Shopping Cart</h1>
+    <div className="max-w-5xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-8 text-center">My Cart</h1>
 
-      {isLoading && (
-        <div className="flex justify-center items-center h-32">
-          <Spinner />
-        </div>
-      )}
-
-      {!isLoading && cart?.cart_items?.length > 0 ? (
-        <ul className="space-y-4">
-          {cart.cart_items.map((item: any, index: number) => (
-            <li
-              key={item.product_id ?? index}
-              className="border p-4 rounded shadow-sm flex items-center space-x-4"
-            >
-              {/* Product Image */}
-              {item.product?.image_url && (
+      {cart?.cart_items?.length ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {cart.cart_items.map((item: any) => (
+            <div key={item.product_id} className="bg-white shadow-md rounded-xl p-4 flex flex-col">
+              <div className="w-full h-40 mb-4 overflow-hidden rounded-md">
                 <img
                   src={item.product.image_url}
                   alt={item.product.name}
-                  className="w-24 h-24 object-cover rounded"
+                  className="w-full h-full object-contain"
                 />
-              )}
-
-              <div className="flex-1">
-                <p className="font-medium text-lg">{item.product?.name}</p>
-                <p className="text-sm text-gray-500 mb-1">
-                  Qty: {item.quantity}
-                </p>
-
-                <p className="text-sm text-gray-600 mb-2">
-                  {item.quantity} × KES {item.product?.price} ={" "}
-                  <span className="font-semibold text-orange-500">
-                    KES {item.product?.price * item.quantity}
-                  </span>
-                </p>
-
-                <div className="flex space-x-2">
-                  <button
-                    className="px-2 py-1 bg-gray-200 rounded"
-                    onClick={() =>
-                      handleUpdateQuantity(item.product_id, item.quantity - 1)
-                    }
-                  >
-                    -
-                  </button>
-                  <button
-                    className="px-2 py-1 bg-gray-200 rounded"
-                    onClick={() =>
-                      handleUpdateQuantity(item.product_id, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </button>
-                  <button
-                    className="px-2 py-1 bg-red-500 text-white rounded"
-                    onClick={() => handleRemoveItem(item.product_id)}
-                  >
-                    Remove
-                  </button>
-                </div>
               </div>
-            </li>
+              <h2 className="font-semibold text-lg mb-1">{item.product.name}</h2>
+              <p className="text-sm text-gray-500 mb-2">KES {item.product.price.toFixed(2)} each</p>
+              <p className="text-sm text-gray-600 mb-4">Quantity: {item.quantity}</p>
+
+              <p className="text-right text-orange-600 font-bold mb-4">
+                Subtotal: KES {(item.quantity * item.product.price).toFixed(2)}
+              </p>
+
+              <div className="mt-auto flex gap-2">
+                <button
+                  onClick={() => handleOrderNow(item)}
+                  className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md text-sm font-semibold"
+                >
+                  Order Now
+                </button>
+                <button
+                  onClick={() => removeItem(item.product_id)}
+                  className="w-10 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-        !isLoading && <p className="text-gray-600">Your cart is empty.</p>
+        <p className="text-gray-600 text-center">Your cart is empty.</p>
       )}
     </div>
   );

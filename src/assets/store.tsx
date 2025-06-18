@@ -21,6 +21,7 @@ import { categoryAPI } from "../features/Category/categoryAPI";
 import { productAPI } from "../features/Products/productsAPI";
 import { orderAPI } from "../features/Orders/orderAPI";
 import { cartAPI } from "../features/Cart&CartItems/cartitemsAPI";
+import {mpesaAPI} from "../features/Empesa/EmpesaAPI"
 
 // Redux Persist configuration with blacklist for API slices
 const persistConfig = {
@@ -33,6 +34,7 @@ const persistConfig = {
     productAPI.reducerPath,
     orderAPI.reducerPath,
     cartAPI.reducerPath,
+    mpesaAPI.reducerPath,
   ],
 };
 
@@ -44,6 +46,7 @@ const rootReducer = combineReducers({
   [productAPI.reducerPath]: productAPI.reducer,
   [orderAPI.reducerPath]: orderAPI.reducer,
   [cartAPI.reducerPath]:cartAPI.reducer,
+  [mpesaAPI.reducerPath]:mpesaAPI.reducer,
 });
 
 // Wrap the root reducer with persistReducer
@@ -63,7 +66,8 @@ export const store = configureStore({
       categoryAPI.middleware,
       productAPI.middleware,
       orderAPI.middleware,
-      cartAPI.middleware
+      cartAPI.middleware,
+      mpesaAPI.middleware
     ),
 });
 
