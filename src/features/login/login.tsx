@@ -265,12 +265,7 @@
 // export default LoginForm;
 
 
-import React, {
-  useState,
-  useEffect,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
+import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   useLoginUserMutation,
   useForgotPasswordMutation,
@@ -308,42 +303,35 @@ const LoginForm: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Redirect if already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode<JwtPayload>(token);
-      navigate(
-        decoded.role === "Admin" ? "/admin-dashboard" : "/customer-dashboard",
-        { replace: true }
-      );
-    }
-  }, [navigate]);
-
+  /* ----------------- Handlers ----------------- */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
+
     try {
       const res = await loginUser({
         username: form.username,
         password: form.password,
       }).unwrap();
 
+      /* store token & decode */
       const token = res.access_token;
       localStorage.setItem("token", token);
       const decoded = jwtDecode<JwtPayload>(token);
 
+      /* create a fresh cart for this session (ignore errors) */
       try {
         await createCart({}).unwrap();
-        toast.success("Cart created successfully");
-      } catch (err: any) {
-        toast.error(err?.data?.detail || "Failed to create cart");
+      } catch {
+        /* silently ignore cart‑creation failure */
       }
 
       toast.success("Login successful");
+
+      /* redirect – replace = true prevents back‑button loop */
       navigate(
         decoded.role === "Admin" ? "/admin-dashboard" : "/customer-dashboard",
         { replace: true }
@@ -379,14 +367,17 @@ const LoginForm: React.FC = () => {
     }
   };
 
+  /* ----------------- JSX ----------------- */
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Form Section */}
+      {/* ------------ Form Section ------------ */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
         <div className="max-w-md w-full">
+          {/* ---------- Login view ---------- */}
           {view === "login" && (
             <form onSubmit={handleLogin} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">Login</h2>
+
               <input
                 name="username"
                 value={form.username}
@@ -395,6 +386,7 @@ const LoginForm: React.FC = () => {
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
               />
+
               <div className="relative">
                 <input
                   name="password"
@@ -413,6 +405,7 @@ const LoginForm: React.FC = () => {
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+
               <button
                 type="submit"
                 disabled={isLoggingIn}
@@ -420,6 +413,7 @@ const LoginForm: React.FC = () => {
               >
                 {isLoggingIn ? <Spinner /> : "Login"}
               </button>
+
               <p className="text-center text-sm">
                 <button
                   type="button"
@@ -429,6 +423,7 @@ const LoginForm: React.FC = () => {
                   Forgot password?
                 </button>
               </p>
+
               <p className="text-center text-sm mt-4">
                 Don't have an account?{" "}
                 <button
@@ -442,11 +437,13 @@ const LoginForm: React.FC = () => {
             </form>
           )}
 
+          {/* ---------- Forgot‑password view ---------- */}
           {view === "forgot" && (
             <form onSubmit={handleForgotPassword} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">
                 Forgot Password
               </h2>
+
               <input
                 name="email"
                 value={form.email}
@@ -456,6 +453,7 @@ const LoginForm: React.FC = () => {
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
               />
+
               <button
                 type="submit"
                 disabled={isSendingOTP}
@@ -463,6 +461,7 @@ const LoginForm: React.FC = () => {
               >
                 {isSendingOTP ? <Spinner /> : "Send OTP"}
               </button>
+
               <p className="text-center text-sm">
                 <button
                   type="button"
@@ -475,11 +474,13 @@ const LoginForm: React.FC = () => {
             </form>
           )}
 
+          {/* ---------- Reset‑password view ---------- */}
           {view === "reset" && (
             <form onSubmit={handleResetPassword} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">
                 Reset Password
               </h2>
+
               <input
                 name="otp"
                 value={form.otp}
@@ -488,6 +489,7 @@ const LoginForm: React.FC = () => {
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
               />
+
               <div className="relative">
                 <input
                   name="new_password"
@@ -506,6 +508,7 @@ const LoginForm: React.FC = () => {
                   {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+
               <button
                 type="submit"
                 disabled={isResetting}
@@ -513,6 +516,7 @@ const LoginForm: React.FC = () => {
               >
                 {isResetting ? <Spinner /> : "Reset Password"}
               </button>
+
               <p className="text-center text-sm">
                 <button
                   type="button"
@@ -527,7 +531,7 @@ const LoginForm: React.FC = () => {
         </div>
       </div>
 
-      {/* Image Section */}
+      {/* ------------ Image / Side Section ------------ */}
       <div className="w-full md:w-1/2 bg-orange-50 flex flex-col justify-center items-center p-6">
         <img
           src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
