@@ -28,6 +28,7 @@ import InactivityLogout from "./components/ProtectedRoute";
 import ProfilePage from "./pages/profilepage";
 import MyOrders from "./pages/Myorderpage";
 import MpesaPaymentPage from "./features/Empesa/Empesa";
+import SuccessPage from "./pages/sucess";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <MpesaPaymentPage />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/success",
+    element: (
+      <InactivityLogout>
+        <SuccessPage/>
       </InactivityLogout>
     ),
   },

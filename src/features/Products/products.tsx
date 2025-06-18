@@ -1,4 +1,13 @@
-import React, { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+
+
+
+
+import React, {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -75,12 +84,23 @@ const uploadToCloudinary = async (
   file: File,
   resource: "image" | "video"
 ): Promise<string> => {
+  console.log(`Starting upload of ${resource}: ${file.name}`);
+
   const data = new FormData();
   data.append("file", file);
   data.append("upload_preset", UPLOAD_PRESET);
+
   const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resource}/upload`;
-  const res = await axios.post(url, data);
-  return res.data.secure_url;
+
+  try {
+    console.log(`Uploading ${resource} to Cloudinary...`);
+    const res = await axios.post(url, data);
+    console.log(`Upload successful for ${resource}:`, res.data.secure_url);
+    return res.data.secure_url;
+  } catch (error) {
+    console.error(`Upload failed for ${resource}:`, error);
+    throw error;
+  }
 };
 
 /* Component */
@@ -184,20 +204,29 @@ const Product: React.FC = () => {
 
   const handleVideoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files || files.length === 0) return;
+    if (!files || files.length === 0) {
+      console.log("No files selected for video upload.");
+      return;
+    }
+
+    console.log(`Selected ${files.length} video(s) for upload.`);
 
     try {
       const uploadPromises = Array.from(files).map((file) =>
         uploadToCloudinary(file, "video")
       );
+
       const urls = await Promise.all(uploadPromises);
-      const videos = urls.map((url) => ({ url }));
+      console.log("Uploaded video URLs:", urls);
 
       setPreviewVideos((prev) => [...prev, ...urls]);
-      setFormData((prev) => ({ ...prev, videos: [...prev.videos, ...videos] }));
+      setFormData((prev) => ({
+        ...prev,
+        videos: urls.map((url) => ({ url })),
+      }));
     } catch (error) {
-      console.error("Upload failed:", error);
-      toast.error("Upload failed");
+      console.error("Video upload failed:", error);
+      toast.error("Video upload failed");
     }
   };
 
@@ -213,10 +242,17 @@ const Product: React.FC = () => {
 
     try {
       const payload = {
-        ...formData,
+        name: formData.name,
+        description: formData.description,
         price: Number(formData.price),
+        category_id: Number(formData.category_id),
         stock: Number(formData.stock),
+        image_url: formData.image_url,
+        image_urls: formData.image_urls,
+        video_urls: formData.videos.map((video) => video.url),
       };
+
+      console.log("Payload being sent to backend:", payload);
 
       if (selectedProductId) {
         await updateProduct({ id: selectedProductId, body: payload }).unwrap();
