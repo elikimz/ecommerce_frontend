@@ -31,6 +31,7 @@ import MpesaPaymentPage from "./features/Empesa/Empesa";
 import SuccessPage from "./pages/sucess";
 import MyOrdersPage from "./pages/Myorders";
 import AdminOrderManagePage from "./pages/Adminorders";
+import AdminStatisticsPage from "./pages/Statistical";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -142,8 +143,13 @@ const router = createBrowserRouter([
         <EcommerceDashboard />
       </InactivityLogout>
     ),
+
     errorElement: <ErrorPage />,
     children: [
+      {
+        index: true, 
+        element: <AdminStatisticsPage />, // 👈 Dashboard page
+      },
       {
         path: "users",
         element: <UsersPage />,

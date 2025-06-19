@@ -26,7 +26,7 @@ const SuccessPage = () => {
             Go to Home
           </Link>
           <Link
-            to="/orders"
+            to="/myorders"
             className="px-4 py-2 rounded-md font-semibold text-white"
             style={{ background: safGrey }}
           >

@@ -50,7 +50,7 @@ const EcommerceDashboard = () => {
         <ul className="space-y-4">
           <li>
             <Link
-              to="/admin-dashboard"
+              to="/admin-dashboard/"
               className="block p-2 bg-blue-700 hover:bg-blue-800 rounded flex items-center"
               onClick={closeSidebar}
             >
