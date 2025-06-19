@@ -29,6 +29,8 @@ import ProfilePage from "./pages/profilepage";
 import MyOrders from "./pages/Myorderpage";
 import MpesaPaymentPage from "./features/Empesa/Empesa";
 import SuccessPage from "./pages/sucess";
+import MyOrdersPage from "./pages/Myorders";
+import AdminOrderManagePage from "./pages/Adminorders";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -95,7 +97,7 @@ const router = createBrowserRouter([
     path: "/success",
     element: (
       <InactivityLogout>
-        <SuccessPage/>
+        <SuccessPage />
       </InactivityLogout>
     ),
   },
@@ -123,6 +125,14 @@ const router = createBrowserRouter([
       </InactivityLogout>
     ),
   },
+  {
+    path: "/myorders",
+    element: (
+      <InactivityLogout>
+        <MyOrdersPage />
+      </InactivityLogout>
+    ),
+  },
 
   // Admin Dashboard Routes
   {
@@ -145,6 +155,10 @@ const router = createBrowserRouter([
       {
         path: "analytics",
         element: <Product />,
+      },
+      {
+        path: "orders",
+        element: <AdminOrderManagePage />,
       },
     ],
   },

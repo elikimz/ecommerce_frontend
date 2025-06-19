@@ -84,10 +84,10 @@ const UserNavbar = () => {
                   Profile
                 </a>
                 <a
-                  href="/settings"
+                  href="/myorders"
                   className="block px-4 py-2 hover:bg-gray-100 text-sm"
                 >
-                  Settings
+                  Orders
                 </a>
                 <button
                   onClick={handleLogout}
