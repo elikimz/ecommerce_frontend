@@ -1,3 +1,7 @@
+
+
+
+
 import { useState } from "react";
 import TopBar from "./TopBar";
 import {
@@ -14,6 +18,70 @@ const Navbar = () => {
     <header className="shadow font-sans w-full bg-white z-50">
       {/* Promo bar */}
       <TopBar />
+
+      {/* Navigation Links - Moved to the top */}
+      <nav className="md:flex flex-col md:flex-row justify-center gap-3 text-sm font-medium py-2 border-b border-gray-200 px-4 text-gray-700 hidden">
+        <a href="/" className="cursor-pointer hover:text-orange-500">
+          Home
+        </a>
+        <a href="/shop" className="cursor-pointer hover:text-orange-500">
+          Shop
+        </a>
+        <a href="/about" className="cursor-pointer hover:text-orange-500">
+          About Us
+        </a>
+        <a href="/contact" className="cursor-pointer hover:text-orange-500">
+          Contact
+        </a>
+        <a href="/blog" className="cursor-pointer hover:text-orange-500">
+          Blog
+        </a>
+        <a href="/faq" className="cursor-pointer hover:text-orange-500">
+          FAQ
+        </a>
+        <a href="/services" className="cursor-pointer hover:text-orange-500">
+          Services
+        </a>
+        <a
+          href="/testimonials"
+          className="cursor-pointer hover:text-orange-500"
+        >
+          Testimonials
+        </a>
+      </nav>
+
+      {/* Mobile Navigation Links - Conditionally rendered based on menuOpen state */}
+      {menuOpen && (
+        <nav className="md:hidden flex flex-col justify-center gap-3 text-sm font-medium py-2 border-b border-gray-200 px-4 text-gray-700">
+          <a href="/" className="cursor-pointer hover:text-orange-500">
+            Home
+          </a>
+          <a href="/shop" className="cursor-pointer hover:text-orange-500">
+            Shop
+          </a>
+          <a href="/about" className="cursor-pointer hover:text-orange-500">
+            About Us
+          </a>
+          <a href="/contact" className="cursor-pointer hover:text-orange-500">
+            Contact
+          </a>
+          <a href="/blog" className="cursor-pointer hover:text-orange-500">
+            Blog
+          </a>
+          <a href="/faq" className="cursor-pointer hover:text-orange-500">
+            FAQ
+          </a>
+          <a href="/services" className="cursor-pointer hover:text-orange-500">
+            Services
+          </a>
+          <a
+            href="/testimonials"
+            className="cursor-pointer hover:text-orange-500"
+          >
+            Testimonials
+          </a>
+        </nav>
+      )}
 
       {/* Main Header */}
       <div className="flex justify-between items-center px-4 py-3 md:py-4">
@@ -98,23 +166,6 @@ const Navbar = () => {
           </div>
         </div>
       )}
-
-      {/* Navigation Links
-      <nav
-        className={`${
-          menuOpen ? "block" : "hidden"
-        } md:flex flex-col md:flex-row justify-center gap-3 text-sm font-medium py-2 border-t border-gray-200 px-4 text-gray-700`}
-      >
-        <span className="text-orange-500 cursor-pointer">% Today’s Deals</span>
-        <span className="cursor-pointer hover:text-orange-500">
-          New Arrivals
-        </span>
-        <span className="cursor-pointer hover:text-orange-500">Computers</span>
-        <span className="cursor-pointer hover:text-orange-500">Phones</span>
-        <span className="cursor-pointer hover:text-orange-500">
-          Accessories
-        </span>
-      </nav> */}
     </header>
   );
 };

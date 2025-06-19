@@ -1,135 +1,126 @@
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import Spinner from "../../components/spinner";
-import { useInitiateStkPushMutation } from "./EmpesaAPI";
+import {
+  FaCreditCard,
+  FaUniversity,
+  FaMoneyBillWave,
+  FaPaypal,
+  FaMobileAlt,
+} from "react-icons/fa";
 
 const safGreen = "#00A82D";
 const safGrey = "#4A4A4A";
 
-const MpesaPaymentPage = () => {
-  const [phoneSuffix, setPhoneSuffix] = useState("7"); // user types 7XXXXXXXX
+const PAYBILL_NUMBER = "247247";
+const ACCOUNT_NUMBER = "351401";
+
+const PaybillPaymentPage = () => {
   const [amount, setAmount] = useState(0);
-  const [orderId, setOrderId] = useState<number | null>(null);
   const navigate = useNavigate();
 
-  const [stkPush, { isLoading: isPushing }] = useInitiateStkPushMutation();
-
-  // Get order from localStorage on mount
   useEffect(() => {
     const storedOrder = localStorage.getItem("currentOrder");
-    if (storedOrder) {
-      try {
-        const order = JSON.parse(storedOrder);
-        setAmount(order.total_amount || 0);
-        setOrderId(order.id);
-      } catch (err) {
-        toast.error("Invalid order format in local storage");
-      }
-    } else {
+    if (!storedOrder) {
       toast.error("Order not found in local storage");
+      return;
+    }
+
+    try {
+      const order = JSON.parse(storedOrder);
+      setAmount(order.total_amount ?? 0);
+    } catch (err) {
+      toast.error("Invalid order format in local storage");
     }
   }, []);
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, ""); // only digits
-    if (value.length <= 9) setPhoneSuffix(value);
-  };
-
-  const handlePay = async (e: React.FormEvent) => {
+  const handlePay = (e: React.FormEvent) => {
     e.preventDefault();
-    const fullPhone = `254${phoneSuffix}`;
-
-    if (!/^2547\d{8}$/.test(fullPhone)) {
-      toast.error("Enter a valid Safaricom number (starts with 7...)");
-      return;
-    }
-
-    if (!orderId) {
-      toast.error("Order ID not found");
-      return;
-    }
-
-    const toastId = toast.loading("Sending STK push…");
-
-    try {
-      console.log("STK Push data:", {
-        phone: fullPhone,
-        amount,
-        order_id: orderId,
-      });
-      await stkPush({ phone: fullPhone, amount, order_id: orderId }).unwrap();
-      toast.success("Check your phone to complete payment", { id: toastId });
-      navigate("/success");
-    } catch (error) {
-      console.error("STK Push error:", error);
-      toast.error("Failed to initiate payment", { id: toastId });
-    }
+    toast.success("Use Paybill 247247, Acc No 351401 to complete payment.");
+    navigate("/success");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-2">
-      <div className="w-full max-w-xs bg-white rounded-lg shadow-md p-4 space-y-4">
-        <h1
-          className="text-xl font-bold text-center"
-          style={{ color: safGreen }}
-        >
-          Lipa na M-PESA
-        </h1>
+    <div className="min-h-screen flex items-center justify-center bg-green-50 p-4">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Paybill Card */}
+        <div className="bg-white rounded-lg shadow-md p-4 space-y-4">
+          <div className="flex flex-col items-center gap-2">
+            <FaMobileAlt className="text-4xl text-green-600" />
+            <h1 className="text-xl font-bold" style={{ color: safGreen }}>
+              Pay via M-PESA Paybill
+            </h1>
+          </div>
+          <div className="text-center space-y-1">
+            <p className="text-sm font-semibold text-gray-700">
+              <span className="text-gray-600">Paybill Number:</span>{" "}
+              <span className="text-lg font-bold text-black">
+                {PAYBILL_NUMBER}
+              </span>
+            </p>
+            <p className="text-sm font-semibold text-gray-700">
+              <span className="text-gray-600">Account Number:</span>{" "}
+              <span className="text-lg font-bold text-black">
+                {ACCOUNT_NUMBER}
+              </span>
+            </p>
+          </div>
 
-        <form onSubmit={handlePay} className="space-y-3">
-          {/* Phone Number */}
-          <div>
-            <label
-              className="block text-sm font-medium mb-1"
-              style={{ color: safGrey }}
-            >
-              Phone Number (e.g. 712345678)
-            </label>
-            <div className="flex items-center gap-2">
-              <span className="bg-gray-200 px-2 py-1 rounded text-sm">254</span>
+          <form onSubmit={handlePay} className="space-y-3">
+            <div>
+              <label
+                className="block text-sm font-medium mb-1"
+                style={{ color: safGrey }}
+              >
+                Amount (KES)
+              </label>
               <input
-                type="text"
-                value={phoneSuffix}
-                onChange={handlePhoneChange}
-                className="w-full border rounded px-2 py-1 text-sm focus:outline-none focus:ring"
-                placeholder="7XXXXXXXX"
-                maxLength={9}
-                required
+                type="number"
+                value={amount}
+                disabled
+                className="w-full border rounded px-2 py-1 text-sm bg-gray-100 cursor-not-allowed"
               />
             </div>
-          </div>
 
-          {/* Amount */}
-          <div>
-            <label
-              className="block text-sm font-medium mb-1"
-              style={{ color: safGrey }}
+            <button
+              type="submit"
+              className="w-full flex justify-center items-center gap-2 py-2 rounded text-white font-semibold shadow transition-transform active:scale-95"
+              style={{ background: safGreen }}
             >
-              Amount (KES)
-            </label>
-            <input
-              type="number"
-              value={amount}
-              disabled
-              className="w-full border rounded px-2 py-1 text-sm bg-gray-100 cursor-not-allowed"
-            />
-          </div>
+              Confirm Payment Info
+            </button>
+          </form>
+        </div>
 
-          {/* Pay Button */}
-          <button
-            type="submit"
-            disabled={isPushing}
-            className="w-full flex justify-center items-center gap-2 py-2 rounded text-white font-semibold shadow transition-transform active:scale-95"
-            style={{ background: safGreen }}
-          >
-            {isPushing && <Spinner />}
-            {isPushing ? "Sending…" : "Pay Now"}
-          </button>
-        </form>
+        {/* Other Payment Methods - Coming Soon */}
+        <div className="bg-blue-100 rounded-lg shadow-md p-4 space-y-4 text-center">
+          <FaCreditCard className="mx-auto text-4xl text-blue-700" />
+          <h2 className="text-lg font-bold text-blue-800">Card Payment</h2>
+          <p className="text-sm text-blue-700">Coming Soon</p>
+        </div>
+
+        <div className="bg-yellow-100 rounded-lg shadow-md p-4 space-y-4 text-center">
+          <FaUniversity className="mx-auto text-4xl text-yellow-800" />
+          <h2 className="text-lg font-bold text-yellow-800">Bank Transfer</h2>
+          <p className="text-sm text-yellow-700">Coming Soon</p>
+        </div>
+
+        <div className="bg-red-100 rounded-lg shadow-md p-4 space-y-4 text-center">
+          <FaMoneyBillWave className="mx-auto text-4xl text-red-700" />
+          <h2 className="text-lg font-bold text-red-700">Airtel Money</h2>
+          <p className="text-sm text-red-600">Coming Soon</p>
+        </div>
+
+        <div className="bg-gray-200 rounded-lg shadow-md p-4 space-y-4 text-center">
+          <FaPaypal className="mx-auto text-4xl text-black" />
+          <h2 className="text-lg font-bold text-black">PayPal</h2>
+          <p className="text-sm text-gray-700">Coming Soon</p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default MpesaPaymentPage;
+export default PaybillPaymentPage;
