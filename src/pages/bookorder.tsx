@@ -2,8 +2,6 @@
 
 
 
-
-
 // import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useCreateOrderMutation } from "../features/Orders/orderAPI";
@@ -19,6 +17,9 @@
 // const OrderPage = () => {
 //   const navigate = useNavigate();
 
+//   const [customerName, setCustomerName] = useState("");
+//   const [customerEmail, setCustomerEmail] = useState("");
+//   const [customerPhone, setCustomerPhone] = useState("");
 //   const [shippingAddress, setShippingAddress] = useState("");
 //   const [quantity, setQuantity] = useState(1);
 //   const [productId, setProductId] = useState<number | null>(null);
@@ -43,7 +44,6 @@
 
 //     try {
 //       const product: Product = JSON.parse(storedProductStr);
-
 //       if (
 //         product &&
 //         typeof product.id === "number" &&
@@ -66,6 +66,9 @@
 //   }, []);
 
 //   const resetForm = () => {
+//     setCustomerName("");
+//     setCustomerEmail("");
+//     setCustomerPhone("");
 //     setShippingAddress("");
 //     setQuantity(1);
 //   };
@@ -74,10 +77,15 @@
 //     e.preventDefault();
 //     setStatusMessage(null);
 
-//     if (!shippingAddress.trim()) {
+//     if (
+//       !customerName.trim() ||
+//       !customerEmail.trim() ||
+//       !customerPhone.trim() ||
+//       !shippingAddress.trim()
+//     ) {
 //       setStatusMessage({
 //         type: "error",
-//         text: "Please enter a shipping address",
+//         text: "Please fill in all required fields",
 //       });
 //       return;
 //     }
@@ -95,6 +103,9 @@
 //     const totalAmount = price * quantity;
 
 //     const orderData = {
+//       customer_name: customerName,
+//       customer_email: customerEmail,
+//       customer_phone: customerPhone,
 //       total_amount: totalAmount,
 //       shipping_address: shippingAddress,
 //       status: "pending",
@@ -111,11 +122,7 @@
 //       const res = await createOrder(orderData).unwrap();
 //       toast.success("Order placed successfully!");
 //       resetForm();
-
-//       // Optional: Save order info in localStorage if needed in /payment
 //       localStorage.setItem("currentOrder", JSON.stringify(res));
-
-//       // Navigate to payment page
 //       navigate("/payment");
 //     } catch (err) {
 //       toast.error("Failed to place order");
@@ -171,6 +178,85 @@
 //         )}
 
 //         <form onSubmit={handleSubmit} noValidate>
+//           {/* Name */}
+//           <div style={{ marginBottom: "1.5rem" }}>
+//             <label
+//               htmlFor="customerName"
+//               style={{ display: "block", marginBottom: 6, fontWeight: 600 }}
+//             >
+//               Full Name <span style={{ color: "red" }}>*</span>
+//             </label>
+//             <input
+//               id="customerName"
+//               type="text"
+//               value={customerName}
+//               onChange={(e) => setCustomerName(e.target.value)}
+//               placeholder="Enter your full name"
+//               style={{
+//                 width: "100%",
+//                 padding: "0.75rem",
+//                 borderRadius: 6,
+//                 border: "1.5px solid #ccc",
+//                 fontSize: "1rem",
+//               }}
+//               required
+//               disabled={isLoading}
+//             />
+//           </div>
+
+//           {/* Email */}
+//           <div style={{ marginBottom: "1.5rem" }}>
+//             <label
+//               htmlFor="customerEmail"
+//               style={{ display: "block", marginBottom: 6, fontWeight: 600 }}
+//             >
+//               Email Address <span style={{ color: "red" }}>*</span>
+//             </label>
+//             <input
+//               id="customerEmail"
+//               type="email"
+//               value={customerEmail}
+//               onChange={(e) => setCustomerEmail(e.target.value)}
+//               placeholder="Enter your email"
+//               style={{
+//                 width: "100%",
+//                 padding: "0.75rem",
+//                 borderRadius: 6,
+//                 border: "1.5px solid #ccc",
+//                 fontSize: "1rem",
+//               }}
+//               required
+//               disabled={isLoading}
+//             />
+//           </div>
+
+//           {/* Phone */}
+//           <div style={{ marginBottom: "1.5rem" }}>
+//             <label
+//               htmlFor="customerPhone"
+//               style={{ display: "block", marginBottom: 6, fontWeight: 600 }}
+//             >
+//               Phone Number <span style={{ color: "red" }}>*</span>
+//             </label>
+//             <input
+//               id="customerPhone"
+//               type="tel"
+//               value={customerPhone}
+//               onChange={(e) => setCustomerPhone(e.target.value)}
+//               placeholder="Enter your phone number"
+//               style={{
+//                 width: "100%",
+//                 padding: "0.75rem",
+//                 borderRadius: 6,
+//                 border: "1.5px solid #ccc",
+//                 fontSize: "1rem",
+//               }}
+//               required
+//               disabled={isLoading}
+//             />
+//           </div>
+
+//           {/* Shipping */}
 //           <div style={{ marginBottom: "1.5rem" }}>
 //             <label
 //               htmlFor="shippingAddress"
@@ -196,6 +282,7 @@
 //             />
 //           </div>
 
+//           {/* Quantity */}
 //           <div style={{ marginBottom: "1.5rem" }}>
 //             <label
 //               htmlFor="quantity"
@@ -209,10 +296,8 @@
 //               min={1}
 //               value={quantity}
 //               onChange={(e) => {
-//                 const newQty = parseInt(e.target.value);
-//                 if (!isNaN(newQty) && newQty >= 1) {
-//                   setQuantity(newQty);
-//                 }
+//                 const val = parseInt(e.target.value);
+//                 if (!isNaN(val) && val > 0) setQuantity(val);
 //               }}
 //               style={{
 //                 width: "100%",
@@ -221,15 +306,16 @@
 //                 border: "1.5px solid #ccc",
 //                 fontSize: "1rem",
 //               }}
-//               disabled={isLoading}
 //               required
+//               disabled={isLoading}
 //             />
 //           </div>
 
+//           {/* Totals */}
 //           <div
 //             style={{
 //               marginBottom: "1rem",
-//               fontWeight: "600",
+//               fontWeight: 600,
 //               fontSize: "1.1rem",
 //               color: "#444",
 //             }}
@@ -237,11 +323,10 @@
 //             Unit Price:{" "}
 //             <span style={{ color: "#f97316" }}>KES {price.toFixed(2)}</span>
 //           </div>
-
 //           <div
 //             style={{
 //               marginBottom: "1.5rem",
-//               fontWeight: "700",
+//               fontWeight: 700,
 //               fontSize: "1.25rem",
 //               color: "#f97316",
 //               textAlign: "right",
@@ -250,6 +335,7 @@
 //             Total: KES {(price * quantity).toFixed(2)}
 //           </div>
 
+//           {/* Submit */}
 //           <button
 //             type="submit"
 //             disabled={isLoading}
@@ -327,6 +413,7 @@ import { useCreateOrderMutation } from "../features/Orders/orderAPI";
 import toast from "react-hot-toast";
 import Spinner from "../components/spinner";
 import { FaWhatsapp } from "react-icons/fa";
+import { Helmet } from "react-helmet-async"; // ✅ SEO
 
 interface Product {
   id: number;
@@ -336,6 +423,7 @@ interface Product {
 const OrderPage = () => {
   const navigate = useNavigate();
 
+  /* ---------------- form state ---------------- */
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
@@ -350,9 +438,9 @@ const OrderPage = () => {
 
   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
+  /* --------------- load selected product ---------------- */
   useEffect(() => {
     const storedProductStr = localStorage.getItem("selectedProduct");
-
     if (!storedProductStr) {
       setStatusMessage({
         type: "error",
@@ -384,6 +472,7 @@ const OrderPage = () => {
     }
   }, []);
 
+  /* ---------------- helpers ---------------- */
   const resetForm = () => {
     setCustomerName("");
     setCustomerEmail("");
@@ -408,19 +497,16 @@ const OrderPage = () => {
       });
       return;
     }
-
     if (!productId) {
       setStatusMessage({ type: "error", text: "Product ID is missing" });
       return;
     }
-
     if (quantity < 1) {
       setStatusMessage({ type: "error", text: "Quantity must be at least 1" });
       return;
     }
 
     const totalAmount = price * quantity;
-
     const orderData = {
       customer_name: customerName,
       customer_email: customerEmail,
@@ -428,13 +514,7 @@ const OrderPage = () => {
       total_amount: totalAmount,
       shipping_address: shippingAddress,
       status: "pending",
-      order_items: [
-        {
-          product_id: productId,
-          quantity,
-          price,
-        },
-      ],
+      order_items: [{ product_id: productId, quantity, price }],
     };
 
     try {
@@ -443,14 +523,59 @@ const OrderPage = () => {
       resetForm();
       localStorage.setItem("currentOrder", JSON.stringify(res));
       navigate("/payment");
-    } catch (err) {
+    } catch {
       toast.error("Failed to place order");
       setStatusMessage({ type: "error", text: "Failed to place order" });
     }
   };
 
+  /* ---------------- JSX ---------------- */
   return (
     <>
+      {/* ----------- SEO / OpenGraph ----------- */}
+      <Helmet>
+        <title>Place Order | Smart Indoor Decors</title>
+        <meta
+          name="description"
+          content="Securely place your order for stylish indoor décor at Smart Indoor Decors. Fast delivery countrywide."
+        />
+        <meta
+          name="keywords"
+          content="order decor online, smart indoor decors checkout, buy decor kenya, wall art, lamps, affordable home accessories"
+        />
+        {/* canonical URL */}
+        <link rel="canonical" href="https://yourdomain.com/order" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/order" />
+        <meta property="og:title" content="Place Order | Smart Indoor Decors" />
+        <meta
+          property="og:description"
+          content="Finish your purchase for trendy home décor items at Smart Indoor Decors."
+        />
+        <meta
+          property="og:image"
+          content="https://yourdomain.com/og-order.jpg"
+        />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Place Order | Smart Indoor Decors"
+        />
+        <meta
+          name="twitter:description"
+          content="Securely place your order for stylish indoor décor."
+        />
+        <meta
+          name="twitter:image"
+          content="https://yourdomain.com/og-order.jpg"
+        />
+      </Helmet>
+
+      {/* ----------- UI ----------- */}
       <div
         style={{
           maxWidth: 500,
@@ -465,7 +590,7 @@ const OrderPage = () => {
         <h1
           style={{
             fontSize: "1.8rem",
-            fontWeight: "700",
+            fontWeight: 700,
             marginBottom: "1.5rem",
             color: "#333",
             textAlign: "center",
@@ -474,6 +599,7 @@ const OrderPage = () => {
           Place Order
         </h1>
 
+        {/* status message */}
         {statusMessage && (
           <div
             style={{
@@ -488,7 +614,7 @@ const OrderPage = () => {
                   ? "1px solid #c3e6cb"
                   : "1px solid #f5c6cb",
               textAlign: "center",
-              fontWeight: "600",
+              fontWeight: 600,
             }}
             role="alert"
           >
@@ -496,8 +622,9 @@ const OrderPage = () => {
           </div>
         )}
 
+        {/* form */}
         <form onSubmit={handleSubmit} noValidate>
-          {/* Name */}
+          {/* Full Name */}
           <div style={{ marginBottom: "1.5rem" }}>
             <label
               htmlFor="customerName"
@@ -516,7 +643,6 @@ const OrderPage = () => {
                 padding: "0.75rem",
                 borderRadius: 6,
                 border: "1.5px solid #ccc",
-                fontSize: "1rem",
               }}
               required
               disabled={isLoading}
@@ -542,7 +668,6 @@ const OrderPage = () => {
                 padding: "0.75rem",
                 borderRadius: 6,
                 border: "1.5px solid #ccc",
-                fontSize: "1rem",
               }}
               required
               disabled={isLoading}
@@ -568,14 +693,13 @@ const OrderPage = () => {
                 padding: "0.75rem",
                 borderRadius: 6,
                 border: "1.5px solid #ccc",
-                fontSize: "1rem",
               }}
               required
               disabled={isLoading}
             />
           </div>
 
-          {/* Shipping */}
+          {/* Shipping Address */}
           <div style={{ marginBottom: "1.5rem" }}>
             <label
               htmlFor="shippingAddress"
@@ -594,7 +718,6 @@ const OrderPage = () => {
                 padding: "0.75rem",
                 borderRadius: 6,
                 border: "1.5px solid #ccc",
-                fontSize: "1rem",
               }}
               required
               disabled={isLoading}
@@ -614,31 +737,22 @@ const OrderPage = () => {
               type="number"
               min={1}
               value={quantity}
-              onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (!isNaN(val) && val > 0) setQuantity(val);
-              }}
+              onChange={(e) =>
+                setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+              }
               style={{
                 width: "100%",
                 padding: "0.75rem",
                 borderRadius: 6,
                 border: "1.5px solid #ccc",
-                fontSize: "1rem",
               }}
               required
               disabled={isLoading}
             />
           </div>
 
-          {/* Totals */}
-          <div
-            style={{
-              marginBottom: "1rem",
-              fontWeight: 600,
-              fontSize: "1.1rem",
-              color: "#444",
-            }}
-          >
+          {/* Price + Total */}
+          <div style={{ marginBottom: "1rem", fontWeight: 600, color: "#444" }}>
             Unit Price:{" "}
             <span style={{ color: "#f97316" }}>KES {price.toFixed(2)}</span>
           </div>
@@ -666,7 +780,7 @@ const OrderPage = () => {
               border: "none",
               borderRadius: 8,
               fontSize: "1.1rem",
-              fontWeight: "700",
+              fontWeight: 700,
               cursor: isLoading ? "not-allowed" : "pointer",
               display: "flex",
               alignItems: "center",
@@ -684,21 +798,22 @@ const OrderPage = () => {
         </form>
       </div>
 
+      {/* WhatsApp floating button */}
       <a
         href="https://wa.me/254791337188"
         target="_blank"
         rel="noopener noreferrer"
         style={{
           position: "fixed",
-          bottom: "20px",
-          right: "20px",
+          bottom: 20,
+          right: 20,
           backgroundColor: "#25D366",
-          color: "white",
+          color: "#fff",
           borderRadius: "50%",
-          padding: "16px",
-          fontSize: "28px",
+          padding: 16,
+          fontSize: 28,
           zIndex: 9999,
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
           animation: "bounce 1.5s infinite",
         }}
         title="Order via WhatsApp"
@@ -706,15 +821,12 @@ const OrderPage = () => {
         <FaWhatsapp />
       </a>
 
+      {/* bounce animation */}
       <style>
         {`
           @keyframes bounce {
-            0%, 100% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
           }
         `}
       </style>

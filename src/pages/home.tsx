@@ -50,29 +50,34 @@
 //     <div className="bg-white min-h-screen flex flex-col justify-between">
 //       <Navbar />
 //       <main className="flex-grow">
-//         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
-//           <div className="max-w-7xl mx-auto px-4 text-center">
-//             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-//               Welcome to KiliShop
+//         {/* Hero Section */}
+//         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-6 md:py-12">
+//           <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
+//             <h1 className="text-3xl md:text-5xl font-bold mb-4">
+//               Welcome to Smart Indoor Decors
 //             </h1>
-//             <p className="text-lg md:text-xl">
+//             <p className="text-base md:text-xl">
 //               Shop your favorite products with amazing deals every day
 //             </p>
 //           </div>
 //         </section>
 
+//         {/* SearchBar Component */}
 //         <section className="max-w-7xl mx-auto px-4 py-4">
 //           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
 //         </section>
 
-//         <section className="max-w-7xl mx-auto px-4 py-8">
-//           <div className="bg-gray-100 p-6 rounded-xl shadow-sm">
-//             <h2 className="text-2xl font-semibold mb-4">Search Products</h2>
-//             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+//         {/* Filter + Search Section */}
+//         <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+//           <div className="bg-gray-100 p-4 md:p-6 rounded-xl shadow-sm">
+//             <h2 className="text-xl md:text-2xl font-semibold mb-4">
+//               Search Products
+//             </h2>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
 //               <input
 //                 type="text"
 //                 placeholder="Search for products..."
-//                 className="md:col-span-2 px-4 py-2 border border-gray-300 rounded-md"
+//                 className="px-4 py-2 border border-gray-300 rounded-md w-full"
 //                 value={searchInput}
 //                 onChange={(e) => setSearchInput(e.target.value)}
 //                 onKeyDown={(e) => {
@@ -81,7 +86,7 @@
 //                 }}
 //               />
 //               <select
-//                 className="px-4 py-2 border border-gray-300 rounded-md"
+//                 className="px-4 py-2 border border-gray-300 rounded-md w-full"
 //                 value={categoryInput}
 //                 onChange={(e) => setCategoryInput(e.target.value)}
 //               >
@@ -94,7 +99,8 @@
 //               </select>
 //               <button
 //                 onClick={() => handleSearch(searchInput.trim())}
-//                 className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+//                 className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition w-full"
+//                 aria-label="Search products"
 //               >
 //                 <Search className="w-4 h-4" />
 //                 Search
@@ -103,8 +109,11 @@
 //           </div>
 //         </section>
 
-//         <section className="max-w-7xl mx-auto px-4 pb-16">
-//           <h2 className="text-2xl font-semibold mb-6">Trending Products</h2>
+//         {/* Product Grid */}
+//         <section className="max-w-7xl mx-auto px-4 pb-8 md:pb-16">
+//           <h2 className="text-xl md:text-2xl font-semibold mb-6">
+//             Trending Products
+//           </h2>
 
 //           {isLoading && <p>Loading...</p>}
 //           {error && (
@@ -128,7 +137,7 @@
 //                     <img
 //                       src={product.image_url}
 //                       alt={product.name}
-//                       className="h-48 w-full object-cover transform group-hover:scale-105 transition duration-300"
+//                       className="h-40 sm:h-48 md:h-52 w-full object-cover transform group-hover:scale-105 transition duration-300"
 //                     />
 //                   </div>
 //                   <div className="p-3 space-y-1">
@@ -145,7 +154,8 @@
 
 //                     <button
 //                       onClick={handleAddToCart}
-//                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition"
+//                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition truncate"
+//                       aria-label="Add product to cart"
 //                     >
 //                       Add to Cart
 //                     </button>
@@ -164,9 +174,6 @@
 // export default Home;
 
 
-
-
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -174,6 +181,7 @@ import Footer from "../components/Footer";
 import { Search } from "lucide-react";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
 import SearchBar from "../components/SearchBar";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -214,6 +222,36 @@ const Home = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
+      <Helmet>
+        <title>Smart Indoor Decors | Affordable Stylish Home Products</title>
+        <meta
+          name="description"
+          content="Discover stylish and affordable home decor at Smart Indoor Decors. Shop trending products, browse by category, and find the best deals daily."
+        />
+        <meta
+          name="keywords"
+          content="home decor, buy home products, affordable furniture, indoor design, smart indoor decors, ecommerce kenya"
+        />
+        <meta
+          property="og:title"
+          content="Smart Indoor Decors | Affordable Stylish Home Products"
+        />
+        <meta
+          property="og:description"
+          content="Shop trending home decor items at Smart Indoor Decors. Get the best prices and explore our wide collection."
+        />
+        <meta
+          property="og:url"
+          content="https://ecommerce-frontend-blush-two.vercel.app/"
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://ecommerce-frontend-blush-two.vercel.app/og-image.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
