@@ -18,6 +18,9 @@ interface OrderItem {
 export interface Order {
   id: number;
   user_id: number;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
   total_amount: number;
   status: string;
   shipping_address: string;
@@ -37,7 +40,15 @@ const AdminOrderManagePage: React.FC = () => {
     refetch,
   } = useGetOrdersQuery({});
 
-  const orders: Order[] = (rawOrders ?? []) as Order[];
+  // Type assertion to ensure TypeScript knows the type of rawOrders
+  const orders: Order[] = (rawOrders as Order[] | undefined) ?? [];
+
+  // Sort the orders by created_at date
+  const sortedOrders = [...orders].sort(
+    (a: Order, b: Order) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
   const [deleteOrder, { isLoading: isDeleting }] = useDeleteOrderByIdMutation();
   const [updateOrder] = useUpdateOrderByIdMutation();
 
@@ -53,7 +64,6 @@ const AdminOrderManagePage: React.FC = () => {
       await deleteOrder(id).unwrap();
       toast.success("Order deleted");
     } catch (err) {
-      console.error("Delete error:", err);
       toast.error("Failed to delete order");
     }
   };
@@ -78,41 +88,17 @@ const AdminOrderManagePage: React.FC = () => {
       return;
     }
 
-    console.log("Current editing state:", {
-      editingId,
-      editingTotalAmount,
-      editingShippingAddress,
-      editingStatus,
-    });
-
-    if (
-      editingTotalAmount === undefined ||
-      editingShippingAddress === undefined ||
-      editingStatus === undefined
-    ) {
-      console.error("One or more required fields are missing.");
-      toast.error("All fields are required.");
-      return;
-    }
-
     const payload = {
       total_amount: editingTotalAmount,
       shipping_address: editingShippingAddress,
       status: editingStatus,
     };
 
-    console.log("Payload to be sent:", payload);
-
     try {
-      const response = await updateOrder({
-        id: editingId,
-        data: payload,
-      }).unwrap();
-      console.log("Update response:", response);
+      await updateOrder({ id: editingId, data: payload }).unwrap();
       toast.success("Order updated");
       cancelEdit();
     } catch (err) {
-      console.error("Update error details:", err);
       toast.error("Failed to update order");
     }
   };
@@ -146,7 +132,7 @@ const AdminOrderManagePage: React.FC = () => {
         Order Management
       </h1>
 
-      {orders.length === 0 ? (
+      {sortedOrders.length === 0 ? (
         <p className="text-gray-500">No orders yet.</p>
       ) : (
         <div className="overflow-x-auto">
@@ -155,18 +141,24 @@ const AdminOrderManagePage: React.FC = () => {
               <tr className="bg-gray-100 text-gray-700 text-sm">
                 <th className="py-2 px-4 text-left">Order ID</th>
                 <th className="py-2 px-4 text-left">User ID</th>
+                <th className="py-2 px-4 text-left">Name</th>
+                <th className="py-2 px-4 text-left">Email</th>
+                <th className="py-2 px-4 text-left">Phone</th>
                 <th className="py-2 px-4 text-left">Total</th>
                 <th className="py-2 px-4 text-left">Shipping</th>
                 <th className="py-2 px-4 text-left">Status</th>
-                <th className="py-2 px-4 text-left">Created At</th>
+                <th className="py-2 px-4 text-left">Created</th>
                 <th className="py-2 px-4 text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {sortedOrders.map((order) => (
                 <tr key={order.id} className="border-b hover:bg-gray-50">
                   <td className="py-2 px-4">#{order.id}</td>
                   <td className="py-2 px-4">{order.user_id}</td>
+                  <td className="py-2 px-4">{order.customer_name}</td>
+                  <td className="py-2 px-4">{order.customer_email}</td>
+                  <td className="py-2 px-4">{order.customer_phone}</td>
                   <td
                     className="py-2 px-4 font-semibold"
                     style={{ color: brandOrange }}
@@ -252,14 +244,14 @@ const AdminOrderManagePage: React.FC = () => {
                       <button
                         onClick={() => startEdit(order)}
                         className="text-blue-600 hover:text-blue-800"
-                        title="Edit status"
+                        title="Edit"
                       >
                         <Pencil size={16} />
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(order.id)}
-                      title="Delete order"
+                      title="Delete"
                       className="text-red-600 hover:text-red-800 disabled:opacity-50"
                       disabled={isDeleting}
                     >
