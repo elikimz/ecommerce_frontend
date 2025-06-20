@@ -32,6 +32,7 @@ import SuccessPage from "./pages/sucess";
 import MyOrdersPage from "./pages/Myorders";
 import AdminOrderManagePage from "./pages/Adminorders";
 import AdminStatisticsPage from "./pages/Statistical";
+import About from "./pages/About";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -134,6 +135,14 @@ const router = createBrowserRouter([
       </InactivityLogout>
     ),
   },
+  {
+    path: "/about",
+    element: (
+      <InactivityLogout>
+        <About />
+      </InactivityLogout>
+    ),
+  },
 
   // Admin Dashboard Routes
   {
@@ -147,7 +156,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true, 
+        index: true,
         element: <AdminStatisticsPage />, // 👈 Dashboard page
       },
       {

@@ -8,5 +8,11 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Optional: add other URLs like About, Contact if needed -->
+
+  <url>
+    <loc>https://www.smartindoordecors.com/about</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
