@@ -5,13 +5,11 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ecommerce-frontend-blush-two.vercel.app/products</loc>
+    <loc>https://ecommerce-frontend-blush-two.vercel.app/login</loc>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ecommerce-frontend-blush-two.vercel.app/register</loc>
+    <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://ecommerce-frontend-blush-two.vercel.app/login</loc>
-  </url>
-  <!-- Add other routes -->
 </urlset>
