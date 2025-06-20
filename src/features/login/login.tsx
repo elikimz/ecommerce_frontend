@@ -1,6 +1,5 @@
 
 
-
 import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   useLoginUserMutation,
@@ -13,7 +12,6 @@ import Spinner from "../../components/spinner";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { Eye, EyeOff } from "lucide-react";
-import Navbar from "../../components/Navbar";
 
 interface JwtPayload {
   role: string;
@@ -63,12 +61,12 @@ const LoginForm: React.FC = () => {
       try {
         await createCart({}).unwrap();
       } catch {
-        /* silently ignore cart-creation failure */
+        /* silently ignore cart‑creation failure */
       }
 
       toast.success("Login successful");
 
-      /* redirect – replace = true prevents back-button loop */
+      /* redirect – replace = true prevents back‑button loop */
       navigate(
         decoded.role === "Admin" ? "/admin-dashboard" : "/customer-dashboard",
         { replace: true }
@@ -106,189 +104,185 @@ const LoginForm: React.FC = () => {
 
   /* ----------------- JSX ----------------- */
   return (
-    <div>
-      <Navbar /> {/* Include the Navbar component here */}
-      <div className="min-h-screen flex flex-col md:flex-row">
-        {/* ------------ Form Section ------------ */}
-        <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
-          <div className="max-w-md w-full">
-            {/* ---------- Login view ---------- */}
-            {view === "login" && (
-              <form onSubmit={handleLogin} className="space-y-6">
-                <h2 className="text-3xl font-bold mb-6 text-orange-600">
-                  Login
-                </h2>
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* ------------ Form Section ------------ */}
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
+        <div className="max-w-md w-full">
+          {/* ---------- Login view ---------- */}
+          {view === "login" && (
+            <form onSubmit={handleLogin} className="space-y-6">
+              <h2 className="text-3xl font-bold mb-6 text-orange-600">Login</h2>
 
+              <input
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                placeholder="Username"
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+
+              <div className="relative">
                 <input
-                  name="username"
-                  value={form.username}
+                  name="password"
+                  value={form.password}
                   onChange={handleChange}
-                  placeholder="Username"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                   required
                 />
-
-                <div className="relative">
-                  <input
-                    name="password"
-                    value={form.password}
-                    onChange={handleChange}
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-500"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-
                 <button
-                  type="submit"
-                  disabled={isLoggingIn}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-gray-500"
                 >
-                  {isLoggingIn ? <Spinner /> : "Login"}
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
+              </div>
 
-                <p className="text-center text-sm">
-                  <button
-                    type="button"
-                    onClick={() => setView("forgot")}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Forgot password?
-                  </button>
-                </p>
+              <button
+                type="submit"
+                disabled={isLoggingIn}
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+              >
+                {isLoggingIn ? <Spinner /> : "Login"}
+              </button>
 
-                <p className="text-center text-sm mt-4">
-                  Don't have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => navigate("/register")}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Register here
-                  </button>
-                </p>
-              </form>
-            )}
+              <p className="text-center text-sm">
+                <button
+                  type="button"
+                  onClick={() => setView("forgot")}
+                  className="text-blue-500 hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </p>
 
-            {/* ---------- Forgot-password view ---------- */}
-            {view === "forgot" && (
-              <form onSubmit={handleForgotPassword} className="space-y-6">
-                <h2 className="text-3xl font-bold mb-6 text-orange-600">
-                  Forgot Password
-                </h2>
+              <p className="text-center text-sm mt-4">
+                Don't have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="text-blue-500 hover:underline"
+                >
+                  Register here
+                </button>
+              </p>
+            </form>
+          )}
 
+          {/* ---------- Forgot‑password view ---------- */}
+          {view === "forgot" && (
+            <form onSubmit={handleForgotPassword} className="space-y-6">
+              <h2 className="text-3xl font-bold mb-6 text-orange-600">
+                Forgot Password
+              </h2>
+
+              <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                type="email"
+                placeholder="Your email"
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+
+              <button
+                type="submit"
+                disabled={isSendingOTP}
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+              >
+                {isSendingOTP ? <Spinner /> : "Send OTP"}
+              </button>
+
+              <p className="text-center text-sm">
+                <button
+                  type="button"
+                  onClick={() => setView("login")}
+                  className="text-blue-500 hover:underline"
+                >
+                  Back to login
+                </button>
+              </p>
+            </form>
+          )}
+
+          {/* ---------- Reset‑password view ---------- */}
+          {view === "reset" && (
+            <form onSubmit={handleResetPassword} className="space-y-6">
+              <h2 className="text-3xl font-bold mb-6 text-orange-600">
+                Reset Password
+              </h2>
+
+              <input
+                name="otp"
+                value={form.otp}
+                onChange={handleChange}
+                placeholder="Enter OTP"
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+
+              <div className="relative">
                 <input
-                  name="email"
-                  value={form.email}
+                  name="new_password"
+                  value={form.new_password}
                   onChange={handleChange}
-                  type="email"
-                  placeholder="Your email"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  type={showNewPassword ? "text" : "password"}
+                  placeholder="New password"
+                  className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                   required
                 />
-
                 <button
-                  type="submit"
-                  disabled={isSendingOTP}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute right-3 top-3 text-gray-500"
                 >
-                  {isSendingOTP ? <Spinner /> : "Send OTP"}
+                  {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
+              </div>
 
-                <p className="text-center text-sm">
-                  <button
-                    type="button"
-                    onClick={() => setView("login")}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Back to login
-                  </button>
-                </p>
-              </form>
-            )}
+              <button
+                type="submit"
+                disabled={isResetting}
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+              >
+                {isResetting ? <Spinner /> : "Reset Password"}
+              </button>
 
-            {/* ---------- Reset-password view ---------- */}
-            {view === "reset" && (
-              <form onSubmit={handleResetPassword} className="space-y-6">
-                <h2 className="text-3xl font-bold mb-6 text-orange-600">
-                  Reset Password
-                </h2>
-
-                <input
-                  name="otp"
-                  value={form.otp}
-                  onChange={handleChange}
-                  placeholder="Enter OTP"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
-                />
-
-                <div className="relative">
-                  <input
-                    name="new_password"
-                    value={form.new_password}
-                    onChange={handleChange}
-                    type={showNewPassword ? "text" : "password"}
-                    placeholder="New password"
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="absolute right-3 top-3 text-gray-500"
-                  >
-                    {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-
+              <p className="text-center text-sm">
                 <button
-                  type="submit"
-                  disabled={isResetting}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
+                  type="button"
+                  onClick={() => setView("login")}
+                  className="text-blue-500 hover:underline"
                 >
-                  {isResetting ? <Spinner /> : "Reset Password"}
+                  Back to login
                 </button>
-
-                <p className="text-center text-sm">
-                  <button
-                    type="button"
-                    onClick={() => setView("login")}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Back to login
-                  </button>
-                </p>
-              </form>
-            )}
-          </div>
+              </p>
+            </form>
+          )}
         </div>
+      </div>
 
-        {/* ------------ Image / Side Section ------------ */}
-        <div className="w-full md:w-1/2 bg-orange-50 flex flex-col justify-center items-center p-6">
-          <img
-            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
-            alt="Our services"
-            className="w-full max-w-md rounded-lg shadow-lg object-cover"
-          />
-          <h3 className="text-3xl md:text-4xl font-bold text-orange-600 mt-6 text-center">
-            Why Choose Us?
-          </h3>
-          <p className="text-gray-700 text-center max-w-xs mt-2">
-            Trusted, secure, and fast login system for a smooth user experience.
-          </p>
-        </div>
+      {/* ------------ Image / Side Section ------------ */}
+      <div className="w-full md:w-1/2 bg-orange-50 flex flex-col justify-center items-center p-6">
+        <img
+          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+          alt="Our services"
+          className="w-full max-w-md rounded-lg shadow-lg object-cover"
+        />
+        <h3 className="text-3xl md:text-4xl font-bold text-orange-600 mt-6 text-center">
+          Why Choose Us?
+        </h3>
+        <p className="text-gray-700 text-center max-w-xs mt-2">
+          Trusted, secure, and fast login system for a smooth user experience.
+        </p>
       </div>
     </div>
   );
 };
 
 export default LoginForm;
+
