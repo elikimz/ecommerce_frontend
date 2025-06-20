@@ -33,6 +33,8 @@ import MyOrdersPage from "./pages/Myorders";
 import AdminOrderManagePage from "./pages/Adminorders";
 import AdminStatisticsPage from "./pages/Statistical";
 import About from "./pages/About";
+import Blog from "./pages/Blogs";
+import FAQ from "./pages/Faq";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -140,6 +142,22 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <About />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/blog",
+    element: (
+      <InactivityLogout>
+        <Blog />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/faq",
+    element: (
+      <InactivityLogout>
+        <FAQ />
       </InactivityLogout>
     ),
   },
