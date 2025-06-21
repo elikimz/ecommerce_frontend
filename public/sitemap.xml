@@ -32,11 +32,27 @@
     <priority>0.6</priority>
   </url>
 
-  <!-- NEW: Shop page -->
+  <!-- Shop page -->
   <url>
     <loc>https://www.smartindoordecors.com/shop</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Terms & Conditions -->
+  <url>
+    <loc>https://www.smartindoordecors.com/terms</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://www.smartindoordecors.com/privacy</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>
