@@ -41,6 +41,7 @@ import PrivacyPolicy from "./pages/privacy";
 import Services from "./pages/services";
 import Testimonial from "./pages/Testimonial";
 import Contact from "./pages/contact";
+import ReceiptPage from "./pages/receipt";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -212,6 +213,14 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <Contact />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/receipt/:orderId",
+    element: (
+      <InactivityLogout>
+        <ReceiptPage />
       </InactivityLogout>
     ),
   },
