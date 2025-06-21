@@ -14,6 +14,7 @@ const ReceiptPage: React.FC = () => {
     isLoading,
     isError,
   } = useGetOrderByIdQuery(orderId ?? "");
+  
 
   const formatMoney = (num: number) =>
     `KES ${num.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
