@@ -35,6 +35,7 @@ import AdminStatisticsPage from "./pages/Statistical";
 import About from "./pages/About";
 import Blog from "./pages/Blogs";
 import FAQ from "./pages/Faq";
+import Shop from "./pages/Shop";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -158,6 +159,14 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <FAQ />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/shop",
+    element: (
+      <InactivityLogout>
+        <Shop />
       </InactivityLogout>
     ),
   },
