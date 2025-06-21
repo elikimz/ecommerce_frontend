@@ -6,7 +6,7 @@ import { FaMobileAlt } from "react-icons/fa";
 const safGreen = "#00A82D";
 
 const PaybillPaymentPage = () => {
-  const [amount, setAmount] = useState(0);
+  const [, setAmount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
