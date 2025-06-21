@@ -38,6 +38,9 @@ import FAQ from "./pages/Faq";
 import Shop from "./pages/Shop";
 import TermsAndConditions from "./pages/Terms";
 import PrivacyPolicy from "./pages/privacy";
+import Services from "./pages/services";
+import Testimonial from "./pages/Testimonial";
+import Contact from "./pages/contact";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -185,6 +188,30 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <PrivacyPolicy />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/services",
+    element: (
+      <InactivityLogout>
+        <Services />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/testimonials",
+    element: (
+      <InactivityLogout>
+        <Testimonial />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/contact",
+    element: (
+      <InactivityLogout>
+        <Contact />
       </InactivityLogout>
     ),
   },
