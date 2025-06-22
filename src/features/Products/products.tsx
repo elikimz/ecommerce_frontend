@@ -786,13 +786,13 @@ const Product: React.FC = () => {
           category_id: product.category_id,
           stock: product.stock,
           image_url: product.image_url || "",
-          image_urls: product.images?.map((img) => img.url) || [],
+          image_urls: product.images?.map((img: { url: any; }) => img.url) || [],
           product_url: product.product_url || "",
           videos: product.videos || [],
         });
         setPreviewImage(product.image_url || null);
-        setPreviewImages(product.images?.map((img) => img.url) || []);
-        setPreviewVideos(product.videos?.map((vid) => vid.url) || []);
+        setPreviewImages(product.images?.map((img: { url: any; }) => img.url) || []);
+        setPreviewVideos(product.videos?.map((vid: { url: any; }) => vid.url) || []);
       }
     }
   }, [products, selectedProductId]);
@@ -969,7 +969,7 @@ const Product: React.FC = () => {
               className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
             >
               <option value="">Select a category</option>
-              {categories.map((category) => (
+              {categories.map((category: { id: React.Key | readonly string[] | null | undefined; name: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; }) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
