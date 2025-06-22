@@ -777,7 +777,7 @@ const Product: React.FC = () => {
       setPreviewImages([]);
       setPreviewVideos([]);
     } else if (products) {
-      const product = products.find((p) => p.id === selectedProductId);
+      const product = products.find((p: Product) => p.id === selectedProductId);
       if (product) {
         setFormData({
           name: product.name,
@@ -786,13 +786,17 @@ const Product: React.FC = () => {
           category_id: product.category_id,
           stock: product.stock,
           image_url: product.image_url || "",
-          image_urls: product.images?.map((img: { url: any; }) => img.url) || [],
+          image_urls: product.images?.map((img: ProductImage) => img.url) || [],
           product_url: product.product_url || "",
           videos: product.videos || [],
         });
         setPreviewImage(product.image_url || null);
-        setPreviewImages(product.images?.map((img: { url: any; }) => img.url) || []);
-        setPreviewVideos(product.videos?.map((vid: { url: any; }) => vid.url) || []);
+        setPreviewImages(
+          product.images?.map((img: ProductImage) => img.url) || []
+        );
+        setPreviewVideos(
+          product.videos?.map((vid: ProductVideo) => vid.url) || []
+        );
       }
     }
   }, [products, selectedProductId]);
@@ -969,7 +973,7 @@ const Product: React.FC = () => {
               className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
             >
               <option value="">Select a category</option>
-              {categories.map((category: { id: React.Key | readonly string[] | null | undefined; name: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; }) => (
+              {categories.map((category: Category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -1039,7 +1043,7 @@ const Product: React.FC = () => {
               multiple
             />
             <div className="flex flex-wrap gap-4">
-              {previewImages.map((img, idx) => (
+              {previewImages.map((img: string, idx: number) => (
                 <img
                   key={idx}
                   src={img}
@@ -1060,7 +1064,7 @@ const Product: React.FC = () => {
               multiple
             />
             <div className="flex flex-wrap gap-4">
-              {previewVideos.map((vid, idx) => (
+              {previewVideos.map((vid: string, idx: number) => (
                 <video
                   key={idx}
                   src={vid}
@@ -1153,7 +1157,7 @@ const Product: React.FC = () => {
                 </td>
               </tr>
             )}
-            {products.map((product) => (
+            {products.map((product: Product) => (
               <tr key={product.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {product.name}
