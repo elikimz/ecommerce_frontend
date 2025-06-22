@@ -289,8 +289,6 @@
 
 
 
-
-
 import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   useLoginUserMutation,
@@ -329,49 +327,43 @@ const LoginForm: React.FC = () => {
 
   const navigate = useNavigate();
 
+  /* ----------------- Handlers ----------------- */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-
     try {
       const res = await loginUser({
         username: form.username,
         password: form.password,
       }).unwrap();
 
-      // Store token & decode
       const token = res.access_token;
       localStorage.setItem("token", token);
       const decoded = jwtDecode<JwtPayload>(token);
 
-      // Create a fresh cart for this session (ignore errors)
       try {
         await createCart({}).unwrap();
       } catch {
-        // Silently ignore cart-creation failure
+        // Ignore cart creation errors
       }
 
       toast.success("Login successful");
 
-      // Redirect – replace = true prevents back-button loop
       navigate(
         decoded.role === "Admin" ? "/admin-dashboard" : "/customer-dashboard",
         { replace: true }
       );
     } catch (err: any) {
-      if (err.data && err.data.detail) {
-        if (err.data.detail === "Incorrect password") {
-          toast.error("Incorrect password. Please try again.");
-        } else if (err.data.detail === "User not registered") {
-          toast.error("User not registered. Please register first.");
-        } else {
-          toast.error(err.data.detail);
-        }
+      const msg = err?.data?.detail;
+      if (msg === "Incorrect email or password") {
+        toast.error("Wrong email or password.");
+      } else if (msg === "User not found") {
+        toast.error("Email not found.");
       } else {
-        toast.error("Login failed. Please try again later.");
+        toast.error(msg || "Login failed.");
       }
     }
   };
@@ -383,7 +375,12 @@ const LoginForm: React.FC = () => {
       toast.success("OTP sent to your email");
       setView("reset");
     } catch (err: any) {
-      toast.error(err?.data?.detail || "Error sending OTP");
+      const msg = err?.data?.detail;
+      if (msg === "User not found") {
+        toast.error("We couldn't find your email.");
+      } else {
+        toast.error(msg || "Error sending OTP.");
+      }
     }
   };
 
@@ -398,16 +395,24 @@ const LoginForm: React.FC = () => {
       toast.success("Password reset successful. Please login.");
       setView("login");
     } catch (err: any) {
-      toast.error(err?.data?.detail || "Reset failed");
+      const msg = err?.data?.detail;
+      if (msg === "Invalid or expired OTP") {
+        toast.error("The OTP is incorrect or has expired.");
+      } else if (msg === "User not found") {
+        toast.error("Email not found.");
+      } else {
+        toast.error(msg || "Reset failed.");
+      }
     }
   };
 
+  /* ----------------- JSX ----------------- */
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Form Section */}
+      {/* ------------ Form Section ------------ */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
         <div className="max-w-md w-full">
-          {/* Login view */}
+          {/* ---------- Login view ---------- */}
           {view === "login" && (
             <form onSubmit={handleLogin} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">Login</h2>
@@ -416,7 +421,7 @@ const LoginForm: React.FC = () => {
                 name="username"
                 value={form.username}
                 onChange={handleChange}
-                placeholder="Username"
+                placeholder="Email"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
               />
@@ -471,7 +476,7 @@ const LoginForm: React.FC = () => {
             </form>
           )}
 
-          {/* Forgot-password view */}
+          {/* ---------- Forgot‑password view ---------- */}
           {view === "forgot" && (
             <form onSubmit={handleForgotPassword} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">
@@ -508,7 +513,7 @@ const LoginForm: React.FC = () => {
             </form>
           )}
 
-          {/* Reset-password view */}
+          {/* ---------- Reset‑password view ---------- */}
           {view === "reset" && (
             <form onSubmit={handleResetPassword} className="space-y-6">
               <h2 className="text-3xl font-bold mb-6 text-orange-600">
@@ -565,7 +570,7 @@ const LoginForm: React.FC = () => {
         </div>
       </div>
 
-      {/* Image / Side Section */}
+      {/* ------------ Image / Side Section ------------ */}
       <div className="w-full md:w-1/2 bg-orange-50 flex flex-col justify-center items-center p-6">
         <img
           src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
