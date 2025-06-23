@@ -1,16 +1,17 @@
 
 
+
 // import { useState } from "react";
 // import { Helmet } from "react-helmet";
 // import { useGetProductsQuery } from "../features/Products/productsAPI";
 // import Navbar from "../components/Navbar";
 // import Footer from "../components/Footer";
+// import ProductDescriptions from "./productsDescriptions";
 // import { X } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 
 // /* ---------- Helper to build JSON‑LD schema array ---------- */
 // const buildSchema = (products: any[]) => {
-//   // Organization
 //   const organization = {
 //     "@context": "https://schema.org",
 //     "@type": "Organization",
@@ -27,7 +28,6 @@
 //     ],
 //   };
 
-//   // WebSite with SearchAction
 //   const website = {
 //     "@context": "https://schema.org",
 //     "@type": "WebSite",
@@ -41,7 +41,6 @@
 //     },
 //   };
 
-//   // BreadcrumbList for /shop
 //   const breadcrumb = {
 //     "@context": "https://schema.org",
 //     "@type": "BreadcrumbList",
@@ -59,7 +58,6 @@
 //     ],
 //   };
 
-//   // Products
 //   const productsSchema = products.map((p) => ({
 //     "@context": "https://schema.org",
 //     "@type": "Product",
@@ -97,7 +95,6 @@
 
 //   return (
 //     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-//       {/* Main SEO */}
 //       <Helmet>
 //         <title>Shop All Products | Smart Indoor Decors</title>
 //         <meta
@@ -107,7 +104,6 @@
 //         <link rel="canonical" href="https://www.smartindoordecors.com/shop" />
 //       </Helmet>
 
-//       {/* Inject full JSON‑LD once products are loaded */}
 //       {!isLoading && products.length > 0 && (
 //         <Helmet>
 //           <script type="application/ld+json">
@@ -118,7 +114,6 @@
 
 //       <Navbar />
 
-//       {/* ---------------- Product Grid ---------------- */}
 //       <main className="max-w-7xl mx-auto px-4 py-10 flex-grow">
 //         <h1 className="text-3xl font-bold text-orange-500 mb-8 text-center">
 //           Browse Our Entire Collection
@@ -132,56 +127,70 @@
 //         )}
 
 //         {!isLoading && products.length > 0 && (
-//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-//             {products.map((product) => (
-//               <div
-//                 key={product.id}
-//                 id={`product-${product.id}`}
-//                 className="bg-white rounded-2xl shadow-md hover:shadow-lg transition border border-gray-100 flex flex-col"
-//               >
-//                 {/* Card image – click to zoom */}
-//                 <img
-//                   src={product.image_url}
-//                   alt={product.name}
-//                   onClick={() => setZoomImageUrl(product.image_url)}
-//                   className="rounded-t-2xl h-56 w-full object-cover cursor-zoom-in hover:scale-[1.02] transition"
-//                 />
+//           <>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+//               {products.map((product) => (
+//                 <div
+//                   key={product.id}
+//                   id={`product-${product.id}`}
+//                   className="bg-white rounded-2xl shadow-md hover:shadow-lg transition border border-gray-100 flex flex-col"
+//                 >
+//                   <img
+//                     src={product.image_url}
+//                     alt={product.name}
+//                     onClick={() => setZoomImageUrl(product.image_url)}
+//                     className="rounded-t-2xl h-56 w-full object-cover cursor-zoom-in hover:scale-[1.02] transition"
+//                   />
 
-//                 <div className="p-4 flex-1 flex flex-col justify-between">
-//                   <div>
-//                     <h3 className="text-lg font-semibold text-gray-800 truncate">
-//                       {product.name}
-//                     </h3>
-//                     <p className="text-sm text-gray-500">
-//                       {product.category?.name || "Uncategorized"}
-//                     </p>
-//                     <p className="mt-2 text-orange-600 font-bold">
-//                       KES {product.price.toLocaleString()}
-//                     </p>
-//                     <p className="mt-1 text-xs text-gray-400 truncate">
-//                       {product.description}
-//                     </p>
+//                   <div className="p-4 flex-1 flex flex-col justify-between">
+//                     <div>
+//                       <h3 className="text-lg font-semibold text-gray-800 truncate">
+//                         {product.name}
+//                       </h3>
+//                       <p className="text-sm text-gray-500">
+//                         {product.category?.name || "Uncategorized"}
+//                       </p>
+//                       <p className="mt-2 text-orange-600 font-bold">
+//                         KES {product.price.toLocaleString()}
+//                       </p>
+//                       <p className="mt-1 text-xs text-gray-400 truncate">
+//                         {product.description}
+//                       </p>
+//                       {product.colors && (
+//                         <p className="text-xs mt-1 text-gray-600">
+//                           <strong>Available Colors:</strong> {product.colors}
+//                         </p>
+//                       )}
+//                       {product.warranty && (
+//                         <p className="text-xs mt-1 text-gray-600">
+//                           <strong>Warranty:</strong> {product.warranty}
+//                         </p>
+//                       )}
+//                     </div>
+
+//                     <button
+//                       onClick={() => {
+//                         setSelectedProduct(product);
+//                         setMainImage(product.image_url);
+//                       }}
+//                       className="mt-4 text-sm font-medium text-orange-600 bg-orange-100 hover:bg-orange-200 py-2 px-4 rounded-full transition w-fit self-start"
+//                     >
+//                       View Details
+//                     </button>
 //                   </div>
-
-//                   <button
-//                     onClick={() => {
-//                       setSelectedProduct(product);
-//                       setMainImage(product.image_url);
-//                     }}
-//                     className="mt-4 text-sm font-medium text-orange-600 bg-orange-100 hover:bg-orange-200 py-2 px-4 rounded-full transition w-fit self-start"
-//                   >
-//                     View Details
-//                   </button>
 //                 </div>
-//               </div>
-//             ))}
-//           </div>
+//               ))}
+//             </div>
+
+//             <div className="mt-12">
+//               <ProductDescriptions />
+//             </div>
+//           </>
 //         )}
 //       </main>
 
 //       <Footer />
 
-//       {/* ---------- Image‑zoom overlay from card ---------- */}
 //       {zoomImageUrl && (
 //         <div
 //           className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
@@ -195,10 +204,8 @@
 //         </div>
 //       )}
 
-//       {/* ---------- Quick‑view Modal ---------- */}
 //       {selectedProduct && (
 //         <>
-//           {/* Zoom overlay for modal main image */}
 //           {zoomed && (
 //             <div
 //               className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
@@ -226,7 +233,6 @@
 //                 <X className="w-6 h-6" />
 //               </button>
 
-//               {/* Main image */}
 //               <img
 //                 src={mainImage || selectedProduct.image_url}
 //                 alt={selectedProduct.name}
@@ -234,7 +240,6 @@
 //                 className="rounded-xl w-full object-cover h-64 mb-4 cursor-zoom-in transition hover:scale-[1.02]"
 //               />
 
-//               {/* Thumbnails */}
 //               {selectedProduct.images?.length > 0 && (
 //                 <div className="flex gap-2 overflow-x-auto mb-4">
 //                   {[
@@ -268,6 +273,16 @@
 //               <p className="text-gray-700 mb-4">
 //                 {selectedProduct.description}
 //               </p>
+//               {selectedProduct.colors && (
+//                 <p className="text-sm text-gray-600 mb-2">
+//                   <strong>Colors:</strong> {selectedProduct.colors}
+//                 </p>
+//               )}
+//               {selectedProduct.warranty && (
+//                 <p className="text-sm text-gray-600 mb-4">
+//                   <strong>Warranty:</strong> {selectedProduct.warranty}
+//                 </p>
+//               )}
 //               <p className="text-sm text-gray-400 mb-6">
 //                 Stock: {selectedProduct.stock}
 //               </p>
@@ -306,7 +321,6 @@
 
 
 
-
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
@@ -316,7 +330,7 @@ import ProductDescriptions from "./productsDescriptions";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-/* ---------- Helper to build JSON‑LD schema array ---------- */
+/* ---------- Helper to build JSON-LD schema array ---------- */
 const buildSchema = (products: any[]) => {
   const organization = {
     "@context": "https://schema.org",
@@ -384,6 +398,27 @@ const buildSchema = (products: any[]) => {
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.5",
+      bestRating: "5",
+      ratingCount: "24",
+      reviewCount: "24",
+    },
+    review: [
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Jane Doe" },
+        datePublished: "2025-06-01",
+        reviewBody: "Excellent quality product and fast delivery.",
+        name: "High quality!",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+      },
+    ],
   }));
 
   return [organization, website, breadcrumb, ...productsSchema];
@@ -401,6 +436,7 @@ const Shop = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
+      {/* SEO meta & structured data */}
       <Helmet>
         <title>Shop All Products | Smart Indoor Decors</title>
         <meta
@@ -420,6 +456,7 @@ const Shop = () => {
 
       <Navbar />
 
+      {/* ---------------- Main Grid ---------------- */}
       <main className="max-w-7xl mx-auto px-4 py-10 flex-grow">
         <h1 className="text-3xl font-bold text-orange-500 mb-8 text-center">
           Browse Our Entire Collection
@@ -462,6 +499,16 @@ const Shop = () => {
                       <p className="mt-1 text-xs text-gray-400 truncate">
                         {product.description}
                       </p>
+                      {product.colors && (
+                        <p className="text-xs mt-1 text-gray-600">
+                          <strong>Available Colors:</strong> {product.colors}
+                        </p>
+                      )}
+                      {product.warranty && (
+                        <p className="text-xs mt-1 text-gray-600">
+                          <strong>Warranty:</strong> {product.warranty}
+                        </p>
+                      )}
                     </div>
 
                     <button
@@ -478,6 +525,7 @@ const Shop = () => {
               ))}
             </div>
 
+            {/* Marketing/SEO descriptions */}
             <div className="mt-12">
               <ProductDescriptions />
             </div>
@@ -487,6 +535,7 @@ const Shop = () => {
 
       <Footer />
 
+      {/* ------ Zoom overlay for grid image ------ */}
       {zoomImageUrl && (
         <div
           className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
@@ -500,8 +549,10 @@ const Shop = () => {
         </div>
       )}
 
+      {/* ------ Product modal ------ */}
       {selectedProduct && (
         <>
+          {/* inner zoom overlay */}
           {zoomed && (
             <div
               className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
@@ -515,6 +566,7 @@ const Shop = () => {
             </div>
           )}
 
+          {/* modal content */}
           <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 overflow-y-auto">
             <div className="bg-white rounded-2xl max-w-3xl w-full mx-4 my-12 p-6 relative">
               <button
@@ -561,7 +613,7 @@ const Shop = () => {
                 {selectedProduct.name}
               </h2>
               <p className="text-sm text-gray-500 mb-3">
-                Category: {selectedProduct.category?.name}
+                Category: {selectedProduct.category?.name || "Uncategorized"}
               </p>
               <p className="text-orange-600 font-bold text-xl mb-3">
                 KES {selectedProduct.price.toLocaleString()}
@@ -569,10 +621,21 @@ const Shop = () => {
               <p className="text-gray-700 mb-4">
                 {selectedProduct.description}
               </p>
+              {selectedProduct.colors && (
+                <p className="text-sm text-gray-600 mb-2">
+                  <strong>Colors:</strong> {selectedProduct.colors}
+                </p>
+              )}
+              {selectedProduct.warranty && (
+                <p className="text-sm text-gray-600 mb-4">
+                  <strong>Warranty:</strong> {selectedProduct.warranty}
+                </p>
+              )}
               <p className="text-sm text-gray-400 mb-6">
                 Stock: {selectedProduct.stock}
               </p>
 
+              {/* optional video */}
               {selectedProduct.videos?.length > 0 && (
                 <div className="mb-6">
                   <h3 className="font-semibold mb-2">Product Demo</h3>

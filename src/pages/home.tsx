@@ -14,6 +14,7 @@
 //   const [searchInput, setSearchInput] = useState("");
 //   const [categoryInput, setCategoryInput] = useState("");
 //   const [filters, setFilters] = useState({ name: "", category: "" });
+//   const [sortOption, setSortOption] = useState("");
 
 //   useEffect(() => {
 //     setFilters({
@@ -46,9 +47,23 @@
 //     navigate("/login");
 //   };
 
+//   const getSortedProducts = () => {
+//     switch (sortOption) {
+//       case "A-Z":
+//         return [...products].sort((a, b) => a.name.localeCompare(b.name));
+//       case "highestPrice":
+//         return [...products].sort((a, b) => b.price - a.price);
+//       case "lowestPrice":
+//         return [...products].sort((a, b) => a.price - b.price);
+//       default:
+//         return products;
+//     }
+//   };
+
+//   const sortedProducts = getSortedProducts();
+
 //   return (
 //     <div className="bg-white min-h-screen flex flex-col justify-between">
-//       {/* 🔍 SEO & Structured Data */}
 //       <Helmet>
 //         <title>Smart Indoor Decors | Buy Trending Products Online</title>
 //         <meta
@@ -73,7 +88,6 @@
 
 //       <Navbar />
 //       <main className="flex-grow">
-//         {/* Hero Section */}
 //         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-6 md:py-12">
 //           <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
 //             <h1 className="text-3xl md:text-5xl font-bold mb-4">
@@ -85,12 +99,10 @@
 //           </div>
 //         </section>
 
-//         {/* SearchBar Component */}
 //         <section className="max-w-7xl mx-auto px-4 py-4">
 //           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
 //         </section>
 
-//         {/* Filter + Search Section */}
 //         <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
 //           <div className="bg-gray-100 p-4 md:p-6 rounded-xl shadow-sm">
 //             <h2 className="text-xl md:text-2xl font-semibold mb-4">
@@ -128,11 +140,20 @@
 //                 <Search className="w-4 h-4" />
 //                 Search
 //               </button>
+//               <select
+//                 className="px-4 py-2 border border-gray-300 rounded-md w-full"
+//                 value={sortOption}
+//                 onChange={(e) => setSortOption(e.target.value)}
+//               >
+//                 <option value="">Default Sorting</option>
+//                 <option value="A-Z">Sort A-Z</option>
+//                 <option value="highestPrice">Price: High to Low</option>
+//                 <option value="lowestPrice">Price: Low to High</option>
+//               </select>
 //             </div>
 //           </div>
 //         </section>
 
-//         {/* Product Grid */}
 //         <section className="max-w-7xl mx-auto px-4 pb-8 md:pb-16">
 //           <h2 className="text-xl md:text-2xl font-semibold mb-6">
 //             Trending Products
@@ -148,11 +169,11 @@
 //             <p>No products found.</p>
 //           )}
 
-//           {!isLoading && products.length > 0 && (
+//           {!isLoading && sortedProducts.length > 0 && (
 //             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-//               {products.map((product) => (
+//               {sortedProducts.map((product) => (
 //                 <div
-//                   id={`product-${product.id}`} // ✅ Add anchor here
+//                   id={`product-${product.id}`}
 //                   key={product.id}
 //                   className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
 //                   onClick={() => navigate("/login")}
@@ -200,8 +221,7 @@
 
 
 
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
@@ -209,6 +229,25 @@ import Footer from "../components/Footer";
 import { Search } from "lucide-react";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
 import SearchBar from "../components/SearchBar";
+
+interface Product {
+  id: number;
+  name: string;
+  description?: string;
+  price: number;
+  category?: {
+    name: string;
+  };
+  warranty?: string;
+  image_url: string;
+}
+
+const warrantyColors: Record<string, string> = {
+  "1 year": "text-blue-500",
+  "2 years": "text-green-500",
+  Lifetime: "text-purple-500",
+  "No warranty information": "text-red-500",
+};
 
 const Home = () => {
   const navigate = useNavigate();
@@ -243,7 +282,7 @@ const Home = () => {
     setSearchInput("");
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = (e: MouseEvent) => {
     e.stopPropagation();
     navigate("/login");
   };
@@ -263,6 +302,10 @@ const Home = () => {
 
   const sortedProducts = getSortedProducts();
 
+  const getWarrantyColor = (warranty: string) => {
+    return warrantyColors[warranty] || "text-gray-600";
+  };
+
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
       <Helmet>
@@ -277,12 +320,14 @@ const Home = () => {
             "@context": "https://schema.org",
             "@type": "ItemList",
             name: "Trending Products",
-            itemListElement: products.map((product, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              url: `https://www.smartindoordecors.com/#product-${product.id}`,
-              name: product.name,
-            })),
+            itemListElement: products.map(
+              (product: Product, index: number) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `https://www.smartindoordecors.com/#product-${product.id}`,
+                name: product.name,
+              })
+            ),
           })}
         </script>
       </Helmet>
@@ -372,7 +417,7 @@ const Home = () => {
 
           {!isLoading && sortedProducts.length > 0 && (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {sortedProducts.map((product) => (
+              {sortedProducts.map((product: Product) => (
                 <div
                   id={`product-${product.id}`}
                   key={product.id}
@@ -397,7 +442,13 @@ const Home = () => {
                     <p className="text-orange-600 font-bold text-sm">
                       KES {product.price.toLocaleString()}
                     </p>
-
+                    <p
+                      className={`text-xs ${getWarrantyColor(
+                        product.warranty || "No warranty information"
+                      )}`}
+                    >
+                      Warranty: {product.warranty || "No warranty information"}
+                    </p>
                     <button
                       onClick={handleAddToCart}
                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition truncate"
