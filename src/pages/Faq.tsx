@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,42 +8,42 @@ const faqs = [
   {
     question: "What kind of products do you sell?",
     answer:
-      "We offer a wide range of eCommerce products including electronics, fashion, beauty, accessories, and home decor items — all at affordable prices.",
+      "We offer a wide range of products including electronics, fashion, beauty, accessories, furniture, and home decor — all tailored for modern Kenyan lifestyles.",
   },
   {
     question: "How do I place an order?",
     answer:
-      "Browse our site, click 'Add to Cart' on your desired product, then proceed to checkout. You can create an account or log in to complete your order.",
+      "Browse our shop, click 'Add to Cart' on the product you want, and proceed to checkout. You can order as a guest or by creating a free account.",
   },
   {
     question: "What payment methods are accepted?",
     answer:
-      "We accept M-Pesa, debit/credit cards, and bank transfers. All payments are secure and encrypted.",
+      "We support M-Pesa, debit/credit cards (Visa, Mastercard), and bank transfers. Your data is encrypted to ensure secure payments.",
   },
   {
     question: "How long does delivery take?",
     answer:
-      "Standard delivery within Nairobi takes 1–2 days. Outside Nairobi, expect delivery within 2–4 business days.",
+      "Orders within Nairobi are delivered in 1–2 business days. Deliveries outside Nairobi typically arrive in 2–4 business days.",
   },
   {
     question: "Can I return or exchange a product?",
     answer:
-      "Yes. You can return or exchange items within 7 days if they’re unused and in original condition. Contact support to initiate a return.",
+      "Yes. You may return or exchange items within 7 days if unused and in original packaging. Contact our customer support team to get started.",
   },
   {
     question: "How do I track my order?",
     answer:
-      "After placing an order, you’ll receive SMS or email updates with tracking information until your item is delivered.",
+      "Once you place an order, we'll send SMS and email notifications with tracking links and delivery updates.",
   },
   {
     question: "Do you offer discounts or promotions?",
     answer:
-      "Yes! We run seasonal discounts, flash sales, and exclusive offers. Subscribe to our newsletter or follow us on social media to stay updated.",
+      "Absolutely! Look out for seasonal sales, flash deals, and subscriber-only promos. Follow us on Instagram or sign up for our newsletter to stay updated.",
   },
   {
     question: "Is it safe to shop on your website?",
     answer:
-      "Absolutely. Our site is protected with SSL encryption and secure payment gateways to ensure safe shopping.",
+      "Yes. Our site uses SSL encryption and secure payment gateways, ensuring that your personal and financial information stays protected.",
   },
 ];
 
@@ -54,23 +54,50 @@ const FAQ = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
       <Helmet>
-        <title>FAQs | Smart Indoor Decors</title>
+        <title>FAQs | Smart Indoor Decors Kenya</title>
         <meta
           name="description"
-          content="Find answers to common questions about orders, payments, delivery, and returns when shopping at Smart Indoor Decors."
+          content="Get instant answers to the most common questions about orders, delivery, payments, returns, and shopping securely with Smart Indoor Decors."
         />
         <link rel="canonical" href="https://www.smartindoordecors.com/faq" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-6">
           Frequently Asked Questions
         </h1>
+        <p className="text-gray-700 text-base mb-6">
+          Need help? We’ve got answers. Below are some of the most frequently
+          asked questions about shopping on{" "}
+          <strong>Smart Indoor Decors Kenya</strong>. Can’t find what you’re
+          looking for?{" "}
+          <a
+            href="/contact"
+            className="text-orange-600 underline hover:text-orange-700"
+          >
+            Contact our support team
+          </a>
+          .
+        </p>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
