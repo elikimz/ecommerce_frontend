@@ -212,10 +212,6 @@
 
 
 
-
-
-
-
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
@@ -223,6 +219,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductDescriptions from "./productsDescriptions";
 import Spinner from "../components/spinner";
+
 interface Product {
   id: string;
   name: string;
@@ -314,6 +311,21 @@ const buildSchema = (products: Product[]) => {
         shippingDestination: {
           "@type": "DefinedRegion",
           addressCountry: "KE",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 2,
+            unitCode: "d",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 4,
+            unitCode: "d",
+          },
         },
       },
       hasMerchantReturnPolicy: {
