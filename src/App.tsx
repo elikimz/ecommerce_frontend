@@ -42,6 +42,7 @@ import Services from "./pages/services";
 import Testimonial from "./pages/Testimonial";
 import Contact from "./pages/contact";
 import ReceiptPage from "./pages/receipt";
+import ProductPage from "./pages/productPage";
 
 const router = createBrowserRouter([
   // Public Routes
@@ -85,6 +86,14 @@ const router = createBrowserRouter([
     element: (
       <InactivityLogout>
         <MyOrders />
+      </InactivityLogout>
+    ),
+  },
+  {
+    path: "/public-product/:productId",
+    element: (
+      <InactivityLogout>
+        <ProductPage />
       </InactivityLogout>
     ),
   },
@@ -176,6 +185,7 @@ const router = createBrowserRouter([
       </InactivityLogout>
     ),
   },
+
   {
     path: "/terms",
     element: (

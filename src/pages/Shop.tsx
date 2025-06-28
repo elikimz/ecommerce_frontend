@@ -1,6 +1,9 @@
 
 
 
+
+
+
 // import React, { useState } from "react";
 // import { Helmet } from "react-helmet";
 // import { useGetProductsQuery } from "../features/Products/productsAPI";
@@ -128,6 +131,7 @@
 //         merchantReturnDays: 7,
 //         returnMethod: "https://schema.org/ReturnByMail",
 //         returnFees: "https://schema.org/FreeReturn",
+//         refundType: "https://schema.org/FullRefund", // ✅ FIX ADDED
 //       },
 //     },
 //     aggregateRating: {
@@ -151,7 +155,12 @@
 //     },
 //   }));
 
-//   return [organization, website, breadcrumb, ...productsSchema];
+//   return [
+//     {
+//       "@context": "https://schema.org",
+//       "@graph": [organization, website, breadcrumb, ...productsSchema],
+//     },
+//   ];
 // };
 
 // const Shop: React.FC = () => {
@@ -183,10 +192,7 @@
 //         <script
 //           type="application/ld+json"
 //           dangerouslySetInnerHTML={{
-//             __html: JSON.stringify({
-//               "@context": "https://schema.org",
-//               "@graph": buildSchema(inStockProducts),
-//             }),
+//             __html: JSON.stringify(buildSchema(inStockProducts)),
 //           }}
 //         />
 //       )}
@@ -290,9 +296,9 @@
 
 
 
-
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -374,7 +380,7 @@ const buildSchema = (products: Product[]) => {
     },
     offers: {
       "@type": "Offer",
-      url: `https://www.smartindoordecors.com/shop#product-${p.id}`,
+      url: `https://www.smartindoordecors.com/product/${p.id}`,
       priceCurrency: "KES",
       price: p.price,
       priceValidUntil: "2025-12-31",
@@ -418,7 +424,7 @@ const buildSchema = (products: Product[]) => {
         merchantReturnDays: 7,
         returnMethod: "https://schema.org/ReturnByMail",
         returnFees: "https://schema.org/FreeReturn",
-        refundType: "https://schema.org/FullRefund", // ✅ FIX ADDED
+        refundType: "https://schema.org/FullRefund",
       },
     },
     aggregateRating: {
@@ -452,14 +458,6 @@ const buildSchema = (products: Product[]) => {
 
 const Shop: React.FC = () => {
   const { data: products = [], isLoading, error } = useGetProductsQuery({});
-  const [expandedProductId, setExpandedProductId] = useState<string | null>(
-    null
-  );
-
-  const toggleExpand = (productId: string) => {
-    setExpandedProductId(expandedProductId === productId ? null : productId);
-  };
-
   const inStockProducts = products.filter(
     (product) => product.stock && product.stock > 0
   );
@@ -514,7 +512,6 @@ const Shop: React.FC = () => {
             {inStockProducts.map((product) => (
               <div
                 key={product.id}
-                id={`product-${product.id}`}
                 className="bg-white rounded-2xl shadow-md hover:shadow-lg transition border border-gray-100 flex flex-col"
               >
                 <img
@@ -533,34 +530,12 @@ const Shop: React.FC = () => {
                     KES {product.price.toLocaleString()}
                   </p>
 
-                  <div
-                    className={`${
-                      expandedProductId === product.id ? "" : "hidden"
-                    }`}
-                  >
-                    <p className="mt-1 text-xs text-gray-600">
-                      {product.description}
-                    </p>
-                    {product.colors && (
-                      <p className="text-sm text-gray-600">
-                        <strong>Colors:</strong> {product.colors}
-                      </p>
-                    )}
-                    {product.warranty && (
-                      <p className="text-sm text-gray-600">
-                        <strong>Warranty:</strong> {product.warranty}
-                      </p>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={() => toggleExpand(product.id)}
+                  <Link
+                    to={`/public-product/${product.id}`}
                     className="mt-4 text-sm font-medium text-orange-600 bg-orange-100 hover:bg-orange-200 py-2 px-4 rounded-full transition w-fit self-start"
                   >
-                    {expandedProductId === product.id
-                      ? "Show Less"
-                      : "View Details"}
-                  </button>
+                    View Product
+                  </Link>
                 </div>
               </div>
             ))}
