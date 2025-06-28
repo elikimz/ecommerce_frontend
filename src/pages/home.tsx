@@ -1,7 +1,6 @@
 
 
 
-
 // import { useState, useEffect, type MouseEvent } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
@@ -17,9 +16,7 @@
 //   name: string;
 //   description?: string;
 //   price: number;
-//   category?: {
-//     name: string;
-//   };
+//   category?: { name: string };
 //   warranty?: string;
 //   image_url: string;
 // }
@@ -38,6 +35,12 @@
 //   const [filters, setFilters] = useState({ name: "", category: "" });
 //   const [sortOption, setSortOption] = useState("");
 
+//   const {
+//     data: products = [],
+//     isLoading,
+//     error,
+//   } = useGetProductsQuery(filters);
+
 //   useEffect(() => {
 //     setFilters({
 //       name: "",
@@ -45,12 +48,6 @@
 //     });
 //     setSearchInput("");
 //   }, [categoryInput]);
-
-//   const {
-//     data: products = [],
-//     isLoading,
-//     error,
-//   } = useGetProductsQuery(filters);
 
 //   const uniqueCategories = Array.from(
 //     new Set(products.map((p) => p.category?.name))
@@ -88,6 +85,18 @@
 //     return warrantyColors[warranty] || "text-gray-600";
 //   };
 
+//   const orgSchema = {
+//     "@context": "https://schema.org",
+//     "@type": "Organization",
+//     name: "Smart Indoor Decors",
+//     url: "https://www.smartindoordecors.com",
+//     logo: "https://www.smartindoordecors.com/logo.png", // 🟡 make sure this logo URL works
+//     sameAs: [
+//       "https://www.instagram.com/yourbrand", // Optional: Replace with real links
+//       "https://www.facebook.com/yourpage",
+//     ],
+//   };
+
 //   return (
 //     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
 //       <Helmet>
@@ -97,9 +106,11 @@
 //           content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
 //         />
 //         <link rel="canonical" href="https://www.smartindoordecors.com/" />
+//         <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
 //       </Helmet>
 
 //       <Navbar />
+
 //       <main className="flex-grow">
 //         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
 //           <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
@@ -230,6 +241,7 @@
 //           )}
 //         </section>
 //       </main>
+
 //       <Footer />
 //     </div>
 //   );
@@ -328,9 +340,9 @@ const Home = () => {
     "@type": "Organization",
     name: "Smart Indoor Decors",
     url: "https://www.smartindoordecors.com",
-    logo: "https://www.smartindoordecors.com/logo.png", // 🟡 make sure this logo URL works
+    logo: "https://www.smartindoordecors.com/logo.png", // ✅ Ensure this logo exists
     sameAs: [
-      "https://www.instagram.com/yourbrand", // Optional: Replace with real links
+      "https://www.instagram.com/yourbrand",
       "https://www.facebook.com/yourpage",
     ],
   };
@@ -344,6 +356,11 @@ const Home = () => {
           content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
         />
         <link rel="canonical" href="https://www.smartindoordecors.com/" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          property="og:image"
+          content="https://www.smartindoordecors.com/logo.png"
+        />
         <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
       </Helmet>
 
@@ -433,7 +450,6 @@ const Home = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {sortedProducts.map((product: Product) => (
                 <div
-                  id={`product-${product.id}`}
                   key={product.id}
                   className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
                   onClick={() => navigate("/login")}
