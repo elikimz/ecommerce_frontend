@@ -1,6 +1,7 @@
 
 
 
+
 // import { useState, useEffect, type MouseEvent } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
@@ -88,7 +89,7 @@
 //   };
 
 //   return (
-//     <div className="bg-white min-h-screen flex flex-col justify-between">
+//     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
 //       <Helmet>
 //         <title>Smart Indoor Decors | Buy Trending Products Online</title>
 //         <meta
@@ -96,43 +97,28 @@
 //           content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
 //         />
 //         <link rel="canonical" href="https://www.smartindoordecors.com/" />
-//         <script type="application/ld+json">
-//           {JSON.stringify({
-//             "@context": "https://schema.org",
-//             "@type": "ItemList",
-//             name: "Trending Products",
-//             itemListElement: products.map((product: Product, index: number) => ({
-//               "@type": "ListItem",
-//               position: index + 1,
-//               url: `https://www.smartindoordecors.com/#product-${product.id}`,
-//               name: product.name,
-//             })),
-//           })}
-//         </script>
 //       </Helmet>
 
 //       <Navbar />
 //       <main className="flex-grow">
-//         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-6 md:py-12">
+//         <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
 //           <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
-//             <h1 className="text-3xl md:text-5xl font-bold mb-4">
+//             <h1 className="text-4xl md:text-5xl font-bold mb-4">
 //               Welcome to Smart Indoor Decors
 //             </h1>
-//             <p className="text-base md:text-xl">
+//             <p className="text-lg md:text-xl">
 //               Shop your favorite products with amazing deals every day
 //             </p>
 //           </div>
 //         </section>
 
-//         <section className="max-w-7xl mx-auto px-4 py-4">
+//         <section className="max-w-7xl mx-auto px-4 py-6">
 //           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
 //         </section>
 
-//         <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
-//           <div className="bg-gray-100 p-4 md:p-6 rounded-xl shadow-sm">
-//             <h2 className="text-xl md:text-2xl font-semibold mb-4">
-//               Search Products
-//             </h2>
+//         <section className="max-w-7xl mx-auto px-4 py-8">
+//           <div className="bg-white p-6 rounded-xl shadow-sm">
+//             <h2 className="text-2xl font-semibold mb-6">Search Products</h2>
 //             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
 //               <input
 //                 type="text"
@@ -179,10 +165,8 @@
 //           </div>
 //         </section>
 
-//         <section className="max-w-7xl mx-auto px-4 pb-8 md:pb-16">
-//           <h2 className="text-xl md:text-2xl font-semibold mb-6">
-//             Trending Products
-//           </h2>
+//         <section className="max-w-7xl mx-auto px-4 pb-16">
+//           <h2 className="text-2xl font-semibold mb-8">Trending Products</h2>
 
 //           {isLoading && <Spinner />}
 //           {error && (
@@ -202,25 +186,27 @@
 //                 <div
 //                   id={`product-${product.id}`}
 //                   key={product.id}
-//                   className="bg-white border rounded-xl shadow-sm hover:shadow-md transition group cursor-pointer"
+//                   className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
 //                   onClick={() => navigate("/login")}
 //                 >
-//                   <div className="overflow-hidden rounded-t-xl">
+//                   <div className="overflow-hidden rounded-t-xl bg-gray-200">
 //                     <img
 //                       src={product.image_url}
 //                       alt={product.name}
-//                       className="h-40 sm:h-48 md:h-52 w-full object-cover transform group-hover:scale-105 transition duration-300"
+//                       className="h-48 w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
 //                     />
 //                   </div>
-//                   <div className="p-3 space-y-1">
+//                   <div className="p-4 space-y-2">
 //                     <h3 className="text-sm font-semibold text-gray-800 truncate">
 //                       {product.name}
 //                     </h3>
-//                     <div className="text-yellow-500 text-xs">★★★★☆</div>
+//                     <div className="flex items-center">
+//                       <span className="text-yellow-400 text-xs">★★★★☆</span>
+//                     </div>
 //                     <p className="text-xs text-gray-500 truncate">
 //                       {product.description}
 //                     </p>
-//                     <p className="text-orange-600 font-bold text-sm">
+//                     <p className="text-orange-600 font-bold text-lg">
 //                       KES {product.price.toLocaleString()}
 //                     </p>
 //                     <p
@@ -232,7 +218,7 @@
 //                     </p>
 //                     <button
 //                       onClick={handleAddToCart}
-//                       className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium py-1.5 rounded-md transition truncate"
+//                       className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
 //                       aria-label="Add product to cart"
 //                     >
 //                       Add to Cart
@@ -250,7 +236,6 @@
 // };
 
 // export default Home;
-
 
 
 
@@ -349,6 +334,21 @@ const Home = () => {
           content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
         />
         <link rel="canonical" href="https://www.smartindoordecors.com/" />
+
+        {/* ✅ Structured data for logo */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Smart Indoor Decors",
+            url: "https://www.smartindoordecors.com",
+            logo: "https://www.smartindoordecors.com/logo.png", // Replace with your actual logo URL
+            sameAs: [
+              "https://www.instagram.com/yourbrand",
+              "https://www.facebook.com/yourpage",
+            ],
+          })}
+        </script>
       </Helmet>
 
       <Navbar />
