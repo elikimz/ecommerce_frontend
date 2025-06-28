@@ -1,9 +1,6 @@
 
 
 
-
-
-
 // import React, { useState } from "react";
 // import { Helmet } from "react-helmet";
 // import { useGetProductsQuery } from "../features/Products/productsAPI";
@@ -85,7 +82,10 @@
 //     image: [p.image_url, ...(p.images || []).map((i) => i.url)],
 //     description: p.description,
 //     sku: `SKU-${p.id}`,
-//     brand: { "@type": "Brand", name: "Smart Indoor Decors" },
+//     brand: {
+//       "@type": "Brand",
+//       name: "Smart Indoor Decors",
+//     },
 //     offers: {
 //       "@type": "Offer",
 //       url: `https://www.smartindoordecors.com/shop#product-${p.id}`,
@@ -97,6 +97,26 @@
 //         p.stock && p.stock > 0
 //           ? "https://schema.org/InStock"
 //           : "https://schema.org/OutOfStock",
+//     },
+//     aggregateRating: {
+//       "@type": "AggregateRating",
+//       ratingValue: "4.5",
+//       reviewCount: "12",
+//       ratingCount: "12",
+//       bestRating: "5",
+//       worstRating: "1",
+//     },
+//     review: {
+//       "@type": "Review",
+//       reviewRating: {
+//         "@type": "Rating",
+//         ratingValue: "5",
+//         bestRating: "5",
+//       },
+//       author: {
+//         "@type": "Person",
+//         name: "Verified Buyer",
+//       },
 //     },
 //   }));
 
@@ -328,14 +348,51 @@ const buildSchema = (products: Product[]) => {
         p.stock && p.stock > 0
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
+
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "500",
+          currency: "KES",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "KE",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 2,
+            unitCode: "d",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 4,
+            unitCode: "d",
+          },
+        },
+      },
+
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "KE",
+        returnPolicyCategory:
+          "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 7,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+      },
     },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.5",
-      reviewCount: "12",
-      ratingCount: "12",
       bestRating: "5",
-      worstRating: "1",
+      ratingCount: "12",
+      reviewCount: "12",
     },
     review: {
       "@type": "Review",
