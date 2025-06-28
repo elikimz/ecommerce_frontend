@@ -1,82 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
-  <url>
-    <loc>https://www.smartindoordecors.com/</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
 
-  <!-- About -->
-  <url>
-    <loc>https://www.smartindoordecors.com/about</loc>
-    <lastmod>2025-06-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+    <url>
+      <loc>https://www.smartindoordecors.com/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/about</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/blog</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/faq</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/shop</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/terms</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/privacy</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/services</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/contact</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
+    <url>
+      <loc>https://www.smartindoordecors.com/testimonials</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  
 
-  <!-- Blog -->
-  <url>
-    <loc>https://www.smartindoordecors.com/blog</loc>
-    <lastmod>2025-06-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- FAQ -->
-  <url>
-    <loc>https://www.smartindoordecors.com/faq</loc>
-    <lastmod>2025-06-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Shop page -->
-  <url>
-    <loc>https://www.smartindoordecors.com/shop</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Terms & Conditions -->
-  <url>
-    <loc>https://www.smartindoordecors.com/terms</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <!-- Privacy Policy -->
-  <url>
-    <loc>https://www.smartindoordecors.com/privacy</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <!-- Services Page -->
-  <url>
-    <loc>https://www.smartindoordecors.com/services</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Contact Page -->
-  <url>
-    <loc>https://www.smartindoordecors.com/contact</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Testimonials Page -->
-  <url>
-    <loc>https://www.smartindoordecors.com/testimonials</loc>
-    <lastmod>2025-06-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+        <url>
+          <loc>https://www.smartindoordecors.com/product/33</loc>
+          <changefreq>weekly</changefreq>
+          <priority>0.9</priority>
+        </url>
+      
+        <url>
+          <loc>https://www.smartindoordecors.com/product/47</loc>
+          <changefreq>weekly</changefreq>
+          <priority>0.9</priority>
+        </url>
+      
 </urlset>
