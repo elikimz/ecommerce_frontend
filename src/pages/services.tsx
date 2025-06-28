@@ -30,6 +30,25 @@ const services = [
   },
 ];
 
+// ✅ Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "E-commerce Services",
+  provider: {
+    "@type": "Organization",
+    name: "Smart Indoor Decors",
+    url: "https://www.smartindoordecors.com",
+    logo: "https://www.smartindoordecors.com/logo.png", // Make sure this exists
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Kenya",
+  },
+  description:
+    "Nationwide delivery, quality product selection, customer support, and affordable home decor services by Smart Indoor Decors.",
+};
+
 const Services = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
@@ -43,6 +62,9 @@ const Services = () => {
           rel="canonical"
           href="https://www.smartindoordecors.com/services"
         />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
       </Helmet>
 
       <Navbar />
