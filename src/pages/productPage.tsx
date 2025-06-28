@@ -158,7 +158,7 @@ const ProductPage: React.FC = () => {
                     .map((p) => (
                       <a
                         key={p.id}
-                        href={`/product/${p.id}`}
+                        href={`/public-product/${p.id}`}
                         className="text-sm text-blue-600 hover:underline"
                       >
                         {p.name}
