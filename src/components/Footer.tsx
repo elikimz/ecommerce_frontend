@@ -149,47 +149,64 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Newsletter */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4 text-white">Newsletter</h3>
-          <p className="text-sm text-gray-400 mb-4">
-            Subscribe to get the latest deals and product updates.
+        {/* Enhanced Newsletter */}
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-700">
+          <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
+            <span className="text-2xl">📧</span>
+            Stay Updated
+          </h3>
+          <p className="text-sm text-gray-300 mb-6 leading-relaxed">
+            Subscribe to receive exclusive deals, new product launches, and home
+            décor inspiration.
           </p>
-          <form className="flex flex-col sm:flex-row sm:items-center sm:gap-2 gap-3">
+          <form className="space-y-3">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-2 rounded bg-gray-800 text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              placeholder="Enter your email address"
+              className="w-full px-4 py-3 rounded-xl bg-gray-700 border border-gray-600 text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
             />
             <button
               type="submit"
-              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 text-sm"
+              className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl"
             >
-              Subscribe
+              Subscribe Now
             </button>
           </form>
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      <div className="border-t border-gray-700 mt-12 pt-6 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:justify-between items-center text-sm text-gray-400 text-center md:text-left">
-          <p>
-            &copy; {new Date().getFullYear()} Smart Indoor Decors. All rights
-            reserved.
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs">
-            <div className="flex items-center gap-1">
-              <Mail className="w-4 h-4" />
-              <span>support@Smar.com</span>
+      {/* Enhanced Bottom Footer */}
+      <div className="relative border-t border-gray-700 mt-16 pt-8 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-6 text-center lg:text-left">
+            <div>
+              <p className="text-gray-400 mb-2">
+                &copy; {new Date().getFullYear()} Smart Indoor Decors. All
+                rights reserved.
+              </p>
+              <p className="text-sm text-gray-500">
+                Transforming homes across Kenya with premium quality products
+              </p>
             </div>
-            <div className="flex items-center gap-1">
-              <Phone className="w-4 h-4" />
-              <span>+254 700 123456</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
-              <span>Nairobi, Kenya</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              <div className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition-colors">
+                <div className="p-2 bg-gray-800 rounded-lg">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <span className="text-sm">smartindoordecors@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition-colors">
+                <div className="p-2 bg-gray-800 rounded-lg">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <span className="text-sm">+254 741 769 787</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition-colors">
+                <div className="p-2 bg-gray-800 rounded-lg">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <span className="text-sm">Nairobi, Kenya</span>
+              </div>
             </div>
           </div>
         </div>
