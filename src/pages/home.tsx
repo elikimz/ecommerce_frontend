@@ -343,20 +343,18 @@ const Home = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Smart Indoor Decors | Buy Trending Products Online</title>
-        <meta
-          name="description"
-          content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:image"
-          content="https://www.smartindoordecors.com/logo.png"
-        />
-        <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
-      </Helmet>
+      <title>Smart Indoor Decors | Buy Trending Products Online</title>
+      <meta
+        name="description"
+        content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/" />
+      <link rel="icon" href="/favicon.ico" />
+      <meta
+        property="og:image"
+        content="https://www.smartindoordecors.com/logo.png"
+      />
+      <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
 
       <Navbar />
 
