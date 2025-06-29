@@ -386,51 +386,73 @@ const Home = () => {
           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="bg-white p-6 rounded-xl shadow-sm">
-            <h2 className="text-2xl font-semibold mb-6">Search Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
-              <input
-                type="text"
-                placeholder="Search for products..."
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    handleSearch(e.currentTarget.value.trim());
-                }}
-              />
-              <select
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={categoryInput}
-                onChange={(e) => setCategoryInput(e.target.value)}
-              >
-                <option value="">All Categories</option>
-                {uniqueCategories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
+        <section className="max-w-7xl mx-auto px-4 py-12">
+          <div className="card-modern p-8 bg-gradient-to-br from-white to-gray-50">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                Find Your Perfect Product
+              </h2>
+              <p className="text-gray-600">
+                Search through our extensive collection
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Product Search
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search for products..."
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter")
+                      handleSearch(e.currentTarget.value.trim());
+                  }}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Category
+                </label>
+                <select
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={categoryInput}
+                  onChange={(e) => setCategoryInput(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {uniqueCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Sort By
+                </label>
+                <select
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                >
+                  <option value="">Default Sorting</option>
+                  <option value="A-Z">Sort A-Z</option>
+                  <option value="highestPrice">Price: High to Low</option>
+                  <option value="lowestPrice">Price: Low to High</option>
+                </select>
+              </div>
               <button
                 onClick={() => handleSearch(searchInput.trim())}
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition w-full"
+                className="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-white rounded-xl font-semibold"
                 aria-label="Search products"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-5 h-5" />
                 Search
               </button>
-              <select
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-              >
-                <option value="">Default Sorting</option>
-                <option value="A-Z">Sort A-Z</option>
-                <option value="highestPrice">Price: High to Low</option>
-                <option value="lowestPrice">Price: Low to High</option>
-              </select>
             </div>
           </div>
         </section>
