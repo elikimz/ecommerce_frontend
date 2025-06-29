@@ -457,59 +457,79 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 pb-16">
-          <h2 className="text-2xl font-semibold mb-8">Trending Products</h2>
+        <section className="max-w-7xl mx-auto px-4 pb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Trending Products
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Discover our most popular items, carefully selected for style and
+              quality
+            </p>
+          </div>
 
-          {isLoading && <Spinner />}
-          {error && (
-            <p className="text-center text-sm text-gray-500 py-8">
-              Products are currently unavailable. Please check back later.
-            </p>
+          {isLoading && (
+            <div className="flex justify-center py-20">
+              <Spinner />
+            </div>
           )}
+
+          {error && (
+            <div className="card-modern p-12 text-center">
+              <p className="text-gray-500 text-lg">
+                Products are currently unavailable. Please check back later.
+              </p>
+            </div>
+          )}
+
           {!isLoading && products.length === 0 && !error && (
-            <p className="text-center text-sm text-gray-500 py-8">
-              No products found.
-            </p>
+            <div className="card-modern p-12 text-center">
+              <p className="text-gray-500 text-lg">No products found.</p>
+            </div>
           )}
 
           {!isLoading && sortedProducts.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {sortedProducts.map((product: Product) => (
                 <div
                   key={product.id}
-                  className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
+                  className="card-product group"
                   onClick={() => navigate("/login")}
                 >
-                  <div className="overflow-hidden rounded-t-xl bg-gray-200">
+                  <div className="relative overflow-hidden rounded-t-2xl bg-gray-100">
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="h-48 w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+                      className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
                   </div>
-                  <div className="p-4 space-y-2">
-                    <h3 className="text-sm font-semibold text-gray-800 truncate">
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-lg font-bold text-gray-800 truncate group-hover:text-orange-600 transition-colors">
                       {product.name}
                     </h3>
-                    <div className="flex items-center">
-                      <span className="text-yellow-400 text-xs">★★★★☆</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-400 text-sm">★★★★☆</span>
+                      <span className="text-xs text-gray-500 ml-1">(4.0)</span>
                     </div>
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="text-sm text-gray-600 line-clamp-2">
                       {product.description}
                     </p>
-                    <p className="text-orange-600 font-bold text-lg">
-                      KES {product.price.toLocaleString()}
-                    </p>
-                    <p
-                      className={`text-xs ${getWarrantyColor(
-                        product.warranty || "No warranty information",
-                      )}`}
-                    >
-                      Warranty: {product.warranty || "No warranty information"}
-                    </p>
+                    <div className="space-y-2">
+                      <p className="text-2xl font-bold text-orange-600">
+                        KES {product.price.toLocaleString()}
+                      </p>
+                      <p
+                        className={`text-xs font-medium px-2 py-1 rounded-full inline-block ${getWarrantyColor(
+                          product.warranty || "No warranty information",
+                        )} bg-gray-100`}
+                      >
+                        {product.warranty || "No warranty"}
+                      </p>
+                    </div>
                     <button
                       onClick={handleAddToCart}
-                      className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
+                      className="w-full btn-primary text-white font-semibold py-3 rounded-xl"
                       aria-label="Add product to cart"
                     >
                       Add to Cart
