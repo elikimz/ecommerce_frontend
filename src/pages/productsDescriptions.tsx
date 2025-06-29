@@ -59,7 +59,7 @@ const ProductDescriptions: React.FC = () => (
 
     {/* ───────── ELECTRONICS ───────── */}
     <section>
-      <h2 className="text-2xl font-semibold text-blue-600">
+      <h2 className="text-2xl font-semibold text-blue-500">
         Smartphones & Tablets - Latest Tech, Local Warranty
       </h2>
       <p className="mt-2">

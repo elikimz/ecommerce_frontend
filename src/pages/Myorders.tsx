@@ -7,8 +7,8 @@ import Spinner from "../components/spinner";
 import { useGetMyOrdersQuery } from "../features/Orders/orderAPI";
 
 // Brand colours
-const brandOrange = "#f97316"; // primary accent
-const brandGray = "#4A4A4A"; // secondary text
+const brandOrange = "#f97316"; 
+const brandGray = "#4A4A4A"; 
 
 const MyOrdersPage = () => {
   const navigate = useNavigate();
