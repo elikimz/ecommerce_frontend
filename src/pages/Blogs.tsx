@@ -4,32 +4,30 @@ import Footer from "../components/Footer";
 const Blog = () => {
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Smart Indoor Decors Blog | Home Decor Ideas in Kenya</title>
-        <meta
-          name="description"
-          content="Discover inspiring home decor tips, modern interior design ideas, and styling guides tailored for Kenyan homes. Read practical advice on decorating your living room, bedroom, and workspace using Smart Indoor Decors products."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/blog" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Blog",
-            name: "Smart Indoor Decors Blog",
-            url: "https://www.smartindoordecors.com/blog",
-            description:
-              "Inspiring home decor ideas, interior design tips, and lifestyle guides for Kenyan homes.",
-            publisher: {
-              "@type": "Organization",
-              name: "Smart Indoor Decors",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://www.smartindoordecors.com/logo.png",
-              },
+      <title>Smart Indoor Decors Blog | Home Decor Ideas in Kenya</title>
+      <meta
+        name="description"
+        content="Discover inspiring home decor tips, modern interior design ideas, and styling guides tailored for Kenyan homes. Read practical advice on decorating your living room, bedroom, and workspace using Smart Indoor Decors products."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/blog" />
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          name: "Smart Indoor Decors Blog",
+          url: "https://www.smartindoordecors.com/blog",
+          description:
+            "Inspiring home decor ideas, interior design tips, and lifestyle guides for Kenyan homes.",
+          publisher: {
+            "@type": "Organization",
+            name: "Smart Indoor Decors",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://www.smartindoordecors.com/logo.png",
             },
-          })}
-        </script>
-      </Helmet>
+          },
+        })}
+      </script>
 
       <Navbar />
 
