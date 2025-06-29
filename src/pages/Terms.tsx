@@ -1,19 +1,15 @@
-
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const TermsAndConditions = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Terms and Conditions | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Read the Terms and Conditions for shopping at Smart Indoor Decors – your trusted source for fashion, lifestyle, and decor products in Kenya."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/terms" />
-      </Helmet>
+      <title>Terms and Conditions | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Read the Terms and Conditions for shopping at Smart Indoor Decors – your trusted source for fashion, lifestyle, and decor products in Kenya."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/terms" />
 
       <Navbar />
 

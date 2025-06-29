@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Quote } from "lucide-react";
@@ -33,17 +32,15 @@ const testimonials = [
 const Testimonial = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Customer Testimonials | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Read what our happy customers say about shopping with Smart Indoor Decors. Real reviews from across Kenya."
-        />
-        <link
-          rel="canonical"
-          href="https://www.smartindoordecors.com/testimonial"
-        />
-      </Helmet>
+      <title>Customer Testimonials | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Read what our happy customers say about shopping with Smart Indoor Decors. Real reviews from across Kenya."
+      />
+      <link
+        rel="canonical"
+        href="https://www.smartindoordecors.com/testimonial"
+      />
 
       <Navbar />
 

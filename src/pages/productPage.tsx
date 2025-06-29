@@ -4,7 +4,6 @@ import { useGetProductsQuery } from "../features/Products/productsAPI";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Spinner from "../components/spinner";
-import { Helmet } from "react-helmet";
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -69,7 +68,7 @@ const ProductPage: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       {product && (
-        <Helmet>
+        <>
           <title>{product.name} | Smart Indoor Decors</title>
           <meta
             name="description"
@@ -85,7 +84,7 @@ const ProductPage: React.FC = () => {
           <script type="application/ld+json">
             {JSON.stringify(breadcrumbSchema)}
           </script>
-        </Helmet>
+        </>
       )}
 
       <Navbar />

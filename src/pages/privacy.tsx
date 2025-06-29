@@ -1,22 +1,15 @@
-
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const PrivacyPolicy = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Privacy Policy | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Understand how Smart Indoor Decors collects, uses, and protects your personal data. Your privacy and trust are important to us."
-        />
-        <link
-          rel="canonical"
-          href="https://www.smartindoordecors.com/privacy"
-        />
-      </Helmet>
+      <title>Privacy Policy | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Understand how Smart Indoor Decors collects, uses, and protects your personal data. Your privacy and trust are important to us."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/privacy" />
 
       <Navbar />
 

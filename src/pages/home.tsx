@@ -1,6 +1,3 @@
-
-
-
 // import { useState, useEffect, type MouseEvent } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
@@ -249,11 +246,8 @@
 
 // export default Home;
 
-
-
 import { useState, useEffect, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search } from "lucide-react";
@@ -300,7 +294,7 @@ const Home = () => {
   }, [categoryInput]);
 
   const uniqueCategories = Array.from(
-    new Set(products.map((p) => p.category?.name))
+    new Set(products.map((p) => p.category?.name)),
   ).filter(Boolean);
 
   const handleSearch = (searchTerm: string) => {
@@ -349,141 +343,193 @@ const Home = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Smart Indoor Decors | Buy Trending Products Online</title>
-        <meta
-          name="description"
-          content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:image"
-          content="https://www.smartindoordecors.com/logo.png"
-        />
-        <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
-      </Helmet>
+      <title>Smart Indoor Decors | Buy Trending Products Online</title>
+      <meta
+        name="description"
+        content="Discover trending home decor products at Smart Indoor Decors. Shop affordable, stylish items delivered across Kenya."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/" />
+      <link rel="icon" href="/favicon.ico" />
+      <meta
+        property="og:image"
+        content="https://www.smartindoordecors.com/logo.png"
+      />
+      <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
 
       <Navbar />
 
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-12">
-          <div className="max-w-7xl mx-auto px-4 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Welcome to Smart Indoor Decors
+        <section className="gradient-primary text-white py-16 md:py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+          <div className="relative max-w-7xl mx-auto px-4 text-center">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Welcome to{" "}
+              <span className="text-yellow-200">Smart Indoor Decors</span>
             </h1>
-            <p className="text-lg md:text-xl">
-              Shop your favorite products with amazing deals every day
+            <p className="text-xl md:text-2xl mb-8 text-orange-100 max-w-3xl mx-auto leading-relaxed">
+              Transform your space with our curated collection of premium home
+              décor, electronics, and lifestyle products delivered across Kenya
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button className="btn-secondary px-8 py-4 text-lg font-semibold rounded-full">
+                Shop Now
+              </button>
+              <button className="bg-white bg-opacity-20 hover:bg-opacity-30 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200">
+                Learn More
+              </button>
+            </div>
           </div>
+          <div className="absolute -bottom-4 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent"></div>
         </section>
 
         <section className="max-w-7xl mx-auto px-4 py-6">
           <SearchBar initialSearch={searchInput} onSearch={handleSearch} />
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="bg-white p-6 rounded-xl shadow-sm">
-            <h2 className="text-2xl font-semibold mb-6">Search Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-center">
-              <input
-                type="text"
-                placeholder="Search for products..."
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    handleSearch(e.currentTarget.value.trim());
-                }}
-              />
-              <select
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={categoryInput}
-                onChange={(e) => setCategoryInput(e.target.value)}
-              >
-                <option value="">All Categories</option>
-                {uniqueCategories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
+        <section className="max-w-7xl mx-auto px-4 py-12">
+          <div className="card-modern p-8 bg-gradient-to-br from-white to-gray-50">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                Find Your Perfect Product
+              </h2>
+              <p className="text-gray-600">
+                Search through our extensive collection
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Product Search
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search for products..."
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter")
+                      handleSearch(e.currentTarget.value.trim());
+                  }}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Category
+                </label>
+                <select
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={categoryInput}
+                  onChange={(e) => setCategoryInput(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {uniqueCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Sort By
+                </label>
+                <select
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                >
+                  <option value="">Default Sorting</option>
+                  <option value="A-Z">Sort A-Z</option>
+                  <option value="highestPrice">Price: High to Low</option>
+                  <option value="lowestPrice">Price: Low to High</option>
+                </select>
+              </div>
               <button
                 onClick={() => handleSearch(searchInput.trim())}
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition w-full"
+                className="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-white rounded-xl font-semibold"
                 aria-label="Search products"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-5 h-5" />
                 Search
               </button>
-              <select
-                className="px-4 py-2 border border-gray-300 rounded-md w-full"
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-              >
-                <option value="">Default Sorting</option>
-                <option value="A-Z">Sort A-Z</option>
-                <option value="highestPrice">Price: High to Low</option>
-                <option value="lowestPrice">Price: Low to High</option>
-              </select>
             </div>
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 pb-16">
-          <h2 className="text-2xl font-semibold mb-8">Trending Products</h2>
+        <section className="max-w-7xl mx-auto px-4 pb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Trending Products
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Discover our most popular items, carefully selected for style and
+              quality
+            </p>
+          </div>
 
-          {isLoading && <Spinner />}
-          {error && (
-            <p className="text-center text-sm text-gray-500 py-8">
-              Products are currently unavailable. Please check back later.
-            </p>
+          {isLoading && (
+            <div className="flex justify-center py-20">
+              <Spinner />
+            </div>
           )}
+
+          {error && (
+            <div className="card-modern p-12 text-center">
+              <p className="text-gray-500 text-lg">
+                Products are currently unavailable. Please check back later.
+              </p>
+            </div>
+          )}
+
           {!isLoading && products.length === 0 && !error && (
-            <p className="text-center text-sm text-gray-500 py-8">
-              No products found.
-            </p>
+            <div className="card-modern p-12 text-center">
+              <p className="text-gray-500 text-lg">No products found.</p>
+            </div>
           )}
 
           {!isLoading && sortedProducts.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {sortedProducts.map((product: Product) => (
                 <div
                   key={product.id}
-                  className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
+                  className="card-product group"
                   onClick={() => navigate("/login")}
                 >
-                  <div className="overflow-hidden rounded-t-xl bg-gray-200">
+                  <div className="relative overflow-hidden rounded-t-2xl bg-gray-100">
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="h-48 w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+                      className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
                   </div>
-                  <div className="p-4 space-y-2">
-                    <h3 className="text-sm font-semibold text-gray-800 truncate">
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-lg font-bold text-gray-800 truncate group-hover:text-orange-600 transition-colors">
                       {product.name}
                     </h3>
-                    <div className="flex items-center">
-                      <span className="text-yellow-400 text-xs">★★★★☆</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-400 text-sm">★★★★☆</span>
+                      <span className="text-xs text-gray-500 ml-1">(4.0)</span>
                     </div>
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="text-sm text-gray-600 line-clamp-2">
                       {product.description}
                     </p>
-                    <p className="text-orange-600 font-bold text-lg">
-                      KES {product.price.toLocaleString()}
-                    </p>
-                    <p
-                      className={`text-xs ${getWarrantyColor(
-                        product.warranty || "No warranty information"
-                      )}`}
-                    >
-                      Warranty: {product.warranty || "No warranty information"}
-                    </p>
+                    <div className="space-y-2">
+                      <p className="text-2xl font-bold text-orange-600">
+                        KES {product.price.toLocaleString()}
+                      </p>
+                      <p
+                        className={`text-xs font-medium px-2 py-1 rounded-full inline-block ${getWarrantyColor(
+                          product.warranty || "No warranty information",
+                        )} bg-gray-100`}
+                      >
+                        {product.warranty || "No warranty"}
+                      </p>
+                    </div>
                     <button
                       onClick={handleAddToCart}
-                      className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
+                      className="w-full btn-primary text-white font-semibold py-3 rounded-xl"
                       aria-label="Add product to cart"
                     >
                       Add to Cart

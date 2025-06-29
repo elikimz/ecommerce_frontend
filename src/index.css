@@ -1,18 +1,66 @@
 @import "tailwindcss";
 
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
 
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Enhanced marquee animation */
 @keyframes marquee {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(100%);
   }
-  
-  .animate-marquee {
-    display: inline-block;
-    white-space: nowrap;
-    animation: marquee 15s linear infinite;
+  100% {
+    transform: translateX(-100%);
   }
-  
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
+/* Modern button hover effects */
+.btn-primary {
+  @apply bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700
+         transform hover:scale-105 transition-all duration-200 ease-in-out
+         shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply bg-white border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white
+         transform hover:scale-105 transition-all duration-200 ease-in-out;
+}
+
+/* Modern card styles */
+.card-modern {
+  @apply bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out
+         border border-gray-100 hover:border-gray-200;
+}
+
+.card-product {
+  @apply card-modern hover:transform hover:scale-[1.02] cursor-pointer;
+}
+
+/* Enhanced gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
