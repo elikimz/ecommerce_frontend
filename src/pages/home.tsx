@@ -1,6 +1,3 @@
-
-
-
 // import { useState, useEffect, type MouseEvent } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
@@ -249,11 +246,8 @@
 
 // export default Home;
 
-
-
 import { useState, useEffect, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search } from "lucide-react";
@@ -300,7 +294,7 @@ const Home = () => {
   }, [categoryInput]);
 
   const uniqueCategories = Array.from(
-    new Set(products.map((p) => p.category?.name))
+    new Set(products.map((p) => p.category?.name)),
   ).filter(Boolean);
 
   const handleSearch = (searchTerm: string) => {
@@ -476,7 +470,7 @@ const Home = () => {
                     </p>
                     <p
                       className={`text-xs ${getWarrantyColor(
-                        product.warranty || "No warranty information"
+                        product.warranty || "No warranty information",
                       )}`}
                     >
                       Warranty: {product.warranty || "No warranty information"}

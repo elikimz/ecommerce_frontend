@@ -1,19 +1,15 @@
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Helmet } from "react-helmet";
 
 const About = () => {
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>About Us | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Learn more about Smart Indoor Decors – your trusted online store for stylish and affordable home decor products in Kenya."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/about" />
-      </Helmet>
+      <title>About Us | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Learn more about Smart Indoor Decors – your trusted online store for stylish and affordable home decor products in Kenya."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/about" />
 
       <Navbar />
 
