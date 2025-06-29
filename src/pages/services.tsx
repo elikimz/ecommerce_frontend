@@ -51,20 +51,15 @@ const serviceSchema = {
 const Services = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Our Services | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Explore the range of services offered by Smart Indoor Decors — including nationwide delivery, product variety, and support."
-        />
-        <link
-          rel="canonical"
-          href="https://www.smartindoordecors.com/services"
-        />
-        <script type="application/ld+json">
-          {JSON.stringify(serviceSchema)}
-        </script>
-      </Helmet>
+      <title>Our Services | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Explore the range of services offered by Smart Indoor Decors — including nationwide delivery, product variety, and support."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/services" />
+      <script type="application/ld+json">
+        {JSON.stringify(serviceSchema)}
+      </script>
 
       <Navbar />
 

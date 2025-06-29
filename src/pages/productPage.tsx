@@ -4,7 +4,6 @@ import { useGetProductsQuery } from "../features/Products/productsAPI";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Spinner from "../components/spinner";
-import { Helmet } from "react-helmet";
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
