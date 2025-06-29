@@ -45,66 +45,104 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Quick Links */}
+        {/* Enhanced Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
-          <ul className="space-y-2 text-sm text-gray-400">
+          <h3 className="text-xl font-bold mb-6 text-white">Quick Links</h3>
+          <ul className="space-y-3">
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="/"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
                 Home
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Shop
+              <a
+                href="/shop"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
+                Shop All Products
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Categories
+              <a
+                href="/about"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
+                About Us
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Offers
+              <a
+                href="/blog"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
+                Blog & Tips
               </a>
             </li>
             <li>
-              <a href="/register" className="hover:underline">
+              <a
+                href="/register"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
                 My Account
               </a>
             </li>
           </ul>
         </div>
 
-        {/* Customer Service */}
+        {/* Enhanced Customer Service */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-white">
-            Customer Service
-          </h3>
-          <ul className="space-y-2 text-sm text-gray-400">
+          <h3 className="text-xl font-bold mb-6 text-white">Customer Care</h3>
+          <ul className="space-y-3">
             <li>
-              <a href="#" className="hover:underline">
-                Help Center
+              <a
+                href="/faq"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
+                Help Center & FAQ
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="/services"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
                 Returns & Refunds
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Shipping Info
+              <a
+                href="/contact"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
+                Shipping Information
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="/terms"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
                 Terms & Conditions
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="/privacy"
+                className="text-gray-300 hover:text-orange-400 transition-colors flex items-center gap-2 group"
+              >
+                <span className="w-1 h-1 bg-orange-400 rounded-full group-hover:w-2 transition-all"></span>
                 Privacy Policy
               </a>
             </li>
