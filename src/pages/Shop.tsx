@@ -471,16 +471,31 @@ const Shop: React.FC = () => {
 
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 py-10 flex-grow">
-        <h1 className="text-3xl font-bold text-orange-500 mb-4 text-center">
-          Browse Our Entire Collection
-        </h1>
-
-        <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
-          Discover our curated selection of home décor, furniture, and lifestyle
-          items, crafted to add style and comfort to your living space. We
-          deliver across Kenya.
-        </p>
+      <main className="max-w-7xl mx-auto px-4 py-16 flex-grow">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
+            Our <span className="text-orange-500">Complete</span> Collection
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Explore our handpicked selection of premium home décor, modern
+            furniture, and lifestyle essentials designed to transform your
+            living space. Fast delivery across Kenya guaranteed.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full">
+              <span className="text-sm">✓</span>
+              <span className="font-medium">Free Delivery</span>
+            </div>
+            <div className="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full">
+              <span className="text-sm">✓</span>
+              <span className="font-medium">Quality Guaranteed</span>
+            </div>
+            <div className="flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full">
+              <span className="text-sm">✓</span>
+              <span className="font-medium">7-Day Returns</span>
+            </div>
+          </div>
+        </div>
 
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[50vh]">
