@@ -1,7 +1,3 @@
-
-
-
-
 import { useState } from "react";
 import TopBar from "./TopBar";
 import {
@@ -15,36 +11,57 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="shadow font-sans w-full bg-white z-50">
+    <header className="shadow-lg font-sans w-full bg-white z-50 sticky top-0">
       {/* Promo bar */}
       <TopBar />
 
-      {/* Navigation Links - Moved to the top */}
-      <nav className="md:flex flex-col md:flex-row justify-center gap-3 text-sm font-medium py-2 border-b border-gray-200 px-4 text-gray-700 hidden">
-        <a href="/" className="cursor-pointer hover:text-orange-500">
+      {/* Navigation Links - Enhanced desktop navigation */}
+      <nav className="md:flex flex-col md:flex-row justify-center gap-6 text-sm font-semibold py-3 border-b border-gray-100 px-4 text-gray-700 hidden bg-gradient-to-r from-gray-50 to-white">
+        <a
+          href="/"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           Home
         </a>
-        <a href="/shop" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/shop"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           Shop
         </a>
-        <a href="/about" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/about"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           About Us
         </a>
-        <a href="/contact" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/contact"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           Contact
         </a>
-        <a href="/blog" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/blog"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           Blog
         </a>
-        <a href="/faq" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/faq"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           FAQ
         </a>
-        <a href="/services" className="cursor-pointer hover:text-orange-500">
+        <a
+          href="/services"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
+        >
           Services
         </a>
         <a
           href="/testimonials"
-          className="cursor-pointer hover:text-orange-500"
+          className="nav-link cursor-pointer hover:text-orange-500 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-orange-50"
         >
           Testimonials
         </a>
