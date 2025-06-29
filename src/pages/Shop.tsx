@@ -1,9 +1,3 @@
-
-
-
-
-
-
 // import React, { useState } from "react";
 // import { Helmet } from "react-helmet";
 // import { useGetProductsQuery } from "../features/Products/productsAPI";
@@ -292,12 +286,7 @@
 
 // export default Shop;
 
-
-
-
-
 import React from "react";
-import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../features/Products/productsAPI";
 import Navbar from "../components/Navbar";
@@ -459,19 +448,17 @@ const buildSchema = (products: Product[]) => {
 const Shop: React.FC = () => {
   const { data: products = [], isLoading, error } = useGetProductsQuery({});
   const inStockProducts = products.filter(
-    (product) => product.stock && product.stock > 0
+    (product) => product.stock && product.stock > 0,
   );
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
-      <Helmet>
-        <title>Shop All Products | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Explore high-quality home décor and lifestyle items from Smart Indoor Decors. Affordable, stylish, and delivered to your doorstep."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/shop" />
-      </Helmet>
+      <title>Shop All Products | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Explore high-quality home décor and lifestyle items from Smart Indoor Decors. Affordable, stylish, and delivered to your doorstep."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/shop" />
 
       {inStockProducts.length > 0 && (
         <script

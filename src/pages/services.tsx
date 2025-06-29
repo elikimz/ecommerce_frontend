@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Truck, Headset, Star, Boxes } from "lucide-react";
