@@ -1,5 +1,3 @@
-
-
 import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   useLoginUserMutation,
@@ -104,73 +102,95 @@ const LoginForm: React.FC = () => {
 
   /* ----------------- JSX ----------------- */
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      {/* ------------ Form Section ------------ */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
-        <div className="max-w-md w-full">
-          {/* ---------- Login view ---------- */}
-          {view === "login" && (
-            <form onSubmit={handleLogin} className="space-y-6">
-              <h2 className="text-3xl font-bold mb-6 text-orange-600">Login</h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-orange-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div className="flex flex-col lg:flex-row min-h-[600px]">
+          {/* ------------ Form Section ------------ */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12">
+            <div className="max-w-md w-full">
+              {/* ---------- Login view ---------- */}
+              {view === "login" && (
+                <div className="space-y-8">
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl mb-6">
+                      <span className="text-2xl text-white">🔐</span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                    <p className="text-gray-600">Sign in to your account to continue</p>
+                  </div>
 
-              <input
-                name="username"
-                value={form.username}
-                onChange={handleChange}
-                placeholder="Username"
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                required
-              />
+                  <form onSubmit={handleLogin} className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold text-gray-700">Username</label>
+                      <input
+                        name="username"
+                        value={form.username}
+                        onChange={handleChange}
+                        placeholder="Enter your username"
+                        className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-gray-800 placeholder-gray-400"
+                        required
+                      />
+                    </div>
 
-              <div className="relative">
-                <input
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-500"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold text-gray-700">Password</label>
+                      <div className="relative">
+                        <input
+                          name="password"
+                          value={form.password}
+                          onChange={handleChange}
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter your password"
+                          className="w-full px-4 py-4 pr-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-gray-800 placeholder-gray-400"
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
 
-              <button
-                type="submit"
-                disabled={isLoggingIn}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex justify-center items-center"
-              >
-                {isLoggingIn ? <Spinner /> : "Login"}
-              </button>
+                    <button
+                      type="submit"
+                      disabled={isLoggingIn}
+                      className="w-full btn-primary text-white py-4 rounded-xl font-semibold text-lg flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoggingIn ? <Spinner /> : "Sign In"}
+                    </button>
 
-              <p className="text-center text-sm">
-                <button
-                  type="button"
-                  onClick={() => setView("forgot")}
-                  className="text-blue-500 hover:underline"
-                >
-                  Forgot password?
-                </button>
-              </p>
+                    <div className="text-center">
+                      <button
+                        type="button"
+                        onClick={() => setView("forgot")}
+                        className="text-orange-500 hover:text-orange-600 font-medium transition-colors"
+                      >
+                        Forgot your password?
+                      </button>
+                    </div>
 
-              <p className="text-center text-sm mt-4">
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  onClick={() => navigate("/register")}
-                  className="text-blue-500 hover:underline"
-                >
-                  Register here
-                </button>
-              </p>
-            </form>
-          )}
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-200"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-4 bg-white text-gray-500">Don't have an account?</span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => navigate("/register")}
+                      className="w-full btn-secondary py-4 rounded-xl font-semibold text-lg"
+                    >
+                      Create Account
+                    </button>
+                  </form>
+                </div>
+              )}
 
           {/* ---------- Forgot‑password view ---------- */}
           {view === "forgot" && (
@@ -285,4 +305,3 @@ const LoginForm: React.FC = () => {
 };
 
 export default LoginForm;
-
