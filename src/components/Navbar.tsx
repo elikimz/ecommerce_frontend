@@ -67,36 +67,59 @@ const Navbar = () => {
         </a>
       </nav>
 
-      {/* Mobile Navigation Links - Conditionally rendered based on menuOpen state */}
+      {/* Enhanced Mobile Navigation Menu */}
       {menuOpen && (
-        <nav className="md:hidden flex flex-col justify-center gap-3 text-sm font-medium py-2 border-b border-gray-200 px-4 text-gray-700">
-          <a href="/" className="cursor-pointer hover:text-orange-500">
-            Home
-          </a>
-          <a href="/shop" className="cursor-pointer hover:text-orange-500">
-            Shop
-          </a>
-          <a href="/about" className="cursor-pointer hover:text-orange-500">
-            About Us
-          </a>
-          <a href="/contact" className="cursor-pointer hover:text-orange-500">
-            Contact
-          </a>
-          <a href="/blog" className="cursor-pointer hover:text-orange-500">
-            Blog
-          </a>
-          <a href="/faq" className="cursor-pointer hover:text-orange-500">
-            FAQ
-          </a>
-          <a href="/services" className="cursor-pointer hover:text-orange-500">
-            Services
-          </a>
-          <a
-            href="/testimonials"
-            className="cursor-pointer hover:text-orange-500"
-          >
-            Testimonials
-          </a>
+        <nav className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+          <div className="px-4 py-4 space-y-2">
+            <a
+              href="/"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              🏠 Home
+            </a>
+            <a
+              href="/shop"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              🛍️ Shop
+            </a>
+            <a
+              href="/about"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              ℹ️ About Us
+            </a>
+            <a
+              href="/contact"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              📞 Contact
+            </a>
+            <a
+              href="/blog"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              📝 Blog
+            </a>
+            <a
+              href="/faq"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              ❓ FAQ
+            </a>
+            <a
+              href="/services"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              🔧 Services
+            </a>
+            <a
+              href="/testimonials"
+              className="mobile-nav-link block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+            >
+              ⭐ Testimonials
+            </a>
+          </div>
         </nav>
       )}
 
