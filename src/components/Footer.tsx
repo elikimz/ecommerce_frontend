@@ -1,4 +1,3 @@
-
 import {
   Facebook,
   Twitter,
@@ -10,22 +9,39 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-200 pt-12 pb-8 w-full font-sans">
+    <footer className="bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-gray-200 pt-16 pb-8 w-full font-sans relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-orange-500/5"></div>
+      <div className="absolute top-0 left-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl"></div>
+
       {/* Top Footer */}
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-        {/* About / Brand */}
-        <div>
-          <h2 className="text-2xl font-bold mb-4 text-white">
-            Smart Indoor Decors
-          </h2>
-          <p className="text-sm text-gray-400">
-            Your one-stop shop for electronics, fashion, home appliances, and
-            more. Experience fast delivery and excellent service.
-          </p>
-          <div className="flex gap-4 mt-5">
-            <Facebook className="w-5 h-5 hover:text-white cursor-pointer" />
-            <Twitter className="w-5 h-5 hover:text-white cursor-pointer" />
-            <Instagram className="w-5 h-5 hover:text-white cursor-pointer" />
+      <div className="relative max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+        {/* Enhanced Brand Section */}
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-3xl font-bold mb-3 text-white bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              Smart Indoor Decors
+            </h2>
+            <p className="text-orange-300 text-sm font-medium mb-4">
+              Premium Home Solutions
+            </p>
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Transform your living space with our curated collection of premium
+              home décor, electronics, and lifestyle products. Quality
+              guaranteed, delivered across Kenya.
+            </p>
+          </div>
+          <div className="flex gap-4">
+            <div className="p-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all cursor-pointer group">
+              <Facebook className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            </div>
+            <div className="p-3 bg-gradient-to-r from-sky-500 to-sky-600 rounded-xl hover:from-sky-600 hover:to-sky-700 transition-all cursor-pointer group">
+              <Twitter className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            </div>
+            <div className="p-3 bg-gradient-to-r from-pink-600 to-pink-700 rounded-xl hover:from-pink-700 hover:to-pink-800 transition-all cursor-pointer group">
+              <Instagram className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            </div>
           </div>
         </div>
 
