@@ -68,15 +68,13 @@ const FAQ = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>FAQs | Smart Indoor Decors Kenya</title>
-        <meta
-          name="description"
-          content="Get instant answers to the most common questions about orders, delivery, payments, returns, and shopping securely with Smart Indoor Decors."
-        />
-        <link rel="canonical" href="https://www.smartindoordecors.com/faq" />
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <title>FAQs | Smart Indoor Decors Kenya</title>
+      <meta
+        name="description"
+        content="Get instant answers to the most common questions about orders, delivery, payments, returns, and shopping securely with Smart Indoor Decors."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/faq" />
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <Navbar />
 
