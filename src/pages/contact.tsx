@@ -1,21 +1,15 @@
-import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Contact = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>Contact Us | Smart Indoor Decors</title>
-        <meta
-          name="description"
-          content="Get in touch with Smart Indoor Decors. Call or email us for support, orders, or business inquiries across Kenya."
-        />
-        <link
-          rel="canonical"
-          href="https://www.smartindoordecors.com/contact"
-        />
-      </Helmet>
+      <title>Contact Us | Smart Indoor Decors</title>
+      <meta
+        name="description"
+        content="Get in touch with Smart Indoor Decors. Call or email us for support, orders, or business inquiries across Kenya."
+      />
+      <link rel="canonical" href="https://www.smartindoordecors.com/contact" />
 
       <Navbar />
 
