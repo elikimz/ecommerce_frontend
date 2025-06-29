@@ -68,7 +68,7 @@ const ProductPage: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       {product && (
-        <Helmet>
+        <>
           <title>{product.name} | Smart Indoor Decors</title>
           <meta
             name="description"
@@ -84,7 +84,7 @@ const ProductPage: React.FC = () => {
           <script type="application/ld+json">
             {JSON.stringify(breadcrumbSchema)}
           </script>
-        </Helmet>
+        </>
       )}
 
       <Navbar />
